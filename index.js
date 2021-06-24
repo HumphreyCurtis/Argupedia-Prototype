@@ -32,6 +32,7 @@ const casCircumstance = document.querySelector("#casCircumstance");
 const casAction = document.querySelector("#casAction"); 
 const casGoal = document.querySelector("#casGoal"); 
 const casValue = document.querySelector("#casAction"); 
+const casParent = null; 
 
 form.addEventListener("submit", e => {
     e.preventDefault();
@@ -45,7 +46,8 @@ form.addEventListener("submit", e => {
         circumstance : casCircumstance.value, 
         action : casAction.value, 
         goal : casGoal.value, 
-        value : casValue.value
+        value : casValue.value,
+        parent : null 
     }); 
 
     var instance = M.Modal.getInstance(modal); 
