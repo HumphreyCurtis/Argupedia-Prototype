@@ -25,12 +25,8 @@
         <a href="#modal" class="btn-floating btn-large halfway-fab pink modal-trigger" id="initialAddButton">
             <i class="material-icons">add</i>
         </a>
-        <p class="flow-text black-text right" style="margin: 40; font-size: 1.25rem" id="addButtonText">Add an initial argument</p>
-        <!-- Secondary add button -->
-        <a href="#modal" class="btn-floating btn-large halfway-fab blue modal-trigger hide" id="secondAddButton">
-            <i class="material-icons">add</i>
-        </a>
-        <p class="flow-text black-text right hide" style="margin: 40; font-size: 1.25rem" id="secondAddButtonText">Add a counter-argument</p>
+        <p class="flow-text black-text right" style="margin: 40; font-size: 1.25rem" id="addButtonText">Add an initial
+            argument</p>
     </div>
 
     <div id="modal" class="modal">
@@ -56,7 +52,7 @@
                     and promote value <input type="text" id="casValue" placeholder="V">
                 </div>
                 <div class="input-field">
-                  <button class="btn pink white-text">Create argument</button>
+                    <button class="btn pink white-text">Create argument</button>
                 </div>
             </form>
             <form class="hide" id="expertOpinionScheme">
@@ -64,10 +60,10 @@
                     <input type="text" id="expert1" placeholder="E"> is an expert in the domain
                 </div>
                 <div class="input-field">
-                    <input type="text" id="expert2" placeholder="E"> and asserts that 
+                    <input type="text" id="expert2" placeholder="E"> and asserts that
                 </div>
                 <div class="input-field">
-                    <input type="text" id="eosAction" placeholder="A"> is 
+                    <input type="text" id="eosAction" placeholder="A"> is
                 </div>
                 <div class="input-field">
                     <input type="text" id="eosTrueFalse" placeholder="true / false">
@@ -76,7 +72,7 @@
                     Therefore there is reason to favour<input type="text" id="eosAction2" placeholder="A">
                 </div>
                 <div class="input-field">
-                  <button class="btn pink white-text">Create argument</button>
+                    <button class="btn pink white-text">Create argument</button>
                 </div>
             </form>
         </div>
@@ -86,6 +82,23 @@
         <div class="canvas">
         </div>
     </div>
+
+    <!-- Second modal button for counter-arguments -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1" style="margin: 50px">Modal</a>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+
+
+
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>

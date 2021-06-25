@@ -4,6 +4,12 @@ const modal = document.querySelector(".modal");
 // Using materialise library to initialise modal 
 M.Modal.init(modal);
 
+// Initialise modal
+const modal1 = document.getElementById("modal1"); 
+
+// Using materialise library to initialise modal 
+M.Modal.init(modal1);
+
 // Event listener on argument scheme selected 
 const selectElement = document.querySelector(".browser-default");
 
@@ -75,7 +81,6 @@ db.collection("arguments").onSnapshot(function(querySnapshot) {
     if (numberOfArguments === 1) {
        initialAddButtonText.className = "hide";
        initialAddArgumentButton.className = "hide";
-       secondAddArgumentButton.className = "btn-floating btn-large halfway-fab blue modal-trigger show";
-       secondAddButtonText.className = "flow-text black-text right show";
     }
 });
+
