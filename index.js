@@ -11,7 +11,8 @@ const selectElement = document.querySelector(".browser-default");
 const argumentSchemeSelected = document.getElementById("selectArgumentScheme"); 
 
 // Selecting and revealing forms
-const actionSchemeForm = document.getElementById("criticalActionScheme")
+const actionSchemeForm = document.getElementById("criticalActionScheme");
+
 
 selectElement.addEventListener('change', (event) => {
     console.log("Value selected is:");
@@ -54,4 +55,27 @@ form.addEventListener("submit", e => {
     instance.close(); 
     
     form.reset(); 
+});
+
+// SETTING UP COUNTER-ARGUMENT
+
+// Initial argument button and text
+const initialAddButtonText = document.getElementById("addButtonText");
+const initialAddArgumentButton = document.getElementById("initialAddButton");
+
+// Second argument button and text
+const secondAddButtonText = document.getElementById("secondAddButtonText");
+const secondAddArgumentButton = document.getElementById("secondAddButton");
+
+db.collection("arguments").onSnapshot(function(querySnapshot) {      
+    console.log(querySnapshot.size); 
+    console.log(querySnapshot.docs.length);
+    var numberOfArguments = querySnapshot.docs.length; 
+
+    if (numberOfArguments === 1) {
+       initialAddButtonText.className = "hide";
+       initialAddArgumentButton.className = "hide";
+       secondAddArgumentButton.className = "btn-floating btn-large halfway-fab blue modal-trigger show";
+       secondAddButtonText.className = "flow-text black-text right show";
+    }
 });

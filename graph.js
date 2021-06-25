@@ -3,15 +3,6 @@ const dims = {
     width: 1100
 };
 
-// Data stratify
-const stratify = d3.stratify()
-    .id(d => d.name)
-    .parentId(d => d.parent); 
-
-const tree = d3.tree()
-    .size([dims.width, dims.height]); 
-
-
 const svg = d3.select('.canvas')
     .append('svg')
     .attr('width', dims.width + 100)
@@ -20,8 +11,22 @@ const svg = d3.select('.canvas')
 const graph = svg.append('g')
     .attr('transform', 'translate(50,50)');
 
+// Data stratify
+const stratify = d3.stratify()
+    .id(d => d.scheme)
+    .parentId(d => d.parent); 
+
+const tree = d3.tree()
+    .size([dims.width, dims.height]); 
+
+
 // Update function 
 const update = (data) => {
+
+    // Remove current notes
+    graph.selectAll('.node').remove(); 
+    graph.selectAll('.link').remove();
+    graph.selectAll('.marker').remove(); 
 
     // Get updated root Node data 
     const rootNode = stratify(data);
@@ -98,6 +103,10 @@ db.collection('arguments').onSnapshot(res => {
     });
 
     console.log(data);
-    update(data);
+
+    if (data.length > 0) {
+        update(data);
+    } 
+   
 
 });

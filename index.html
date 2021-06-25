@@ -21,10 +21,16 @@
 
     <div class="grey lighten-3 section grey-text" style="position: relative">
         <p class="flow-text center">The number ONE AI argumentation platform!</p>
-        <a href="#modal" class="btn-floating btn-large halfway-fab pink modal-trigger">
+        <!-- Initial add button  -->
+        <a href="#modal" class="btn-floating btn-large halfway-fab pink modal-trigger" id="initialAddButton">
             <i class="material-icons">add</i>
         </a>
-        <p class="flow-text black-text right" style="margin : 40; font-size: 1.25rem" id="addButtonText">Add an initial argument</p>
+        <p class="flow-text black-text right" style="margin: 40; font-size: 1.25rem" id="addButtonText">Add an initial argument</p>
+        <!-- Secondary add button -->
+        <a href="#modal" class="btn-floating btn-large halfway-fab blue modal-trigger hide" id="secondAddButton">
+            <i class="material-icons">add</i>
+        </a>
+        <p class="flow-text black-text right hide" style="margin: 40; font-size: 1.25rem" id="secondAddButtonText">Add a counter-argument</p>
     </div>
 
     <div id="modal" class="modal">
