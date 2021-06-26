@@ -63,18 +63,15 @@ form.addEventListener("submit", e => {
     console.log(casAction.value);
     console.log(casGoal.value);
     console.log(casValue.value);
-    // console.log("Number of ID"); 
-    // console.log(numberOfArguments); 
+    console.log(numberOfArguments);
 
-    db.collection("arguments").add({
-        source : null,
-        scheme : "critical action scheme", 
+    db.collection("names").add({
+        scheme : "critical action scheme",
+        name : "cas",
         circumstance : casCircumstance.value, 
         action : casAction.value, 
         goal : casGoal.value, 
         value : casValue.value,
-        target : null, 
-        label : null
     }); 
 
     var instance = M.Modal.getInstance(modal); 
@@ -90,3 +87,29 @@ const initialAddButtonText = document.getElementById("addButtonText");
 const initialAddArgumentButton = document.getElementById("initialAddButton");
 
 
+// form.addEventListener("submit", e => {
+//     e.preventDefault();
+
+//     console.log(casCircumstance.value);
+//     console.log(casAction.value);
+//     console.log(casGoal.value);
+//     console.log(casValue.value);
+//     // console.log("Number of ID"); 
+//     // console.log(numberOfArguments); 
+
+//     db.collection("arguments").add({
+//         source : null,
+//         scheme : "critical action scheme", 
+//         circumstance : casCircumstance.value, 
+//         action : casAction.value, 
+//         goal : casGoal.value, 
+//         value : casValue.value,
+//         target : null, 
+//         label : null
+//     }); 
+
+//     var instance = M.Modal.getInstance(modal); 
+//     instance.close(); 
+    
+//     form.reset(); 
+// });

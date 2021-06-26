@@ -1,7 +1,5 @@
 // data & firebase hook-up
-
 var arguments = [];
-var fish = [];
 var links2 = [];
 
 db.collection('names').onSnapshot(res => {
@@ -22,7 +20,7 @@ db.collection('names').onSnapshot(res => {
                 arguments[index] = doc;
                 break;
             case 'removed':
-                arguments = argumnets.filter(item => item.id !== doc.id);
+                arguments = arguments.filter(item => item.id !== doc.id);
                 break;
             default:
                 break;
@@ -30,84 +28,93 @@ db.collection('names').onSnapshot(res => {
 
     });
 
-    
-    arguments.forEach(function(d) {
+    var fish = [];
+
+    arguments.forEach(function (d) {
         var name = d.name.toString();
         fish.push("" + name);
-        console.log(name);
+    });
+    console.log(arguments);
+    console.log(fish);
+    update(fish);
+
+
+});
+
+db.collection('arguments').onSnapshot(res2 => {
+
+    res2.docChanges().forEach(change => {
+
+        const doc = {
+            ...change.doc.data(),
+            id: change.doc.id
+        };
+
+        switch (change.type) {
+            case 'added':
+                links2.push(doc);
+                break;
+            case 'modified':
+                const index = data.findIndex(item => item.id == doc.id);
+                links2[index] = doc;
+                break;
+            case 'removed':
+                links2 = links2.filter(item => item.id !== doc.id);
+                break;
+            default:
+                break;
+        }
+
     });
 
-    db.collection('arguments').onSnapshot(res => {
-
-        res.docChanges().forEach(change => {
-    
-            const doc = {
-                ...change.doc.data(),
-                id: change.doc.id
-            };
-    
-            switch (change.type) {
-                case 'added':
-                    links2.push(doc);
-                    break;
-                case 'modified':
-                    const index = data.findIndex(item => item.id == doc.id);
-                    links2[index] = doc;
-                    break;
-                case 'removed':
-                    links2 = links2.filter(item => item.id !== doc.id);
-                    break;
-                default:
-                    break;
-            }
-    
-        });
-    
-        console.log(links2);
-        update(fish, links2);
-       
-    });
+    // console.log(fish, )
+    // update(fish, links2);
 
 });
 
 // Draw graph using library and data
-const update = (fish, links) => {
+const update = (fish) => {
+    // Create the input graph
+    d3.selectAll("svg > *").remove();
 
-        // Create the input graph
-        var graph = new dagreD3.graphlib.Graph().setGraph({});
+    var graph = new dagreD3.graphlib.Graph().setGraph({});
+  
+    fish.forEach(function (d) {
+        graph.setNode(d, {});
+    })
 
-        fish.forEach(function(d){
-            graph.setNode(d, {});
-        })
-    
-        graph.nodes().forEach(function(v) {
-            var node = graph.node(v);
-            node.rx = node.ry = 5;
-        });
-    
-        links.forEach(function(l){
-            graph.setEdge(l.source, l.target, {
-            curve: d3.curveBasis, 
-            minlen: 2
-            });
-        })
-    
-        // Create the renderer
-        var render = new dagreD3.render()
-    
-        // Set up an SVG group so that we can translate the final graph.
-        var svg = d3.select("svg"),
-            inner = svg.append("g");
-    
-        // Run the renderer. This is what draws the final graph.
-        render(inner, graph);
-        
-        // Center the graph
-        var xCenterOffset = (svg.attr("width") - graph.graph().width) / 2;
-        inner.attr("transform", "translate(" + xCenterOffset + ", 20)");
-        svg.attr("height", graph.graph().height + 40);
-    
+    graph.nodes().forEach(function (v) {
+        var node = graph.node(v);
+        node.rx = node.ry = 5;
+    });
+
+
+
+    // Create the renderer
+    var render = new dagreD3.render()
+
+    // Set up an SVG group so that we can translate the final graph.
+    var svg = d3.select("svg"),
+        inner = svg.append("g");
+
+    // Run the renderer. This is what draws the final graph.
+    render(inner, graph);
+
+    // Center the graph
+    var xCenterOffset = (svg.attr("width") - graph.graph().width) / 2;
+    inner.attr("transform", "translate(" + xCenterOffset + ", 20)");
+    svg.attr("height", graph.graph().height + 40);
+
 };
+
+const updateLinks = (links) => {
+    links.forEach(function (l) {
+    graph.setEdge(l.source, l.target, {
+            curve: d3.curveBasis,
+            minlen: 2
+        });
+    })
+}
 
 
 // let fish = [
@@ -173,5 +180,3 @@ const update = (fish, links) => {
 // {source:'Gers', target:'Lake'}, 
 // {source:'Nors', target:'Lake'}, 
 // {source:'Lake', target:'Lake'}];
-
-
