@@ -36,49 +36,48 @@ db.collection('names').onSnapshot(res => {
     });
     console.log(arguments);
     console.log(fish);
-    update(fish);
 
+    db.collection('arguments').onSnapshot(res2 => {
 
-});
+        res2.docChanges().forEach(change => {
 
-db.collection('arguments').onSnapshot(res2 => {
+            const doc = {
+                ...change.doc.data(),
+                id: change.doc.id
+            };
 
-    res2.docChanges().forEach(change => {
+            switch (change.type) {
+                case 'added':
+                    links2.push(doc);
+                    break;
+                case 'modified':
+                    const index = data.findIndex(item => item.id == doc.id);
+                    links2[index] = doc;
+                    break;
+                case 'removed':
+                    links2 = links2.filter(item => item.id !== doc.id);
+                    break;
+                default:
+                    break;
+            }
 
-        const doc = {
-            ...change.doc.data(),
-            id: change.doc.id
-        };
+        });
 
-        switch (change.type) {
-            case 'added':
-                links2.push(doc);
-                break;
-            case 'modified':
-                const index = data.findIndex(item => item.id == doc.id);
-                links2[index] = doc;
-                break;
-            case 'removed':
-                links2 = links2.filter(item => item.id !== doc.id);
-                break;
-            default:
-                break;
-        }
+        update(fish, links2);
 
     });
 
-    // console.log(fish, )
-    // update(fish, links2);
-
 });
 
+
 // Draw graph using library and data
-const update = (fish) => {
-    // Create the input graph
+const update = (fish, links) => {
+    // Delete the old graph
     d3.selectAll("svg > *").remove();
 
+    // Create the input graph
     var graph = new dagreD3.graphlib.Graph().setGraph({});
-  
+
     fish.forEach(function (d) {
         graph.setNode(d, {});
     })
@@ -88,7 +87,12 @@ const update = (fish) => {
         node.rx = node.ry = 5;
     });
 
-
+    links.forEach(function (l) {
+        graph.setEdge(l.source, l.target, {
+            curve: d3.curveBasis,
+            minlen: 2
+        });
+    })
 
     // Create the renderer
     var render = new dagreD3.render()
@@ -107,14 +111,16 @@ const update = (fish) => {
 
 };
 
-const updateLinks = (links) => {
-    links.forEach(function (l) {
-    graph.setEdge(l.source, l.target, {
-            curve: d3.curveBasis,
-            minlen: 2
-        });
-    })
-}
+// const updateLinks = (links) => {
+
+//     links.forEach(function (l) {
+//         graph.setEdge(l.source, l.target, {
+//             curve: d3.curveBasis,
+//             minlen: 2
+//         });
+//     })
+
+// }
 
 
 // let fish = [
