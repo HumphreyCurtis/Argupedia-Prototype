@@ -1,39 +1,8 @@
-// // data & firebase hook-up
-var links2 = [];
-
-// db.collection('arguments').onSnapshot(res => {
-
-//     res.docChanges().forEach(change => {
-
-//         const doc = {
-//             ...change.doc.data(),
-//             id: change.doc.id
-//         };
-
-//         switch (change.type) {
-//             case 'added':
-//                 links2.push(doc);
-//                 break;
-//             case 'modified':
-//                 const index = data.findIndex(item => item.id == doc.id);
-//                 links2[index] = doc;
-//                 break;
-//             case 'removed':
-//                 links2 = links2.filter(item => item.id !== doc.id);
-//                 break;
-//             default:
-//                 break;
-//         }
-
-//     });
-
-//     console.log(links2);
-   
-// });
-
+// data & firebase hook-up
 
 var arguments = [];
 var fish = [];
+var links2 = [];
 
 db.collection('names').onSnapshot(res => {
 
@@ -68,74 +37,77 @@ db.collection('names').onSnapshot(res => {
         console.log(name);
     });
 
-    // db.collection('arguments').onSnapshot(res => {
+    db.collection('arguments').onSnapshot(res => {
 
-    //     res.docChanges().forEach(change => {
+        res.docChanges().forEach(change => {
     
-    //         const doc = {
-    //             ...change.doc.data(),
-    //             id: change.doc.id
-    //         };
+            const doc = {
+                ...change.doc.data(),
+                id: change.doc.id
+            };
     
-    //         switch (change.type) {
-    //             case 'added':
-    //                 links2.push(doc);
-    //                 break;
-    //             case 'modified':
-    //                 const index = data.findIndex(item => item.id == doc.id);
-    //                 links2[index] = doc;
-    //                 break;
-    //             case 'removed':
-    //                 links2 = links2.filter(item => item.id !== doc.id);
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
+            switch (change.type) {
+                case 'added':
+                    links2.push(doc);
+                    break;
+                case 'modified':
+                    const index = data.findIndex(item => item.id == doc.id);
+                    links2[index] = doc;
+                    break;
+                case 'removed':
+                    links2 = links2.filter(item => item.id !== doc.id);
+                    break;
+                default:
+                    break;
+            }
     
-    //     });
-    
-    //     console.log(links2);
-       
-    // });
-
-    console.log(fish);
-
-    // Create the input graph
-    var graph = new dagreD3.graphlib.Graph().setGraph({});
-
-    fish.forEach(function(d){
-        graph.setNode(d, {});
-    })
-
-    graph.nodes().forEach(function(v) {
-        var node = graph.node(v);
-        node.rx = node.ry = 5;
-    });
-
-    links.forEach(function(l){
-        graph.setEdge(l.source, l.target, {
-        curve: d3.curveBasis, 
-        minlen: 2
         });
-    })
-
-    // Create the renderer
-    var render = new dagreD3.render()
-
-    // Set up an SVG group so that we can translate the final graph.
-    var svg = d3.select("svg"),
-        inner = svg.append("g");
-
-    // Run the renderer. This is what draws the final graph.
-    render(inner, graph);
     
-    // Center the graph
-    var xCenterOffset = (svg.attr("width") - graph.graph().width) / 2;
-    inner.attr("transform", "translate(" + xCenterOffset + ", 20)");
-    svg.attr("height", graph.graph().height + 40);
+        console.log(links2);
+        update(fish, links2);
+       
+    });
 
 });
 
+// Draw graph using library and data
+const update = (fish, links) => {
+
+        // Create the input graph
+        var graph = new dagreD3.graphlib.Graph().setGraph({});
+
+        fish.forEach(function(d){
+            graph.setNode(d, {});
+        })
+    
+        graph.nodes().forEach(function(v) {
+            var node = graph.node(v);
+            node.rx = node.ry = 5;
+        });
+    
+        links.forEach(function(l){
+            graph.setEdge(l.source, l.target, {
+            curve: d3.curveBasis, 
+            minlen: 2
+            });
+        })
+    
+        // Create the renderer
+        var render = new dagreD3.render()
+    
+        // Set up an SVG group so that we can translate the final graph.
+        var svg = d3.select("svg"),
+            inner = svg.append("g");
+    
+        // Run the renderer. This is what draws the final graph.
+        render(inner, graph);
+        
+        // Center the graph
+        var xCenterOffset = (svg.attr("width") - graph.graph().width) / 2;
+        inner.attr("transform", "translate(" + xCenterOffset + ", 20)");
+        svg.attr("height", graph.graph().height + 40);
+    
+};
 
 
 // let fish = [
@@ -166,7 +138,7 @@ db.collection('names').onSnapshot(res => {
 //   ]
 //   console.log(fish);
 
-  let links = [{source:'Leptodora', target:'Leptodora'}];
+//   let links = [{source:'Leptodora', target:'Leptodora'}];
 // {source:'Heterocope', target:'Sikloja'}, 
 // {source:'Heterocope', target:'Nors'}, 
 // {source:'Diapomus', target:'Sikloja'}, 
