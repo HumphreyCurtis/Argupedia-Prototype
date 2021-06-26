@@ -1,82 +1,41 @@
-const dims = {
-    height: 500,
-    width: 1100
-};
+// // data & firebase hook-up
+var links2 = [];
 
-const svg = d3.select('.canvas')
-    .append('svg')
-    .attr('width', dims.width + 100)
-    .attr('height', dims.height + 100);
+// db.collection('arguments').onSnapshot(res => {
 
-const graph = svg.append('g')
-    .attr('transform', 'translate(50,50)');
+//     res.docChanges().forEach(change => {
 
-// Data stratify
-const stratify = d3.stratify()
-    .id(d => d.scheme)
-    .parentId(d => d.parent); 
+//         const doc = {
+//             ...change.doc.data(),
+//             id: change.doc.id
+//         };
 
-const tree = d3.tree()
-    .size([dims.width, dims.height]); 
+//         switch (change.type) {
+//             case 'added':
+//                 links2.push(doc);
+//                 break;
+//             case 'modified':
+//                 const index = data.findIndex(item => item.id == doc.id);
+//                 links2[index] = doc;
+//                 break;
+//             case 'removed':
+//                 links2 = links2.filter(item => item.id !== doc.id);
+//                 break;
+//             default:
+//                 break;
+//         }
 
+//     });
 
-// Update function 
-const update = (data) => {
-
-    // Remove current notes
-    graph.selectAll('.node').remove(); 
-    graph.selectAll('.link').remove();
-    graph.selectAll('.marker').remove(); 
-
-    // Get updated root Node data 
-    const rootNode = stratify(data);
-
-    // Create a tree from the data 
-    const treeData = tree(rootNode);
-    console.log(treeData);
-
-    // Use descendants() to convert data to array AND Get nodes selection and join data
-    const nodes = graph.selectAll('.node')
-        .data(treeData.descendants());
-    
-    // Get link selection and join data 
-    const links = graph.selectAll('.link')
-        .data(treeData.links());
-
-    // Enter new links 
-    links.enter()
-        .append('path')
-        .attr('class', 'link')
-        .attr('fill', 'none')
-        .attr('stroke', '#aaa')
-        .attr('stroke-width', 2)
-        .attr('d', d3.linkVertical()
-            .x(d => d.x)
-            .y(d => d.y)
-        )
-        .attr("marker-end", "url(#end)");
-
-    // Create enter node groups
-    const enterNodes = nodes.enter()
-        .append('g')
-        .attr('class', 'node')
-        .attr('transform', d => `translate(${d.x}, ${d.y})`);
-
-    // Append rectangle to enter nodes
-    enterNodes.append('rect')
-        .attr('fill', "#aaa")
-        .attr('stroke', '#555')
-        .attr('stroke-width', 2)
-        .attr('height', 50)
-        .attr('width', 50); 
-
-};
+//     console.log(links2);
+   
+// });
 
 
-// data & firebase hook-up
-var data = [];
+var arguments = [];
+var fish = [];
 
-db.collection('arguments').onSnapshot(res => {
+db.collection('names').onSnapshot(res => {
 
     res.docChanges().forEach(change => {
 
@@ -87,14 +46,14 @@ db.collection('arguments').onSnapshot(res => {
 
         switch (change.type) {
             case 'added':
-                data.push(doc);
+                arguments.push(doc);
                 break;
             case 'modified':
-                const index = data.findIndex(item => item.id == doc.id);
-                data[index] = doc;
+                const index = arguments.findIndex(item => item.id == doc.id);
+                arguments[index] = doc;
                 break;
             case 'removed':
-                data = data.filter(item => item.id !== doc.id);
+                arguments = argumnets.filter(item => item.id !== doc.id);
                 break;
             default:
                 break;
@@ -102,11 +61,145 @@ db.collection('arguments').onSnapshot(res => {
 
     });
 
-    console.log(data);
+    
+    arguments.forEach(function(d) {
+        var name = d.name.toString();
+        fish.push("" + name);
+        console.log(name);
+    });
 
-    if (data.length > 0) {
-        update(data);
-    } 
-   
+    // db.collection('arguments').onSnapshot(res => {
+
+    //     res.docChanges().forEach(change => {
+    
+    //         const doc = {
+    //             ...change.doc.data(),
+    //             id: change.doc.id
+    //         };
+    
+    //         switch (change.type) {
+    //             case 'added':
+    //                 links2.push(doc);
+    //                 break;
+    //             case 'modified':
+    //                 const index = data.findIndex(item => item.id == doc.id);
+    //                 links2[index] = doc;
+    //                 break;
+    //             case 'removed':
+    //                 links2 = links2.filter(item => item.id !== doc.id);
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+    
+    //     });
+    
+    //     console.log(links2);
+       
+    // });
+
+    console.log(fish);
+
+    // Create the input graph
+    var graph = new dagreD3.graphlib.Graph().setGraph({});
+
+    fish.forEach(function(d){
+        graph.setNode(d, {});
+    })
+
+    graph.nodes().forEach(function(v) {
+        var node = graph.node(v);
+        node.rx = node.ry = 5;
+    });
+
+    links.forEach(function(l){
+        graph.setEdge(l.source, l.target, {
+        curve: d3.curveBasis, 
+        minlen: 2
+        });
+    })
+
+    // Create the renderer
+    var render = new dagreD3.render()
+
+    // Set up an SVG group so that we can translate the final graph.
+    var svg = d3.select("svg"),
+        inner = svg.append("g");
+
+    // Run the renderer. This is what draws the final graph.
+    render(inner, graph);
+    
+    // Center the graph
+    var xCenterOffset = (svg.attr("width") - graph.graph().width) / 2;
+    inner.attr("transform", "translate(" + xCenterOffset + ", 20)");
+    svg.attr("height", graph.graph().height + 40);
 
 });
+
+
+
+// let fish = [
+//     "Leptodora",
+//   "Heterocope",
+//   "Diapomus",
+//   "Eurytemora",
+//   "Bosmina",
+//   "Daphnia",
+//   "Sikloja",
+//   "Gos",
+//   "Nors",
+//   "Lax",
+//   "Cyclops",
+//   "Bythotrephes",
+//   "Sik",
+//   "UNKNOWN",
+//   "Mort",
+//   "Pontoporeia",
+//   "Algae",
+//   "Gers",
+//   "Chironomidae",
+//   "Pallasea",
+//   "Gammaracanthus",
+//   "Braxen",
+//   "Lake",
+//   "Oligochaeta"
+//   ]
+//   console.log(fish);
+
+  let links = [{source:'Leptodora', target:'Leptodora'}];
+// {source:'Heterocope', target:'Sikloja'}, 
+// {source:'Heterocope', target:'Nors'}, 
+// {source:'Diapomus', target:'Sikloja'}, 
+// {source:'Eurytemora', target:'Sikloja'}, 
+// {source:'Bosmina', target:'Sikloja'}, 
+// {source:'Daphnia', target:'Sikloja'}, 
+// {source:'Bythotrephes', target:'Sikloja'}, 
+// {source:'Sikloja', target:'Gos'}, 
+// {source:'Sikloja', target:'Lax'}, 
+// {source:'Nors', target:'Gos'}, 
+// {source:'Nors', target:'Lax'}, 
+// {source:'Lax', target:'Lax'},
+// {source:'Bythotrephes', target:'Mort'},
+// {source:'Bythotrephes', target:'Nors'}, 
+// {source:'UNKNOWN', target:'Nors'}, 
+// {source:'Bythotrephes', target:'Sik'}, 
+// {source:'Chironomidae', target:'Sik'}, 
+// {source:'Pontoporeia', target:'Sik'}, 
+// {source:'Pontoporeia', target:'Gers'}, 
+// {source:'Chironomidae', target:'Gers'}, 
+// {source:'Chironomidae', target:'Braxen'}, 
+// {source:'Pallasea', target:'Nors'}, 
+// {source:'Pallasea', target:'Lake'}, 
+// {source:'Pallasea', target:'Gers'},
+// {source:'Pallasea', target:'Braxen'}, 
+// {source:'Algae', target:'Braxen'}, 
+// {source:'Oligochaeta', target:'Braxen'}, 
+// {source:'Gammaracanthus', target:'Nors'}, 
+// {source:'Gammaracanthus', target:'Lake'}, 
+// {source:'Cyclops', target:'Sik'}, 
+// {source:'UNKNOWN', target:'Lake'}, 
+// {source:'Gers', target:'Lake'}, 
+// {source:'Nors', target:'Lake'}, 
+// {source:'Lake', target:'Lake'}];
+
+

@@ -31,6 +31,21 @@ selectElement.addEventListener('change', (event) => {
     }
 });
 
+// Number of arguments in debate
+var numberOfArguments = 0; 
+
+db.collection("arguments").onSnapshot(function(querySnapshot) {      
+    console.log(querySnapshot.size); 
+    console.log(querySnapshot.docs.length);
+    numberOfArguments = querySnapshot.docs.length; 
+
+    // if (numberOfArguments === 1) {
+    //    initialAddButtonText.className = "hide";
+    //    initialAddArgumentButton.className = "hide";
+    // }
+});
+
+
 // Change plus sign for argument 
 const form = document.querySelector("form"); 
 
@@ -43,18 +58,23 @@ const casParent = null;
 
 form.addEventListener("submit", e => {
     e.preventDefault();
+
     console.log(casCircumstance.value);
     console.log(casAction.value);
     console.log(casGoal.value);
     console.log(casValue.value);
+    // console.log("Number of ID"); 
+    // console.log(numberOfArguments); 
 
     db.collection("arguments").add({
+        source : null,
         scheme : "critical action scheme", 
         circumstance : casCircumstance.value, 
         action : casAction.value, 
         goal : casGoal.value, 
         value : casValue.value,
-        parent : null 
+        target : null, 
+        label : null
     }); 
 
     var instance = M.Modal.getInstance(modal); 
@@ -69,18 +89,4 @@ form.addEventListener("submit", e => {
 const initialAddButtonText = document.getElementById("addButtonText");
 const initialAddArgumentButton = document.getElementById("initialAddButton");
 
-// Second argument button and text
-const secondAddButtonText = document.getElementById("secondAddButtonText");
-const secondAddArgumentButton = document.getElementById("secondAddButton");
-
-db.collection("arguments").onSnapshot(function(querySnapshot) {      
-    console.log(querySnapshot.size); 
-    console.log(querySnapshot.docs.length);
-    var numberOfArguments = querySnapshot.docs.length; 
-
-    if (numberOfArguments === 1) {
-       initialAddButtonText.className = "hide";
-       initialAddArgumentButton.className = "hide";
-    }
-});
 

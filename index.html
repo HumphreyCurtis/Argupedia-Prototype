@@ -7,7 +7,7 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <!-- Materialise CSS -->
-    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="styles.css">
     <!-- Import Google icon fonts  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Argupedia</title>
@@ -22,11 +22,9 @@
     <div class="grey lighten-3 section grey-text" style="position: relative">
         <p class="flow-text center">The number ONE AI argumentation platform!</p>
         <!-- Initial add button  -->
-        <a href="#modal" class="btn-floating btn-large halfway-fab pink modal-trigger" id="initialAddButton">
-            <i class="material-icons">add</i>
+        <a href="#modal" class="btn halfway-fab red modal-trigger right" id="initialAddButton" style="margin-right: 50px">
+            Add initial argument
         </a>
-        <p class="flow-text black-text right" style="margin: 40; font-size: 1.25rem" id="addButtonText">Add an initial
-            argument</p>
     </div>
 
     <div id="modal" class="modal">
@@ -80,11 +78,12 @@
 
     <div class="container">
         <div class="canvas">
+            <svg id="svg" width=960 height=600></svg>
         </div>
     </div>
 
     <!-- Second modal button for counter-arguments -->
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1" style="margin: 50px">Modal</a>
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1" style="margin: 50px">Add counter-argument</a>
 
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
@@ -131,7 +130,8 @@
         db.settings(settings);
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.3/dagre-d3.js"></script>
     <script src="index.js"></script>
     <script src="graph.js"></script>
 </body>
