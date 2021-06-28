@@ -1,6 +1,10 @@
-// data & firebase hook-up
+// Data & firebase hook-up
+
+// Rename names of variables
+// Sort argumentation adding / name of databases
+
 var arguments = [];
-var links2 = [];
+var links = [];
 
 db.collection('names').onSnapshot(res => {
 
@@ -48,14 +52,14 @@ db.collection('names').onSnapshot(res => {
 
             switch (change.type) {
                 case 'added':
-                    links2.push(doc);
+                    links.push(doc);
                     break;
                 case 'modified':
                     const index = data.findIndex(item => item.id == doc.id);
-                    links2[index] = doc;
+                    links[index] = doc;
                     break;
                 case 'removed':
-                    links2 = links2.filter(item => item.id !== doc.id);
+                    links = links.filter(item => item.id !== doc.id);
                     break;
                 default:
                     break;
@@ -63,7 +67,7 @@ db.collection('names').onSnapshot(res => {
 
         });
 
-        update(fish, links2);
+        update(arguments, links); // This may need to change back to update(fish, links)
 
     });
 
@@ -79,8 +83,27 @@ const update = (fish, links) => {
     var graph = new dagreD3.graphlib.Graph().setGraph({});
 
     fish.forEach(function (d) {
-        graph.setNode(d, {});
-    })
+        // var labelNodeData = d.name + "Hello@; 
+        // console.log(labelNodeData);
+        graph.setNode(d.name, {
+            labelType: "html",
+            label: "<b>"+d.name+"</b><br><br>Version: " + d.id,
+            class: "comp",
+        });
+    }); 
+
+
+
+    // arguments.forEach(function (d) {
+    //     graph.setNode(d.id, {});
+    // })
+    // console.log(arguments)
+    
+    // arguments.forEach(function (d) {
+    //     var name = d.name.toString();
+    //     console.log(name);
+    // });
+
 
     graph.nodes().forEach(function (v) {
         var node = graph.node(v);
