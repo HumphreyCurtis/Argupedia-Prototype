@@ -5,7 +5,7 @@
 var arguments = [];
 var links = [];
 
-db.collection('names').onSnapshot(res => {
+db.collection('arguments').onSnapshot(res => {
 
     res.docChanges().forEach(change => {
 
@@ -31,7 +31,7 @@ db.collection('names').onSnapshot(res => {
 
     });
 
-    db.collection('arguments').onSnapshot(res2 => {
+    db.collection('links').onSnapshot(res2 => {
 
         res2.docChanges().forEach(change => {
 
@@ -68,19 +68,17 @@ db.collection('names').onSnapshot(res => {
 
 
 // Draw graph using library and data
-const update = (fish, links) => {
+const update = (arguments, links) => {
     // Delete the old graph
     d3.selectAll("svg > *").remove();
 
     // Create the input graph
     var graph = new dagreD3.graphlib.Graph().setGraph({});
 
-    fish.forEach(function (d) {
-        // var labelNodeData = d.name + "Hello@; 
-        // console.log(labelNodeData);
+    arguments.forEach(function (d) {
         graph.setNode(d.name, {
             labelType: "html",
-            label: "<b>" + d.name + "</b><br><br>ID: " + d.id,
+            label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "</b><br><br>" + d.argumentDescription + "</b>",
             class: "comp",
         });
     });
@@ -109,10 +107,14 @@ const update = (fish, links) => {
     render(inner, graph);
 
     // Center the graph
-    var xCenterOffset = (svg.attr("width") - graph.graph().width / 1.1); // Variable moves graph left and right - will need to change was originally divided by 2 
-    inner.attr("transform", "translate(" + xCenterOffset + ", 20)");
-    svg.attr("height", graph.graph().height + 40); // Was originally + 40
-    svg.attr("width", graph.graph().width + 1000);
+    console.log("Arguments length = " + arguments.length);
+
+    if (arguments.length > 0) {
+        var xCenterOffset = (svg.attr("width") - graph.graph().width); // Variable moves graph left and right - will need to change was originally divided by 2 
+        // inner.attr("transform", "translate(" + xCenterOffset + "");
+        svg.attr("height", graph.graph().height + 50); // Was originally + 40
+        svg.attr("width", graph.graph().width + 50);
+    }
 
 };
 

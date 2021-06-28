@@ -19,6 +19,9 @@ const argumentSchemeSelected = document.getElementById("selectArgumentScheme");
 // Selecting and revealing forms
 const actionSchemeForm = document.getElementById("criticalActionScheme");
 
+// Number of arguments in debate
+var numberOfArguments = 0; 
+
 
 selectElement.addEventListener('change', (event) => {
     console.log("Value selected is:");
@@ -31,8 +34,6 @@ selectElement.addEventListener('change', (event) => {
     }
 });
 
-// Number of arguments in debate
-var numberOfArguments = 0; 
 
 db.collection("arguments").onSnapshot(function(querySnapshot) {      
     console.log(querySnapshot.size); 
@@ -63,15 +64,13 @@ form.addEventListener("submit", e => {
     console.log(casAction.value);
     console.log(casGoal.value);
     console.log(casValue.value);
+    var argumentFromUser = casCircumstance.value + " -> " + casAction.value + " -> " + casGoal.value + " -> " + casValue.value; 
+    console.log(argumentFromUser); 
     console.log(numberOfArguments);
 
-    db.collection("names").add({
-        scheme : "critical action scheme",
-        name : "cas", // Need to sort adding of initial argument
-        circumstance : casCircumstance.value, 
-        action : casAction.value, 
-        goal : casGoal.value, 
-        value : casValue.value,
+    db.collection("arguments").add({
+        name : "argument" + numberOfArguments, // Need to sort adding of initial argument
+        argumentDescription : argumentFromUser
     }); 
 
     var instance = M.Modal.getInstance(modal); 
