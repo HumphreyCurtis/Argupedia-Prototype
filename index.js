@@ -88,12 +88,34 @@ form.addEventListener("submit", e => {
 
 // Initial argument button and text
 
+// Need to perform empty tests / null tests !!!!
 
 const counterArgumentTargetButton = document.getElementById("counterArgumentTargetButton");
 
 const criticalQuestionsForSelection = document.getElementById("selectCriticalQuestion");
 
+const counterArgumentTargetName = document.querySelector("#counterArgumentTargetName");
+
 counterArgumentTargetButton.addEventListener("click", function () {
+
+    console.log("Counter argument target name = " + counterArgumentTargetName.value);
+
+    var counterArgumentTargetNameValue = counterArgumentTargetName.value;
+    
+    var arguments = db.collection("arguments");
+
+    var query = arguments.where("name", "==", "argument0").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+
+            
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+
 
     var opt1 = document.createElement("option");
     opt1.value = "1"; 
