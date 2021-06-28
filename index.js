@@ -58,6 +58,7 @@ const form = document.querySelector("form");
 // Critical aciton scheme parameters 
 const casCircumstance = document.querySelector("#casCircumstance");
 const casAction = document.querySelector("#casAction");
+const casNewCircumstance = document.querySelector("#casNewCircumstance");
 const casGoal = document.querySelector("#casGoal");
 const casValue = document.querySelector("#casAction");
 const casParent = null;
@@ -65,15 +66,16 @@ const casParent = null;
 form.addEventListener("submit", e => {
     e.preventDefault();
 
-    var argumentFromUser = casCircumstance.value + " -> " + casAction.value + " -> " + casGoal.value + " -> " + casValue.value;
+    var argumentFromUser = casCircumstance.value + " -> " + casAction.value + " -> " + casNewCircumstance.value + " -> " + casGoal.value + " -> " + casValue.value;
     console.log("Initial argument = " + argumentFromUser);
     console.log("Number of arguments = " + numberOfArguments);
 
     db.collection("arguments").add({
         name: "argument" + numberOfArguments,
         argumentDescription: argumentFromUser,
-        value: casCircumstance.value,
+        currentCircumstance : casCircumstance.value,
         action: casAction.value,
+        newCircumstance : casNewCircumstance.value, 
         goal: casGoal.value,
         value: casValue.value
     });
@@ -85,8 +87,6 @@ form.addEventListener("submit", e => {
 });
 
 // SETTING UP COUNTER-ARGUMENT
-
-// Initial argument button and text
 
 // Need to perform empty tests / null tests !!!!
 
@@ -105,15 +105,15 @@ counterArgumentTargetButton.addEventListener("click", function () {
 
     var arguments = db.collection("arguments");
 
-    var query = arguments.where("name", "==", "argument0").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-            });
-        })
-        .catch((error) => {
-            console.log("Error getting documents: ", error);
-        });
+    // var query = arguments.where("name", "==", "argument0").get().then((querySnapshot) => {
+    //         querySnapshot.forEach((doc) => {
+    //             // doc.data() is never undefined for query doc snapshots
+    //             console.log(doc.id, " => ", doc.data());
+    //         });
+    //     })
+    //     .catch((error) => {
+    //         console.log("Error getting documents: ", error);
+    //     });
 
 
     var query2 = arguments.where("name", "==", "argument0").get()
@@ -121,10 +121,10 @@ counterArgumentTargetButton.addEventListener("click", function () {
             query2 = querySnapshot.docs.map(doc => doc.data())
             console.log(query2);
             query2.forEach(function (d) {
-                console.log(d.name); // KEY accessing data name
-                console.log(d.circumstance);
+                console.log(d.currentCircumstance); 
                 console.log(d.action);
-                console.log(d.goal)
+                console.log(d.newCircumstance); 
+                console.log(d.goal); 
                 console.log(d.value);
             });
         });
@@ -137,7 +137,6 @@ counterArgumentTargetButton.addEventListener("click", function () {
     // criticalQuestionsForSelection.add(opt1);
 
     for (let i = 1; i < 17; i++) {
-        console.log(i);
         var tempCriticalQuestion = criticalQuestions(i, "Humphrey", "Humphrey", "Humphrey", "Humphrey", "Humphrey", "Humphrey");
         addAndAppendOption(tempCriticalQuestion, i);
     }
