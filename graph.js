@@ -1,6 +1,5 @@
 // Data & firebase hook-up
 
-// Rename names of variables
 // Sort argumentation adding / name of databases
 
 var arguments = [];
@@ -32,15 +31,6 @@ db.collection('names').onSnapshot(res => {
 
     });
 
-    var fish = [];
-
-    arguments.forEach(function (d) {
-        var name = d.name.toString();
-        fish.push("" + name);
-    });
-    console.log(arguments);
-    console.log(fish);
-
     db.collection('arguments').onSnapshot(res2 => {
 
         res2.docChanges().forEach(change => {
@@ -67,6 +57,9 @@ db.collection('names').onSnapshot(res => {
 
         });
 
+        console.log(arguments);
+        console.log(links);
+
         update(arguments, links); // This may need to change back to update(fish, links)
 
     });
@@ -87,22 +80,10 @@ const update = (fish, links) => {
         // console.log(labelNodeData);
         graph.setNode(d.name, {
             labelType: "html",
-            label: "<b>"+d.name+"</b><br><br>Version: " + d.id,
+            label: "<b>" + d.name + "</b><br><br>ID: " + d.id,
             class: "comp",
         });
-    }); 
-
-
-
-    // arguments.forEach(function (d) {
-    //     graph.setNode(d.id, {});
-    // })
-    // console.log(arguments)
-    
-    // arguments.forEach(function (d) {
-    //     var name = d.name.toString();
-    //     console.log(name);
-    // });
+    });
 
 
     graph.nodes().forEach(function (v) {
@@ -133,6 +114,20 @@ const update = (fish, links) => {
     svg.attr("height", graph.graph().height + 40);
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // const updateLinks = (links) => {
 
