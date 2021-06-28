@@ -73,11 +73,11 @@ form.addEventListener("submit", e => {
     db.collection("arguments").add({
         name: "argument" + numberOfArguments,
         argumentDescription: argumentFromUser,
-        currentCircumstance : casCircumstance.value,
-        action: casAction.value,
-        newCircumstance : casNewCircumstance.value, 
-        goal: casGoal.value,
-        value: casValue.value
+        currentCircumstance : casCircumstance.value.toLowerCase(),
+        action: casAction.value.toLowerCase(),
+        newCircumstance : casNewCircumstance.value.toLowerCase(), 
+        goal: casGoal.value.toLowerCase(),
+        value: casValue.value.toLowerCase()
     });
 
     var instance = M.Modal.getInstance(modal);
@@ -86,7 +86,10 @@ form.addEventListener("submit", e => {
     form.reset();
 });
 
-// SETTING UP COUNTER-ARGUMENT
+
+
+
+// --------------------------------------- SETTING UP COUNTER-ARGUMENT ------------------------------------------------------------
 
 // Need to perform empty tests / null tests !!!!
 
@@ -116,17 +119,21 @@ counterArgumentTargetButton.addEventListener("click", function () {
     //     });
 
 
-    var query2 = arguments.where("name", "==", "argument0").get()
+    var query2 = arguments.where("name", "==", counterArgumentTargetNameValue).get()
         .then(querySnapshot => {
             query2 = querySnapshot.docs.map(doc => doc.data())
             console.log(query2);
             query2.forEach(function (d) {
-                console.log(d.currentCircumstance); 
-                console.log(d.action);
-                console.log(d.newCircumstance); 
-                console.log(d.goal); 
-                console.log(d.value);
+
+                var currentCircumstance = d.currentCircumstance; 
+                var action = d.action;
+                var newCircumstance = d.newCircumstance; 
+                var goal = d.goal; 
+                var value = d.value;
+
+                createAndAppendCriticalQuestions(currentCircumstance, action, goal, value, newCircumstance); 
             });
+
         });
 
 
@@ -136,16 +143,20 @@ counterArgumentTargetButton.addEventListener("click", function () {
     // opt1.text = "Are the believed circumstances true";
     // criticalQuestionsForSelection.add(opt1);
 
+
+
+});
+
+var createAndAppendCriticalQuestions = (function(currentCircumstance, action, goal, value, newCircumstances) {
     for (let i = 1; i < 17; i++) {
-        var tempCriticalQuestion = criticalQuestions(i, "Humphrey", "Humphrey", "Humphrey", "Humphrey", "Humphrey", "Humphrey");
+        var tempCriticalQuestion = criticalQuestionsSwitch(i, currentCircumstance, action, goal, value, newCircumstances);
         addAndAppendOption(tempCriticalQuestion, i);
     }
-
 });
 
 
 
-var criticalQuestions = (function (questionNumber, currentCircumstance, action, goal, value, newCircumstances) {
+var criticalQuestionsSwitch = (function (questionNumber, currentCircumstance, action, goal, value, newCircumstances) {
 
     // var q1 = "Are the believed " + currentCircumstance + " true?";
     // var q2 = "Assuming the " + currentCircumstance + ", does the " + action + " have the stated consequences";
@@ -172,7 +183,7 @@ var criticalQuestions = (function (questionNumber, currentCircumstance, action, 
             return "Assuming the " + currentCircumstance + ", does the " + action + " have the stated consequences?";
             break;
         case 3:
-            return "Assuming the " + currentCircumstance + " and that the " + action + " has the stated " + newCircumstances + ", will the " + action + " bring about the desired " + goal;
+            return "Assuming the " + currentCircumstance + " and that the " + action + " has the stated " + newCircumstances + ", will the " + action + " bring about the desired " + goal + "?";
             break;
         case 4:
             return "Does the " + goal + " realise the " + value + " stated?";
@@ -199,7 +210,7 @@ var criticalQuestions = (function (questionNumber, currentCircumstance, action, 
             return "Does doing the " + action + " preclude some other action which would promote some other value?";
             break;
         case 12:
-            return "Are the " + newCircumstances + " as desired possible";
+            return "Are the " + currentCircumstance + " as described possible?";
             break;
         case 13:
             return "Is the " + action + " possible?";
