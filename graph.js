@@ -109,9 +109,10 @@ const update = (fish, links) => {
     render(inner, graph);
 
     // Center the graph
-    var xCenterOffset = (svg.attr("width") - graph.graph().width) / 2;
+    var xCenterOffset = (svg.attr("width") - graph.graph().width / 1.1); // Variable moves graph left and right - will need to change was originally divided by 2 
     inner.attr("transform", "translate(" + xCenterOffset + ", 20)");
-    svg.attr("height", graph.graph().height + 40);
+    svg.attr("height", graph.graph().height + 40); // Was originally + 40
+    svg.attr("width", graph.graph().width + 1000);
 
 };
 

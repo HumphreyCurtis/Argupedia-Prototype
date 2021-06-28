@@ -67,7 +67,7 @@ form.addEventListener("submit", e => {
 
     db.collection("names").add({
         scheme : "critical action scheme",
-        name : "cas",
+        name : "cas", // Need to sort adding of initial argument
         circumstance : casCircumstance.value, 
         action : casAction.value, 
         goal : casGoal.value, 
