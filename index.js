@@ -22,6 +22,8 @@ const actionSchemeForm = document.getElementById("criticalActionScheme");
 // Number of arguments in debate
 var numberOfArguments = 0; 
 
+const initialAddArgumentButton = document.getElementById("initialAddButton");
+
 
 selectElement.addEventListener('change', (event) => {
     console.log("Value selected is:");
@@ -36,14 +38,18 @@ selectElement.addEventListener('change', (event) => {
 
 
 db.collection("arguments").onSnapshot(function(querySnapshot) {      
-    console.log(querySnapshot.size); 
-    console.log(querySnapshot.docs.length);
+
+    console.log("Number of arguments = " + querySnapshot.docs.length);
     numberOfArguments = querySnapshot.docs.length; 
 
     // if (numberOfArguments === 1) {
     //    initialAddButtonText.className = "hide";
     //    initialAddArgumentButton.className = "hide";
     // }
+
+    if (numberOfArguments > 0) {
+        initialAddArgumentButton.className = "hide"; // TEST TO SEE WORKS ON ZERO
+    }
 });
 
 
@@ -60,17 +66,17 @@ const casParent = null;
 form.addEventListener("submit", e => {
     e.preventDefault();
 
-    console.log(casCircumstance.value);
-    console.log(casAction.value);
-    console.log(casGoal.value);
-    console.log(casValue.value);
     var argumentFromUser = casCircumstance.value + " -> " + casAction.value + " -> " + casGoal.value + " -> " + casValue.value; 
-    console.log(argumentFromUser); 
-    console.log(numberOfArguments);
+    console.log("Initial argument = " + argumentFromUser); 
+    console.log("Number of arguments = " + numberOfArguments);
 
     db.collection("arguments").add({
         name : "argument" + numberOfArguments, // Need to sort adding of initial argument
-        argumentDescription : argumentFromUser
+        argumentDescription : argumentFromUser, 
+        value : casCircumstance.value, 
+        action : casAction.value, 
+        goal : casGoal.value, 
+        value : casValue.value
     }); 
 
     var instance = M.Modal.getInstance(modal); 
@@ -82,33 +88,5 @@ form.addEventListener("submit", e => {
 // SETTING UP COUNTER-ARGUMENT
 
 // Initial argument button and text
-const initialAddButtonText = document.getElementById("addButtonText");
-const initialAddArgumentButton = document.getElementById("initialAddButton");
 
 
-// form.addEventListener("submit", e => {
-//     e.preventDefault();
-
-//     console.log(casCircumstance.value);
-//     console.log(casAction.value);
-//     console.log(casGoal.value);
-//     console.log(casValue.value);
-//     // console.log("Number of ID"); 
-//     // console.log(numberOfArguments); 
-
-//     db.collection("arguments").add({
-//         source : null,
-//         scheme : "critical action scheme", 
-//         circumstance : casCircumstance.value, 
-//         action : casAction.value, 
-//         goal : casGoal.value, 
-//         value : casValue.value,
-//         target : null, 
-//         label : null
-//     }); 
-
-//     var instance = M.Modal.getInstance(modal); 
-//     instance.close(); 
-    
-//     form.reset(); 
-// });

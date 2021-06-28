@@ -78,7 +78,8 @@
 
     <div class="container">
         <div class="canvas">
-            <svg id="svg" width=960 height=600></svg>
+            <!-- <svg id="svg" width=960 height=600></svg> -->
+            <svg id="svg"></svg>
         </div>
     </div>
 
@@ -88,8 +89,19 @@
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
+            <h4>Add a counter-argument</h4>
+            <div class="input-field">
+                Name of argument target<input type="text" id="target" placeholder="Counter argument target name">
+            </div>
+            <div class="input-field">
+                <button class="btn waves-effect white-text">See critical questions</button>
+            </div>
+            <label>Select a critical question</label>
+            <select class="browser-default" id="selectCriticalQuestion">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Critical action scheme</option>
+                <option value="2">Expert opinion scheme</option>
+            </select>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
