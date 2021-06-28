@@ -101,25 +101,34 @@ counterArgumentTargetButton.addEventListener("click", function () {
     console.log("Counter argument target name = " + counterArgumentTargetName.value);
 
     var counterArgumentTargetNameValue = counterArgumentTargetName.value;
-    
+
     var arguments = db.collection("arguments");
 
     var query = arguments.where("name", "==", "argument0").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-
-            
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+            });
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
         });
-    })
-    .catch((error) => {
-        console.log("Error getting documents: ", error);
-    });
+
+
+    var query2 = arguments.where("name", "==", "argument0").get()
+        .then(querySnapshot => {
+            query2 = querySnapshot.docs.map(doc => doc.data())
+            console.log(query2);
+            query2.forEach(function (d) {
+                console.log(d.name); // KEY accessing data name 
+            });
+        });
+        
 
 
     var opt1 = document.createElement("option");
-    opt1.value = "1"; 
+    opt1.value = "1";
     opt1.text = "Humphrey"
     criticalQuestionsForSelection.add(opt1);
-    
+
 });
