@@ -7,9 +7,9 @@ body {
 }
 
 text {
-    font-weight: 300;
+    font-weight: 100;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
-    font-size: 14px;
+    font-size: 5px;
 }
 
 .node rect {

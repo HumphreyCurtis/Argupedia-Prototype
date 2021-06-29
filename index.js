@@ -55,27 +55,27 @@ db.collection("arguments").onSnapshot(function (querySnapshot) {
 
 const form = document.querySelector("form");
 
-// Critical aciton scheme parameters 
+// Critical aciton scheme parameters --> potentially make var if will reuse 
 const casCircumstance = document.querySelector("#casCircumstance");
 const casAction = document.querySelector("#casAction");
 const casNewCircumstance = document.querySelector("#casNewCircumstance");
 const casGoal = document.querySelector("#casGoal");
-const casValue = document.querySelector("#casAction");
+const casValue = document.querySelector("#casValue");
 const casParent = null;
 
 form.addEventListener("submit", e => {
     e.preventDefault();
 
-    var argumentFromUser = casCircumstance.value + " -> " + casAction.value + " -> " + casNewCircumstance.value + " -> " + casGoal.value + " -> " + casValue.value;
+    var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
     console.log("Initial argument = " + argumentFromUser);
     console.log("Number of arguments = " + numberOfArguments);
 
     db.collection("arguments").add({
         name: "argument" + numberOfArguments,
         argumentDescription: argumentFromUser,
-        currentCircumstance : casCircumstance.value.toLowerCase(),
+        currentCircumstance: casCircumstance.value.toLowerCase(),
         action: casAction.value.toLowerCase(),
-        newCircumstance : casNewCircumstance.value.toLowerCase(), 
+        newCircumstance: casNewCircumstance.value.toLowerCase(),
         goal: casGoal.value.toLowerCase(),
         value: casValue.value.toLowerCase()
     });
@@ -125,13 +125,13 @@ counterArgumentTargetButton.addEventListener("click", function () {
             console.log(query2);
             query2.forEach(function (d) {
 
-                var currentCircumstance = d.currentCircumstance; 
+                var currentCircumstance = d.currentCircumstance;
                 var action = d.action;
-                var newCircumstance = d.newCircumstance; 
-                var goal = d.goal; 
+                var newCircumstance = d.newCircumstance;
+                var goal = d.goal;
                 var value = d.value;
 
-                createAndAppendCriticalQuestions(currentCircumstance, action, goal, value, newCircumstance); 
+                createAndAppendCriticalQuestions(currentCircumstance, action, goal, value, newCircumstance);
             });
 
         });
@@ -147,7 +147,7 @@ counterArgumentTargetButton.addEventListener("click", function () {
 
 });
 
-var createAndAppendCriticalQuestions = (function(currentCircumstance, action, goal, value, newCircumstances) {
+var createAndAppendCriticalQuestions = (function (currentCircumstance, action, goal, value, newCircumstances) {
     for (let i = 1; i < 17; i++) {
         var tempCriticalQuestion = criticalQuestionsSwitch(i, currentCircumstance, action, goal, value, newCircumstances);
         addAndAppendOption(tempCriticalQuestion, i);
@@ -236,3 +236,62 @@ var addAndAppendOption = (function (criticalQuestion, valueNumber) {
     option.text = criticalQuestion;
     criticalQuestionsForSelection.add(option);
 });
+
+
+
+
+
+const counterArgumentScheme = document.getElementById("counterArgumentScheme");
+
+var createCounterArgumentForm = (function (elementToAppend, placeholder, id) {
+    // var casForm = document.createElement("form"); 
+    // casForm.setAttribute("class", "show"); 
+    // casForm.setAttribute("id", "counterArgumentScheme"); 
+
+    var div = document.createElement("div");
+    div.setAttribute("class", "input-field");
+
+    var inputField = document.createElement("input");
+    inputField.setAttribute("type", "text");
+    inputField.setAttribute("placeholder", placeholder);
+    inputField.setAttribute("id", id);
+
+    div.append(inputField);
+
+    var div2 = document.createElement("div");
+    div.append(div2);
+
+    elementToAppend.append(div);
+});
+
+
+
+createCounterArgumentForm(counterArgumentScheme, "In the current circumstance...", "casCircumstance");
+// appendArgumentButton(counterArgumentScheme, "btn waves-effect white-text");  
+// createCounterArgumentForm("We should perform the action...", "casAction"); 
+// createCounterArgumentForm("Which would result in new circumstances...", "casNewCircumstance"); 
+// createCounterArgumentForm("Which will realise goal...", "casGoal"); 
+// createCounterArgumentForm("Which will promote value...", "casValue");
+
+
+
+
+var appendArgumentButton = (function(elementToAppend, colour) {
+    var div = document.createElement("div");
+    div.setAttribute("class", "input-field");
+
+    var button = document.createElement("btn"); 
+    button.setAttribute("class", colour);
+    button.textContent = "Create argument"; 
+
+    div.append(button); 
+
+    var div2 = document.createElement("div");  
+    div.append(div2);
+
+
+    elementToAppend.append(div);
+
+});
+
+appendArgumentButton(counterArgumentScheme, "btn waves-effect white-text");

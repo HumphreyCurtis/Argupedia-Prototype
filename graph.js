@@ -110,10 +110,10 @@ const update = (arguments, links) => {
     console.log("Arguments length = " + arguments.length);
 
     if (arguments.length > 0) {
-        var xCenterOffset = (svg.attr("width") - graph.graph().width); // Variable moves graph left and right - will need to change was originally divided by 2 
+        // var xCenterOffset = (svg.attr("width") - graph.graph().width / 2); // Variable moves graph left and right - will need to change was originally divided by 2 
         // inner.attr("transform", "translate(" + xCenterOffset + "");
-        svg.attr("height", graph.graph().height + 50); // Was originally + 40
-        svg.attr("width", graph.graph().width + 50);
+        svg.attr("height", graph.graph().height+ 40); // Was originally + 40
+        svg.attr("width", graph.graph().width+ 40);
     }
 
 };
