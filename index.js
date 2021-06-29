@@ -27,13 +27,16 @@ const initialAddArgumentButton = document.getElementById("initialAddButton");
 
 const initialArgumentScheme = document.getElementById("initialArgumentScheme");
 
+// Dynamically create argument scheme form 
+
 selectElement.addEventListener('change', (event) => {
     console.log("Value selected is:");
     console.log(argumentSchemeSelected.value);
 
     if (argumentSchemeSelected.value === "1") { // Will need to change to make better 
         argumentSchemeForm.className = "show";
-        createCasForm(initialArgumentScheme)
+        createCasForm(initialArgumentScheme);
+
     } else {
         argumentSchemeForm.className = "hide";
     }
@@ -58,12 +61,44 @@ var createCasForm = (function (elementToAppend) {
     createArgumentForm(elementToAppend, "Which will realise goal...", "casGoal");
     createArgumentForm(elementToAppend, "Which will promote value...", "casValue");
 
-    appendArgumentButton(elementToAppend, "btn pink white-text");
+    appendArgumentButton(elementToAppend, "btn pink white-text", "initialArgumentButton");
 
-})
+    var initialArgumentButton = document.getElementById("initialArgumentButton"); 
+
+    initialArgumentButton.addEventListener("click", function(){
+
+       CasSubmissionToDatabaseFromForm(); 
+
+    });
+
+});
+
+// Sort form submission 
+
+var CasSubmissionToDatabaseFromForm = (function () {
+
+    const form = document.getElementById("initialArgumentScheme");
+
+    const casCircumstance = document.querySelector("#casCircumstance");
+    const casAction = document.querySelector("#casAction");
+    const casNewCircumstance = document.querySelector("#casNewCircumstance");
+    const casGoal = document.querySelector("#casGoal");
+    const casValue = document.querySelector("#casValue");
+
+    var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
+    console.log("Initial argument = " + argumentFromUser);
+
+    var instance = M.Modal.getInstance(modal);
+    instance.close();
+
+    form.reset();
+});
 
 
-const form = document.querySelector("form");
+
+
+
+const form = document.getElementById("initialArgumentScheme");
 
 // Critical aciton scheme parameters --> potentially make var if will reuse 
 const casCircumstance = document.querySelector("#casCircumstance");
@@ -273,13 +308,14 @@ var createArgumentForm = (function (elementToAppend, placeholder, id) {
 
 
 
-var appendArgumentButton = (function (elementToAppend, colour) {
+var appendArgumentButton = (function (elementToAppend, colour, id) {
     var div = document.createElement("div");
     div.setAttribute("class", "input-field");
 
     var button = document.createElement("btn");
     button.setAttribute("class", colour);
     button.textContent = "Create argument";
+    button.setAttribute("id", id);
 
     div.append(button);
 
