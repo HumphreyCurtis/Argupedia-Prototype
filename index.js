@@ -17,40 +17,50 @@ const selectElement = document.querySelector(".browser-default");
 const argumentSchemeSelected = document.getElementById("selectArgumentScheme");
 
 // Selecting and revealing forms
-const actionSchemeForm = document.getElementById("criticalActionScheme");
+// const actionSchemeForm = document.getElementById("criticalActionScheme");
+const argumentSchemeForm = document.getElementById("initialArgumentScheme");
 
 // Number of arguments in debate
 var numberOfArguments = 0;
 
 const initialAddArgumentButton = document.getElementById("initialAddButton");
 
+const initialArgumentScheme = document.getElementById("initialArgumentScheme");
 
 selectElement.addEventListener('change', (event) => {
     console.log("Value selected is:");
     console.log(argumentSchemeSelected.value);
 
     if (argumentSchemeSelected.value === "1") { // Will need to change to make better 
-        actionSchemeForm.className = "show";
+        argumentSchemeForm.className = "show";
+        createCasForm(initialArgumentScheme)
     } else {
-        actionSchemeForm.className = "hide";
+        argumentSchemeForm.className = "hide";
     }
 });
 
-
+// Check to hide initial argument button 
 db.collection("arguments").onSnapshot(function (querySnapshot) {
 
     console.log("Number of arguments = " + querySnapshot.docs.length);
     numberOfArguments = querySnapshot.docs.length;
 
-    // if (numberOfArguments === 1) {
-    //    initialAddButtonText.className = "hide";
-    //    initialAddArgumentButton.className = "hide";
-    // }
-
     if (numberOfArguments > 0) {
         initialAddArgumentButton.className = "hide"; // TEST TO SEE WORKS ON ZERO
     }
 });
+
+var createCasForm = (function (elementToAppend) {
+
+    createArgumentForm(elementToAppend, "In the current circumstance...", "casCircumstance");
+    createArgumentForm(elementToAppend, "We should perform the action...", "casAction");
+    createArgumentForm(elementToAppend, "Which would result in new circumstances...", "casNewCircumstance");
+    createArgumentForm(elementToAppend, "Which will realise goal...", "casGoal");
+    createArgumentForm(elementToAppend, "Which will promote value...", "casValue");
+
+    appendArgumentButton(elementToAppend, "btn pink white-text");
+
+})
 
 
 const form = document.querySelector("form");
@@ -135,15 +145,6 @@ counterArgumentTargetButton.addEventListener("click", function () {
             });
 
         });
-
-
-
-    // var opt1 = document.createElement("option");
-    // opt1.value = "1";
-    // opt1.text = "Are the believed circumstances true";
-    // criticalQuestionsForSelection.add(opt1);
-
-
 
 });
 
@@ -237,13 +238,9 @@ var addAndAppendOption = (function (criticalQuestion, valueNumber) {
     criticalQuestionsForSelection.add(option);
 });
 
-
-
-
-
 const counterArgumentScheme = document.getElementById("counterArgumentScheme");
 
-var createCounterArgumentForm = (function (elementToAppend, placeholder, id) {
+var createArgumentForm = (function (elementToAppend, placeholder, id) {
     // var casForm = document.createElement("form"); 
     // casForm.setAttribute("class", "show"); 
     // casForm.setAttribute("id", "counterArgumentScheme"); 
@@ -266,27 +263,27 @@ var createCounterArgumentForm = (function (elementToAppend, placeholder, id) {
 
 
 
-createCounterArgumentForm(counterArgumentScheme, "In the current circumstance...", "casCircumstance");
+// createArgumentForm(counterArgumentScheme, "In the current circumstance...", "casCircumstance");
 // appendArgumentButton(counterArgumentScheme, "btn waves-effect white-text");  
-// createCounterArgumentForm("We should perform the action...", "casAction"); 
-// createCounterArgumentForm("Which would result in new circumstances...", "casNewCircumstance"); 
-// createCounterArgumentForm("Which will realise goal...", "casGoal"); 
-// createCounterArgumentForm("Which will promote value...", "casValue");
+// createArgumentForm("We should perform the action...", "casAction"); 
+// createArgumentForm("Which would result in new circumstances...", "casNewCircumstance"); 
+// createArgumentForm("Which will realise goal...", "casGoal"); 
+// createArgumentForm("Which will promote value...", "casValue");
 
 
 
 
-var appendArgumentButton = (function(elementToAppend, colour) {
+var appendArgumentButton = (function (elementToAppend, colour) {
     var div = document.createElement("div");
     div.setAttribute("class", "input-field");
 
-    var button = document.createElement("btn"); 
+    var button = document.createElement("btn");
     button.setAttribute("class", colour);
-    button.textContent = "Create argument"; 
+    button.textContent = "Create argument";
 
-    div.append(button); 
+    div.append(button);
 
-    var div2 = document.createElement("div");  
+    var div2 = document.createElement("div");
     div.append(div2);
 
 
@@ -294,4 +291,4 @@ var appendArgumentButton = (function(elementToAppend, colour) {
 
 });
 
-appendArgumentButton(counterArgumentScheme, "btn waves-effect white-text");
+// appendArgumentButton(counterArgumentScheme, "btn waves-effect white-text");
