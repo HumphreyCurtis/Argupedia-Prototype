@@ -1,3 +1,4 @@
+import { createCasForm } from "./index.js";
 // Initialise modal
 const modal1 = document.getElementById("modal1");
 
@@ -10,6 +11,24 @@ const criticalQuestionsForSelection = document.getElementById("selectCriticalQue
 
 const counterArgumentTargetName = document.querySelector("#counterArgumentTargetName");
 
+const counterArgumentSelectElement = document.getElementById("selectArgumentScheme2");
+
+const counterArgumentScheme = document.getElementById("counterArgumentScheme");
+
+
+counterArgumentSelectElement.addEventListener('change', (event) => {
+    console.log("Value selected is = " + counterArgumentSelectElement.value)
+
+    if (counterArgumentSelectElement.value == 1) {
+        counterArgumentScheme.className = "show";
+        console.log("Hello");
+    }
+
+
+});
+
+
+
 counterArgumentTargetButton.addEventListener("click", function () {
 
     var counterArgumentTargetNameValue = counterArgumentTargetName.value;
@@ -17,7 +36,7 @@ counterArgumentTargetButton.addEventListener("click", function () {
     console.log("Counter argument target name = " + counterArgumentTargetNameValue);
 
 
-    var arguments = db.collection("arguments");
+    var args = db.collection("arguments");
 
     // var query = arguments.where("name", "==", "argument0").get().then((querySnapshot) => {
     //         querySnapshot.forEach((doc) => {
@@ -29,8 +48,8 @@ counterArgumentTargetButton.addEventListener("click", function () {
     //         console.log("Error getting documents: ", error);
     //     });
 
-    // Generating critical questions 
-    var query2 = arguments.where("name", "==", counterArgumentTargetNameValue).get()
+    // Generating critical questions - rename variables
+    var query2 = args.where("name", "==", counterArgumentTargetNameValue).get()
         .then(querySnapshot => {
             query2 = querySnapshot.docs.map(doc => doc.data())
             console.log(query2);
@@ -144,4 +163,3 @@ var addAndAppendOption = (function (criticalQuestion, valueNumber) {
 
 //     elementToAppend.append(div);
 // });
-

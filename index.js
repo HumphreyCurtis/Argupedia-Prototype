@@ -136,6 +136,8 @@ var appendArgumentButton = (function (elementToAppend, colour, id) {
 
 });
 
+export { createCasForm }; 
+
 
 // --------------------------------------- SETTING UP COUNTER-ARGUMENT ------------------------------------------------------------
 

@@ -72,30 +72,12 @@
                 <option value="2">Expert opinion scheme</option> -->
             </select>
             <label>Select an argument scheme</label>
-            <select class="browser-default" id="selectArgumentScheme">
+            <select class="browser-default" id="selectArgumentScheme2">
                 <option value="" disabled selected>Choose your option</option>
                 <option value="1">Critical action scheme</option>
                 <option value="2">Expert opinion scheme</option>
             </select>
-            <form class="show" id="counterArgumentScheme"> 
-                <!-- <div class="input-field">
-                    <input type="text" id="casCircumstance" placeholder="In the current circumstance...">
-                </div>
-                <div class="input-field">
-                    <input type="text" id="casAction" placeholder="We should perform the action...">
-                </div>
-                <div class="input-field">
-                    <input type="text" id="casNewCircumstance" placeholder="Which would result in new circumstances...">
-                </div>
-                <div class="input-field">
-                    <input type="text" id="casGoal" placeholder="Which will realise goal...">
-                </div>
-                <div class="input-field">
-                    <input type="text" id="casValue" placeholder="Which will promote value...">
-                </div> -->
-                <!-- <div class="input-field">
-                    <button class="btn waves-effect white-text">Create argument</button>
-                </div> -->
+            <form class="hide" id="counterArgumentScheme"> 
             </form>
         </div>
         <div class="modal-footer">
@@ -136,8 +118,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.3/dagre-d3.js"></script>
-    <script src="index.js"></script>
-    <script src="counterArgument.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="module" src="counterArgument.js"></script>
     <script src="graph.js"></script>
 </body>
 
