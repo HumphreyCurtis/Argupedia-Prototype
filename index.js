@@ -28,7 +28,7 @@ selectElement.addEventListener('change', (event) => {
 
     if (argumentSchemeSelected.value === "1") { // Will need to change to make better 
         argumentSchemeForm.className = "show";
-        createCasForm(initialArgumentScheme, "initialArgumentScheme", "btn pink white-text", "initialArgumentButton");
+        createCasForm(initialArgumentScheme, "initialArgumentScheme", "btn pink white-text", "initialArgumentButton", modal);
 
     } else {
         argumentSchemeForm.className = "hide";
@@ -46,7 +46,7 @@ db.collection("arguments").onSnapshot(function (querySnapshot) {
     }
 });
 
-var createCasForm = (function (elementToAppend, id, buttonClass, buttonId) {
+var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modalName) {
 
     createArgumentForm(elementToAppend, "In the current circumstance...", "casCircumstance");
     createArgumentForm(elementToAppend, "We should perform the action...", "casAction");
@@ -56,17 +56,17 @@ var createCasForm = (function (elementToAppend, id, buttonClass, buttonId) {
 
     appendArgumentButton(elementToAppend, buttonClass, buttonId);
 
-    var initialArgumentButton = document.getElementById("initialArgumentButton");
+    var argumentSubmissionButton = document.getElementById(buttonId);
 
-    initialArgumentButton.addEventListener("click", function () {
-        casSubmissionToDatabaseFromForm(id);
+    argumentSubmissionButton.addEventListener("click", function () {
+        casSubmissionToDatabaseFromForm(id, modalName);
     });
 
 });
 
 // Sort form submission 
 
-var casSubmissionToDatabaseFromForm = (function (id) {
+var casSubmissionToDatabaseFromForm = (function (id, modalName) {
 
     const form = document.getElementById(id);
 
@@ -89,7 +89,7 @@ var casSubmissionToDatabaseFromForm = (function (id) {
         value: casValue.value.toLowerCase()
     });
 
-    var instance = M.Modal.getInstance(modal);
+    var instance = M.Modal.getInstance(modalName);
     instance.close();
 
     form.reset();
@@ -136,7 +136,7 @@ var appendArgumentButton = (function (elementToAppend, colour, id) {
 
 });
 
-export { createCasForm }; 
+export { createCasForm, casSubmissionToDatabaseFromForm, createArgumentForm, appendArgumentButton }; 
 
 
 // --------------------------------------- SETTING UP COUNTER-ARGUMENT ------------------------------------------------------------

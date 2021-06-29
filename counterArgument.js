@@ -1,4 +1,4 @@
-import { createCasForm } from "./index.js";
+import { createCasForm, casSubmissionToDatabaseFromForm, createArgumentForm, appendArgumentButton } from "./index.js";
 // Initialise modal
 const modal1 = document.getElementById("modal1");
 
@@ -21,7 +21,7 @@ counterArgumentSelectElement.addEventListener('change', (event) => {
 
     if (counterArgumentSelectElement.value == 1) {
         counterArgumentScheme.className = "show";
-        console.log("Hello");
+        createCasForm(counterArgumentScheme, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1);
     }
 
 
