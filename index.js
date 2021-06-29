@@ -28,7 +28,6 @@ const initialAddArgumentButton = document.getElementById("initialAddButton");
 const initialArgumentScheme = document.getElementById("initialArgumentScheme");
 
 // Dynamically create argument scheme form 
-
 selectElement.addEventListener('change', (event) => {
     console.log("Value selected is:");
     console.log(argumentSchemeSelected.value);
@@ -63,11 +62,11 @@ var createCasForm = (function (elementToAppend, id) {
 
     appendArgumentButton(elementToAppend, "btn pink white-text", "initialArgumentButton");
 
-    var initialArgumentButton = document.getElementById("initialArgumentButton"); 
+    var initialArgumentButton = document.getElementById("initialArgumentButton");
 
-    initialArgumentButton.addEventListener("click", function(){
+    initialArgumentButton.addEventListener("click", function () {
 
-       casSubmissionToDatabaseFromForm(id); 
+        casSubmissionToDatabaseFromForm(id);
 
     });
 
@@ -88,33 +87,6 @@ var casSubmissionToDatabaseFromForm = (function (id) {
     var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
     console.log("Initial argument = " + argumentFromUser);
 
-    var instance = M.Modal.getInstance(modal);
-    instance.close();
-
-    form.reset();
-});
-
-
-
-
-
-const form = document.getElementById("initialArgumentScheme");
-
-// Critical aciton scheme parameters --> potentially make var if will reuse 
-const casCircumstance = document.querySelector("#casCircumstance");
-const casAction = document.querySelector("#casAction");
-const casNewCircumstance = document.querySelector("#casNewCircumstance");
-const casGoal = document.querySelector("#casGoal");
-const casValue = document.querySelector("#casValue");
-const casParent = null;
-
-form.addEventListener("submit", e => {
-    e.preventDefault();
-
-    var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
-    console.log("Initial argument = " + argumentFromUser);
-    console.log("Number of arguments = " + numberOfArguments);
-
     db.collection("arguments").add({
         name: "argument" + numberOfArguments,
         argumentDescription: argumentFromUser,
@@ -130,6 +102,43 @@ form.addEventListener("submit", e => {
 
     form.reset();
 });
+
+
+
+
+
+// const form = document.getElementById("initialArgumentScheme");
+
+// // Critical aciton scheme parameters --> potentially make var if will reuse 
+// const casCircumstance = document.querySelector("#casCircumstance");
+// const casAction = document.querySelector("#casAction");
+// const casNewCircumstance = document.querySelector("#casNewCircumstance");
+// const casGoal = document.querySelector("#casGoal");
+// const casValue = document.querySelector("#casValue");
+// const casParent = null;
+
+// form.addEventListener("submit", e => {
+//     e.preventDefault();
+
+//     var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
+//     console.log("Initial argument = " + argumentFromUser);
+//     console.log("Number of arguments = " + numberOfArguments);
+
+//     db.collection("arguments").add({
+//         name: "argument" + numberOfArguments,
+//         argumentDescription: argumentFromUser,
+//         currentCircumstance: casCircumstance.value.toLowerCase(),
+//         action: casAction.value.toLowerCase(),
+//         newCircumstance: casNewCircumstance.value.toLowerCase(),
+//         goal: casGoal.value.toLowerCase(),
+//         value: casValue.value.toLowerCase()
+//     });
+
+//     var instance = M.Modal.getInstance(modal);
+//     instance.close();
+
+//     form.reset();
+// });
 
 
 
