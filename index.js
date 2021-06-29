@@ -35,7 +35,7 @@ selectElement.addEventListener('change', (event) => {
 
     if (argumentSchemeSelected.value === "1") { // Will need to change to make better 
         argumentSchemeForm.className = "show";
-        createCasForm(initialArgumentScheme);
+        createCasForm(initialArgumentScheme, "initialArgumentScheme");
 
     } else {
         argumentSchemeForm.className = "hide";
@@ -53,7 +53,7 @@ db.collection("arguments").onSnapshot(function (querySnapshot) {
     }
 });
 
-var createCasForm = (function (elementToAppend) {
+var createCasForm = (function (elementToAppend, id) {
 
     createArgumentForm(elementToAppend, "In the current circumstance...", "casCircumstance");
     createArgumentForm(elementToAppend, "We should perform the action...", "casAction");
@@ -67,7 +67,7 @@ var createCasForm = (function (elementToAppend) {
 
     initialArgumentButton.addEventListener("click", function(){
 
-       CasSubmissionToDatabaseFromForm(); 
+       casSubmissionToDatabaseFromForm(id); 
 
     });
 
@@ -75,9 +75,9 @@ var createCasForm = (function (elementToAppend) {
 
 // Sort form submission 
 
-var CasSubmissionToDatabaseFromForm = (function () {
+var casSubmissionToDatabaseFromForm = (function (id) {
 
-    const form = document.getElementById("initialArgumentScheme");
+    const form = document.getElementById(id);
 
     const casCircumstance = document.querySelector("#casCircumstance");
     const casAction = document.querySelector("#casAction");
