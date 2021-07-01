@@ -9,23 +9,52 @@ const counterArgumentTargetButton = document.getElementById("counterArgumentTarg
 
 const criticalQuestionsForSelection = document.getElementById("selectCriticalQuestion");
 
-const counterArgumentTargetName = document.querySelector("#counterArgumentTargetName");
-
 const counterArgumentSelectElement = document.getElementById("selectArgumentScheme2");
 
 const counterArgumentScheme = document.getElementById("counterArgumentScheme");
 
+var counterArgumentTargetName = document.querySelector("#counterArgumentTargetName");
+
+var currentArgument = "";
 
 counterArgumentSelectElement.addEventListener('change', (event) => {
     console.log("Value selected is = " + counterArgumentSelectElement.value)
 
     if (counterArgumentSelectElement.value == 1) {
         counterArgumentScheme.className = "show";
+        // Add critical quesiton to null form 
+        // Works yet will need to check 
         createCasForm(counterArgumentScheme, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1);
-        // Check for input in target field
-        console.log("Counter argument target name = " + counterArgumentTargetName.value);
+
+        var argumentSubmissionButton = document.getElementById("counterArgumentButton");
+
+        argumentSubmissionButton.addEventListener("click", function () { 
+            console.log("Counter argument target name = " + counterArgumentTargetName.value);
+            currentArgumentName(); 
+            console.log("Current counter-argument name = " + currentArgument);
+            createLinksForCounterArgument(currentArgument, counterArgumentTargetName.value);
+        });
+     
+
     }
 
+
+});
+
+
+var currentArgumentName = db.collection("arguments").onSnapshot(function (querySnapshot) {
+
+    console.log("Number of arguments = " + querySnapshot.docs.length);
+    var numberOfArguments = querySnapshot.docs.length;
+
+    currentArgument = "argument" + numberOfArguments;
+}); 
+
+var createLinksForCounterArgument = (function (source, target) {
+    db.collection("links").add({
+        source : source, 
+        target : target
+    });
 
 });
 
@@ -37,7 +66,7 @@ counterArgumentTargetButton.addEventListener("click", function () {
 
     var counterArgumentTargetNameValue = counterArgumentTargetName.value;
 
-    console.log("Counter argument target name = " + counterArgumentTargetNameValue);
+    // console.log("Counter argument target name = " + counterArgumentTargetNameValue);
 
 
     var args = db.collection("arguments");
