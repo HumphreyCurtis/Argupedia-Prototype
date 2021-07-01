@@ -93,6 +93,13 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
     instance.close();
 
     form.reset();
+
+    // Bug due to having the same id names on modals when accessing values 
+    if (numberOfArguments === 0) {
+        console.log("hello from argument 0");
+        argumentSchemeForm.className = "hide";
+        initialArgumentScheme.remove(); 
+    }
 });
 
 var createArgumentForm = (function (elementToAppend, placeholder, id) {

@@ -1,4 +1,5 @@
 import { createCasForm, casSubmissionToDatabaseFromForm, createArgumentForm, appendArgumentButton } from "./index.js";
+
 // Initialise modal
 const modal1 = document.getElementById("modal1");
 
@@ -23,7 +24,7 @@ counterArgumentSelectElement.addEventListener('change', (event) => {
     if (counterArgumentSelectElement.value == 1) {
         counterArgumentScheme.className = "show";
         // Add critical quesiton to null form 
-        // Works yet will need to check 
+        // Works yet will need to check - that doesnt fire asynchronously with databases not updating at the same time 
         createCasForm(counterArgumentScheme, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1);
 
         var argumentSubmissionButton = document.getElementById("counterArgumentButton");
