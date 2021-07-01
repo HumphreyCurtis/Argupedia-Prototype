@@ -1,0 +1,7 @@
+- Add links between arguments 
+
+- Create labelling algorithms 
+
+- Check that the app is not breakable 
+
+- Add more schemes 

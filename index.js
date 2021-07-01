@@ -77,7 +77,7 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
     const casValue = document.querySelector("#casValue");
 
     var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
-    console.log("Initial argument = " + argumentFromUser);
+    console.log("Argument = " + argumentFromUser);
 
     db.collection("arguments").add({
         name: "argument" + numberOfArguments,
@@ -263,19 +263,12 @@ export { createCasForm, casSubmissionToDatabaseFromForm, createArgumentForm, app
 
 // const counterArgumentScheme = document.getElementById("counterArgumentScheme");
 
-
-
-
-
 // createArgumentForm(counterArgumentScheme, "In the current circumstance...", "casCircumstance");
 // appendArgumentButton(counterArgumentScheme, "btn waves-effect white-text");  
 // createArgumentForm("We should perform the action...", "casAction"); 
 // createArgumentForm("Which would result in new circumstances...", "casNewCircumstance"); 
 // createArgumentForm("Which will realise goal...", "casGoal"); 
 // createArgumentForm("Which will promote value...", "casValue");
-
-
-
 
 
 

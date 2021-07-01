@@ -22,13 +22,17 @@ counterArgumentSelectElement.addEventListener('change', (event) => {
     if (counterArgumentSelectElement.value == 1) {
         counterArgumentScheme.className = "show";
         createCasForm(counterArgumentScheme, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1);
+        // Check for input in target field
+        console.log("Counter argument target name = " + counterArgumentTargetName.value);
     }
 
 
 });
 
+// Add links functionality
 
 
+// Will have to adapt to work for multiple different types of scheme 
 counterArgumentTargetButton.addEventListener("click", function () {
 
     var counterArgumentTargetNameValue = counterArgumentTargetName.value;
