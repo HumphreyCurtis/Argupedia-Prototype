@@ -116,10 +116,22 @@ const update = (arguments, links) => {
         svg.attr("width", graph.graph().width+ 40);
     }
 
+    checkSwitch(); 
+    
 };
 
 
+var checkSwitch = (function() {
 
+    var labellingSwitch = document.getElementById("mySwitch"); 
+
+    labellingSwitch.addEventListener("change", function() {
+        console.log(labellingSwitch.value); 
+
+        var status = labellingSwitch.checked; 
+        console.log(status);
+    })
+});
 
 
 
