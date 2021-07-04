@@ -124,13 +124,28 @@ const update = (arguments, links) => {
 var checkSwitch = (function() {
 
     var labellingSwitch = document.getElementById("mySwitch"); 
+    var status = false; 
 
     labellingSwitch.addEventListener("change", function() {
         console.log(labellingSwitch.value); 
 
-        var status = labellingSwitch.checked; 
+        status = labellingSwitch.checked; 
         console.log(status);
-    })
+
+        if (status === true) {
+            labellingAlgorithm(); 
+        }
+
+
+
+    });
+});
+
+var labellingAlgorithm = (function() {
+
+    console.log(links);
+
+    
 });
 
 
