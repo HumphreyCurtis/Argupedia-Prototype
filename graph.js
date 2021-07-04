@@ -61,7 +61,7 @@ db.collection('arguments').onSnapshot(res => {
         console.log(links);
 
         update(arguments, links); // This may need to change back to update(fish, links)
-
+        checkSwitch(arguments);
     });
 
 });
@@ -74,6 +74,8 @@ const update = (arguments, links) => {
 
     // Create the input graph
     var graph = new dagreD3.graphlib.Graph().setGraph({});
+
+    // checkSwitch(); 
 
     arguments.forEach(function (d) {
         graph.setNode(d.name, {
@@ -112,19 +114,23 @@ const update = (arguments, links) => {
     if (arguments.length > 0) {
         // var xCenterOffset = (svg.attr("width") - graph.graph().width / 2); // Variable moves graph left and right - will need to change was originally divided by 2 
         // inner.attr("transform", "translate(" + xCenterOffset + "");
-        svg.attr("height", graph.graph().height+ 40); // Was originally + 40
-        svg.attr("width", graph.graph().width+ 40);
+        svg.attr("height", graph.graph().height + 40); // Was originally + 40
+        svg.attr("width", graph.graph().width + 40);
     }
 
-    checkSwitch(); 
+
     
 };
 
 
-var checkSwitch = (function() {
+var checkSwitch = (function(arguments) {
 
     var labellingSwitch = document.getElementById("mySwitch"); 
     var status = false; 
+
+    // console.log(arguments);
+
+    labellingAlgorithm(arguments);
 
     labellingSwitch.addEventListener("change", function() {
         console.log(labellingSwitch.value); 
@@ -132,21 +138,52 @@ var checkSwitch = (function() {
         status = labellingSwitch.checked; 
         console.log(status);
 
-        if (status === true) {
-            labellingAlgorithm(); 
-        }
-
-
+        // if (status === true) {
+        //     labellingAlgorithm(); 
+        // }
 
     });
 });
 
-var labellingAlgorithm = (function() {
-
+var labellingAlgorithm = (function(arguments) {
+    // We have names within both arrays - can match on name
     console.log(links);
+    console.log(arguments);
 
-    
+    var argumentNames = []; 
+    var targets = []; 
+
+    arguments.forEach(function(l) {
+        argumentNames.push(l.name); 
+    });
+
+    links.forEach(function(d){
+        targets.push(d.target); 
+    });
+
+    console.log(argumentNames);
+    console.log(targets);
+
+
+    // Test 1 if an argument is not a target then it should be labelled as IN 
+    let difference = argumentNames.filter(x => !targets.includes(x)); 
+    console.log(difference); 
+
+
 });
+
+
+
+
+
+var removeDuplicates = (function(chars) {
+
+    let uniqueChars = chars.filter((c, index) => {
+        return chars.indexOf(c) === index;
+    });
+
+    return uniqueChars;
+})
 
 
 
