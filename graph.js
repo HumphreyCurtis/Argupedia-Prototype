@@ -119,23 +119,23 @@ const update = (arguments, links) => {
     }
 
 
-    
+
 };
 
 
-var checkSwitch = (function(arguments) {
+var checkSwitch = (function (arguments) {
 
-    var labellingSwitch = document.getElementById("mySwitch"); 
-    var status = false; 
+    var labellingSwitch = document.getElementById("mySwitch");
+    var status = false;
 
     // console.log(arguments);
 
     labellingAlgorithm(arguments);
 
-    labellingSwitch.addEventListener("change", function() {
-        console.log(labellingSwitch.value); 
+    labellingSwitch.addEventListener("change", function () {
+        console.log(labellingSwitch.value);
 
-        status = labellingSwitch.checked; 
+        status = labellingSwitch.checked;
         console.log(status);
 
         // if (status === true) {
@@ -145,38 +145,58 @@ var checkSwitch = (function(arguments) {
     });
 });
 
-var labellingAlgorithm = (function(arguments) {
+var labellingAlgorithm = (function (arguments) {
     // We have names within both arrays - can match on name
     console.log(links);
     console.log(arguments);
 
-    var argumentNames = []; 
-    var targets = []; 
+    var argumentNames = [];
+    var targets = [];
+    var sources = [];
+    var inArguments = [];
+    var outArguments = [];
+    var inArgumentsAttacking = [];
 
-    arguments.forEach(function(l) {
-        argumentNames.push(l.name); 
+    arguments.forEach(function (l) {
+        argumentNames.push(l.name);
     });
 
-    links.forEach(function(d){
-        targets.push(d.target); 
+    links.forEach(function (d) {
+        targets.push(d.target);
+        sources.push(d.source);
     });
 
+    console.log("All argument names");
     console.log(argumentNames);
-    console.log(targets);
+    console.log("Arguments being attacked");
+    console.log(targets); // Arguments being attacked
+    console.log("Arguments attacking");
+    console.log(sources); // Arguments attacking 
 
 
     // Test 1 if an argument is not a target then it should be labelled as IN 
-    let difference = argumentNames.filter(x => !targets.includes(x)); 
-    console.log(difference); 
+    inArguments = argumentNames.filter(x => !targets.includes(x));
+    console.log("IN arguments as not targeted = " + inArguments);
+
+    // Test 2 if an argument is attacked by IN arguments should be labelled as OUT 
+    inArgumentsAttacking = inArguments.filter(x => sources.includes(x));
+    console.log("IN arguments attacking = " + inArgumentsAttacking);
+
+    links.forEach(function (d) {
+        if (inArgumentsAttacking.includes(d.source)) {
+            outArguments.push(d.target); 
+        }
+    });
+    outArguments = removeDuplicates(outArguments); 
+    console.log(outArguments); 
+
+
 
 
 });
 
 
-
-
-
-var removeDuplicates = (function(chars) {
+var removeDuplicates = (function (chars) {
 
     let uniqueChars = chars.filter((c, index) => {
         return chars.indexOf(c) === index;
