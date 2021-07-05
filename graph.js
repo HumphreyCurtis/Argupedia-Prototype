@@ -158,7 +158,7 @@ var labellingAlgorithm = (function (arguments) {
     var labelledNodes = [];
     var inArgumentsAttacking = [];
     var unlabelledNodes = [];
-    var undecidedNodes = []; 
+    var undecidedNodes = [];
 
     arguments.forEach(function (l) {
         argumentNames.push(l.name);
@@ -194,14 +194,6 @@ var labellingAlgorithm = (function (arguments) {
     console.log(outArguments);
 
     // Test 3 - A4 on algorithm design tab --> an argument where ALL attacking it are OUT 
-    // inArguments.forEach(function (d) {
-    //     labelledNodes.push(d);
-    // });
-
-    // outArguments.forEach(function (d) {
-    //     labelledNodes.push(d);
-    // });
-
     labelledNodes = determineLabelledNodes(inArguments, outArguments);
     console.log("Labelled nodes = " + labelledNodes);
 
@@ -211,14 +203,11 @@ var labellingAlgorithm = (function (arguments) {
 
 
     unlabelledNodes.forEach(function (currentNode) {
-        links.forEach(function (currentLink) {
-            if (currentNode == currentLink.target) {
-                let sourceOfAttack = currentLink.source;
-                if (sourceOfAttack.includes(inArguments)) {
-                    outArguments.push(currentNode.target);
-                }
-            }
-        })
+        let argumentsAttackingCurrentNode = [];
+        argumentsAttackingCurrentNode = argumentsAttackingNode(currentNode); 
+        if (argumentsAttackingNodeAllOut(argumentsAttackingCurrentNode, outArguments)){
+            inArguments.push(currentNode); 
+        }
     });
 
     // Test 4 - remaining arguments should be labelled as UNDEC or IN / OUT
@@ -228,9 +217,31 @@ var labellingAlgorithm = (function (arguments) {
     unlabelledNodes = determineUnlabelledNodes(argumentNames, labelledNodes);
     // console.log("Unlabelled nodes = " + unlabelledNodes);
 
-    unlabelledNodes.forEach(d => d.push(undecidedNodes)); 
-    console.log("Undecided nodes = " + undecidedNodes); 
+    unlabelledNodes.forEach(d => d.push(undecidedNodes));
+    console.log("Undecided nodes = ", undecidedNodes);
+    console.log("Out arguments", outArguments); 
+    console.log("In arguments", inArguments); 
 
+
+
+});
+
+// Functions to correct Test 3
+var argumentsAttackingNode = (function (node, links) {
+    var argumentsAttackingNode = [];
+
+    links.forEach(function (d) {
+        if (d.target == node) {
+            argumentsAttackingNode.push(d.source);
+        }
+    });
+
+    return argumentsAttackingNode;
+});
+
+var argumentsAttackingNodeAllOut = (function (argumentsAttackingNode, outArguments) {
+
+    return(argumentsAttackingNode.every(elem => outArguments.includes(elem))); 
 
 });
 
