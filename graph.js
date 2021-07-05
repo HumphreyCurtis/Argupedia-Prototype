@@ -61,7 +61,7 @@ db.collection('arguments').onSnapshot(res => {
         console.log(links);
 
         update(arguments, links); // This may need to change back to update(fish, links)
-        checkSwitch(arguments);
+        // checkSwitch(arguments);
     });
 
 });
@@ -120,7 +120,7 @@ const update = (arguments, links) => {
     nodes
         .on("mouseover", function (d) {
             console.log("hello");
-        })
+      })
         .on("mouseleave", function (d) {
             console.log("goodbye");
         });
@@ -136,18 +136,11 @@ const update = (arguments, links) => {
     }
 
 
-
-};
-
-
-var checkSwitch = (function (arguments) {
-
     var labellingSwitch = document.getElementById("mySwitch");
     var status = false;
 
     // console.log(arguments);
-
-    labellingAlgorithm(arguments);
+    // labellingAlgorithm(arguments);
 
     labellingSwitch.addEventListener("change", function () {
         console.log(labellingSwitch.value);
@@ -155,12 +148,35 @@ var checkSwitch = (function (arguments) {
         status = labellingSwitch.checked;
         console.log("Switch status =", status);
 
-        // if (status === true) {
-        //     labellingAlgorithm(); 
-        // }
-
+        if (status) {
+            console.log("true");
+            d3.selectAll("svg > *").remove(); // Recall update function with different parameters to enable labelling algorithm
+        }
+    
     });
-});
+
+
+};
+
+
+// var checkSwitch = (function (arguments) {
+
+//     var labellingSwitch = document.getElementById("mySwitch");
+//     var status = false;
+
+//     // console.log(arguments);
+//     // labellingAlgorithm(arguments);
+
+//     labellingSwitch.addEventListener("change", function () {
+//         console.log(labellingSwitch.value);
+
+//         status = labellingSwitch.checked;
+//         console.log("Switch status =", status);
+//     });
+
+//     return status; 
+// });
+
 
 var labellingAlgorithm = (function (arguments) {
     // We have names within both arrays - can match on name
