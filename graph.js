@@ -155,7 +155,10 @@ var labellingAlgorithm = (function (arguments) {
     var sources = [];
     var inArguments = [];
     var outArguments = [];
+    var labelledNodes = [];
     var inArgumentsAttacking = [];
+    var unlabelledNodes = [];
+    var undecidedNodes = []; 
 
     arguments.forEach(function (l) {
         argumentNames.push(l.name);
@@ -184,15 +187,73 @@ var labellingAlgorithm = (function (arguments) {
 
     links.forEach(function (d) {
         if (inArgumentsAttacking.includes(d.source)) {
-            outArguments.push(d.target); 
+            outArguments.push(d.target);
         }
     });
-    outArguments = removeDuplicates(outArguments); 
-    console.log(outArguments); 
+    outArguments = removeDuplicates(outArguments);
+    console.log(outArguments);
+
+    // Test 3 - A4 on algorithm design tab --> an argument where ALL attacking it are OUT 
+    // inArguments.forEach(function (d) {
+    //     labelledNodes.push(d);
+    // });
+
+    // outArguments.forEach(function (d) {
+    //     labelledNodes.push(d);
+    // });
+
+    labelledNodes = determineLabelledNodes(inArguments, outArguments);
+    console.log("Labelled nodes = " + labelledNodes);
+
+    unlabelledNodes = determineUnlabelledNodes(argumentNames, labelledNodes);
+    console.log("Unlabelled nodes = " + unlabelledNodes);
+    console.log(unlabelledNodes);
 
 
+    unlabelledNodes.forEach(function (currentNode) {
+        links.forEach(function (currentLink) {
+            if (currentNode == currentLink.target) {
+                let sourceOfAttack = currentLink.source;
+                if (sourceOfAttack.includes(inArguments)) {
+                    outArguments.push(currentNode.target);
+                }
+            }
+        })
+    });
+
+    // Test 4 - remaining arguments should be labelled as UNDEC or IN / OUT
+    labelledNodes = determineLabelledNodes(inArguments, outArguments);
+    // console.log("Labelled nodes = " + labelledNodes);
+
+    unlabelledNodes = determineUnlabelledNodes(argumentNames, labelledNodes);
+    // console.log("Unlabelled nodes = " + unlabelledNodes);
+
+    unlabelledNodes.forEach(d => d.push(undecidedNodes)); 
+    console.log("Undecided nodes = " + undecidedNodes); 
 
 
+});
+
+var determineLabelledNodes = (function (inArguments, outArguments) {
+    var labelledNodes = [];
+
+    inArguments.forEach(function (d) {
+        labelledNodes.push(d);
+    });
+
+    outArguments.forEach(function (d) {
+        labelledNodes.push(d);
+    });
+
+    return labelledNodes;
+});
+
+var determineUnlabelledNodes = (function (argumentNames, labelledNodes) {
+    var unlabelledNodes = [];
+
+    unlabelledNodes = argumentNames.filter(x => !labelledNodes.includes(x));
+
+    return unlabelledNodes; // Could create set exclusion function
 });
 
 
