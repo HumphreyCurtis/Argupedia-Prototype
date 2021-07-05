@@ -105,8 +105,25 @@ const update = (arguments, links) => {
     var svg = d3.select("svg"),
         inner = svg.append("g");
 
+    var zoom = d3.zoom()
+        .on("zoom", function () {
+            inner.attr("transform", d3.event.transform);
+        });
+
+    svg.call(zoom);
+
     // Run the renderer. This is what draws the final graph.
     render(inner, graph);
+
+    const nodes = svg.selectAll("g.nodes");
+
+    nodes
+        .on("mouseover", function (d) {
+            console.log("hello");
+        })
+        .on("mouseleave", function (d) {
+            console.log("goodbye");
+        });
 
     // Center the graph
     console.log("Arguments length = " + arguments.length);
@@ -136,7 +153,7 @@ var checkSwitch = (function (arguments) {
         console.log(labellingSwitch.value);
 
         status = labellingSwitch.checked;
-        console.log(status);
+        console.log("Switch status =", status);
 
         // if (status === true) {
         //     labellingAlgorithm(); 
@@ -204,9 +221,9 @@ var labellingAlgorithm = (function (arguments) {
 
     unlabelledNodes.forEach(function (currentNode) {
         let argumentsAttackingCurrentNode = [];
-        argumentsAttackingCurrentNode = argumentsAttackingNode(currentNode); 
-        if (argumentsAttackingNodeAllOut(argumentsAttackingCurrentNode, outArguments)){
-            inArguments.push(currentNode); 
+        argumentsAttackingCurrentNode = argumentsAttackingNode(currentNode);
+        if (argumentsAttackingNodeAllOut(argumentsAttackingCurrentNode, outArguments)) {
+            inArguments.push(currentNode);
         }
     });
 
@@ -219,8 +236,8 @@ var labellingAlgorithm = (function (arguments) {
 
     unlabelledNodes.forEach(d => d.push(undecidedNodes));
     console.log("Undecided nodes = ", undecidedNodes);
-    console.log("Out arguments", outArguments); 
-    console.log("In arguments", inArguments); 
+    console.log("Out arguments", outArguments);
+    console.log("In arguments", inArguments);
 
 
 
@@ -241,7 +258,7 @@ var argumentsAttackingNode = (function (node, links) {
 
 var argumentsAttackingNodeAllOut = (function (argumentsAttackingNode, outArguments) {
 
-    return(argumentsAttackingNode.every(elem => outArguments.includes(elem))); 
+    return (argumentsAttackingNode.every(elem => outArguments.includes(elem)));
 
 });
 
