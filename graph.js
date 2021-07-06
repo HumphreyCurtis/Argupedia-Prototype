@@ -1,70 +1,87 @@
 // Data & firebase hook-up
 
 // Sort argumentation adding / name of databases
+var databasePlusPlotGraph = (function(arguments, links) {
 
-var arguments = [];
-var links = [];
+    db.collection('arguments').onSnapshot(res => {
 
-db.collection('arguments').onSnapshot(res => {
-
-    res.docChanges().forEach(change => {
-
-        const doc = {
-            ...change.doc.data(),
-            id: change.doc.id
-        };
-
-        switch (change.type) {
-            case 'added':
-                arguments.push(doc);
-                break;
-            case 'modified':
-                const index = arguments.findIndex(item => item.id == doc.id);
-                arguments[index] = doc;
-                break;
-            case 'removed':
-                arguments = arguments.filter(item => item.id !== doc.id);
-                break;
-            default:
-                break;
-        }
-
-    });
-
-    db.collection('links').onSnapshot(res2 => {
-
-        res2.docChanges().forEach(change => {
-
+        res.docChanges().forEach(change => {
+    
             const doc = {
                 ...change.doc.data(),
                 id: change.doc.id
             };
-
+    
             switch (change.type) {
                 case 'added':
-                    links.push(doc);
+                    arguments.push(doc);
                     break;
                 case 'modified':
-                    const index = data.findIndex(item => item.id == doc.id);
-                    links[index] = doc;
+                    const index = arguments.findIndex(item => item.id == doc.id);
+                    arguments[index] = doc;
                     break;
                 case 'removed':
-                    links = links.filter(item => item.id !== doc.id);
+                    arguments = arguments.filter(item => item.id !== doc.id);
                     break;
                 default:
                     break;
             }
-
+    
         });
-
-        console.log(arguments);
-        console.log(links);
-
-        update(arguments, links); // This may need to change back to update(fish, links)
-        // checkSwitch(arguments);
+    
+        db.collection('links').onSnapshot(res2 => {
+    
+            res2.docChanges().forEach(change => {
+    
+                const doc = {
+                    ...change.doc.data(),
+                    id: change.doc.id
+                };
+    
+                switch (change.type) {
+                    case 'added':
+                        links.push(doc);
+                        break;
+                    case 'modified':
+                        const index = data.findIndex(item => item.id == doc.id);
+                        links[index] = doc;
+                        break;
+                    case 'removed':
+                        links = links.filter(item => item.id !== doc.id);
+                        break;
+                    default:
+                        break;
+                }
+    
+            });
+    
+            console.log(arguments);
+            console.log(links);
+    
+            update(arguments, links);
+        });
+    
     });
 
 });
+
+var labellingSwitch = document.getElementById("mySwitch");
+let status = false;
+var arguments = [];
+var links = [];
+
+console.log("Drawing graph");
+databasePlusPlotGraph(arguments, links);
+
+labellingSwitch.addEventListener("change", function () {
+    var arguments = [];
+    var links = [];
+
+    status = labellingSwitch.checked;
+    console.log("Status of labelling =", status);
+    databasePlusPlotGraph(arguments, links);
+});
+
 
 
 // Draw graph using library and data
@@ -75,17 +92,26 @@ const update = (arguments, links) => {
     // Create the input graph
     var graph = new dagreD3.graphlib.Graph().setGraph({});
 
-    // checkSwitch(); 
-
-    arguments.forEach(function (d) {
-        graph.setNode(d.name, {
-            labelType: "html",
-            label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "</b><br><br>" + d.argumentDescription + "</b>",
-            class: "comp",
+    console.log("Status of labelling =", status);
+    // Labellings dependent on switch
+    if (status) {
+        arguments.forEach(function (d) {
+            graph.setNode(d.name, {
+                labelType: "html",
+                label: "<b>" + d.name + "</b><br><br>ID: " + d.id,
+                class: "comp",
+            });
         });
-    });
-
-
+    } else {
+        arguments.forEach(function (d) {
+            graph.setNode(d.name, {
+                labelType: "html",
+                label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "</b><br><br>" + d.argumentDescription + "</b>",
+                class: "comp",
+            });
+        });
+    }
+    
     graph.nodes().forEach(function (v) {
         var node = graph.node(v);
         node.rx = node.ry = 5;
@@ -120,7 +146,7 @@ const update = (arguments, links) => {
     nodes
         .on("mouseover", function (d) {
             console.log("hello");
-      })
+        })
         .on("mouseleave", function (d) {
             console.log("goodbye");
         });
@@ -135,47 +161,8 @@ const update = (arguments, links) => {
         svg.attr("width", graph.graph().width + 40);
     }
 
-
-    var labellingSwitch = document.getElementById("mySwitch");
-    var status = false;
-
-    // console.log(arguments);
-    // labellingAlgorithm(arguments);
-
-    labellingSwitch.addEventListener("change", function () {
-        console.log(labellingSwitch.value);
-
-        status = labellingSwitch.checked;
-        console.log("Switch status =", status);
-
-        if (status) {
-            console.log("true");
-            d3.selectAll("svg > *").remove(); // Recall update function with different parameters to enable labelling algorithm
-        }
-    
-    });
-
-
 };
 
-
-// var checkSwitch = (function (arguments) {
-
-//     var labellingSwitch = document.getElementById("mySwitch");
-//     var status = false;
-
-//     // console.log(arguments);
-//     // labellingAlgorithm(arguments);
-
-//     labellingSwitch.addEventListener("change", function () {
-//         console.log(labellingSwitch.value);
-
-//         status = labellingSwitch.checked;
-//         console.log("Switch status =", status);
-//     });
-
-//     return status; 
-// });
 
 
 var labellingAlgorithm = (function (arguments) {
@@ -308,8 +295,81 @@ var removeDuplicates = (function (chars) {
     });
 
     return uniqueChars;
-})
+});
 
+
+var callArguments = (function () {
+
+    var arguments = [];
+
+    db.collection('arguments').onSnapshot(res => {
+
+        res.docChanges().forEach(change => {
+
+            const doc = {
+                ...change.doc.data(),
+                id: change.doc.id
+            };
+
+            switch (change.type) {
+                case 'added':
+                    arguments.push(doc);
+                    break;
+                case 'modified':
+                    const index = arguments.findIndex(item => item.id == doc.id);
+                    arguments[index] = doc;
+                    break;
+                case 'removed':
+                    arguments = arguments.filter(item => item.id !== doc.id);
+                    break;
+                default:
+                    break;
+            }
+
+        });
+
+        return arguments;
+
+    });
+
+
+});
+
+
+var callLinks = (function () {
+
+    var links = [];
+
+    db.collection('links').onSnapshot(res2 => {
+
+        res2.docChanges().forEach(change => {
+
+            const doc = {
+                ...change.doc.data(),
+                id: change.doc.id
+            };
+
+            switch (change.type) {
+                case 'added':
+                    links.push(doc);
+                    break;
+                case 'modified':
+                    const index = data.findIndex(item => item.id == doc.id);
+                    links[index] = doc;
+                    break;
+                case 'removed':
+                    links = links.filter(item => item.id !== doc.id);
+                    break;
+                default:
+                    break;
+            }
+
+        });
+
+        return links;
+
+    });
+})
 
 
 

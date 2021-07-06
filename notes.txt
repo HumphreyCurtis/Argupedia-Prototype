@@ -4,7 +4,7 @@
 
 - Set up zoom support [x]
 
-- Add hover functionality []
+- Add hover functionality [n]
 
 - Add labelling algorithm []
 
@@ -12,6 +12,6 @@
 
 - Add unit tests []
 
-- Check that the app is not breakable 
+- Check that the app is not breakable []
 
-- Add more schemes 
+- Add more schemes []
