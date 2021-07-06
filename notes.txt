@@ -6,11 +6,15 @@
 
 - Add hover functionality [n]
 
-- Add labelling algorithm []
+- Add labelling algorithm [x]
 
 - Improve labelling algorithm code []
 
 - Add unit tests []
+    - index.js []
+    - graph.js []
+    - counterArgument.js []
+    
 
 - Check that the app is not breakable []
 

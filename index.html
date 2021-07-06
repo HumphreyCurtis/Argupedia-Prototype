@@ -37,8 +37,7 @@
                 <option value="1">Critical action scheme</option>
                 <option value="2">Expert opinion scheme</option>
             </select>
-            <!-- Will need to dynamically create all of this  -->
-            <form class="hide" id="initialArgumentScheme"> 
+            <form class="hide" id="initialArgumentScheme">
             </form>
         </div>
     </div>
@@ -57,7 +56,13 @@
     <div id="modal1" class="modal">
         <div class="modal-content">
             <h4>Add a counter-argument</h4>
-            <div class="input-field">
+            <select class="browser-default" id="selectArgument">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="initialArgument">Add initial argument</option>
+                <option value="counterArgument">Add counter-argument</option>
+            </select>
+            <div id="counterArgumentInputFields"></div>
+            <!-- <div class="input-field">
                 Name of argument target<input type="text" id="counterArgumentTargetName"
                     placeholder="Counter argument target name">
             </div>
@@ -68,16 +73,14 @@
             <label>Select a critical question</label>
             <select class="browser-default" id="selectCriticalQuestion">
                 <option value="" disabled selected>Choose your option</option>
-                <!-- <option value="1">Critical action scheme</option>
-                <option value="2">Expert opinion scheme</option> -->
-            </select>
+            </select> -->
             <label>Select an argument scheme</label>
             <select class="browser-default" id="selectArgumentScheme2">
                 <option value="" disabled selected>Choose your option</option>
-                <option value="1">Critical action scheme</option>
+                <option value="casForm">Critical action scheme</option>
                 <option value="2">Expert opinion scheme</option>
             </select>
-            <form class="hide" id="counterArgumentScheme"> 
+            <form class="hide" id="counterArgumentScheme">
             </form>
         </div>
         <!-- <div class="modal-footer">
@@ -87,14 +90,14 @@
 
     <h5>Complete labelling</h5>
     <div class="switch">
-      <label>
-        No
-        <input type="checkbox" id="mySwitch">
-        <span class="lever"></span>
-        Yes
-      </label>
+        <label>
+            No
+            <input type="checkbox" id="mySwitch">
+            <span class="lever"></span>
+            Yes
+        </label>
     </div>
-  </div>
+    </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>

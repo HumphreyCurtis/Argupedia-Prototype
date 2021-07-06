@@ -11,7 +11,6 @@ const selectElement = document.querySelector(".browser-default");
 const argumentSchemeSelected = document.getElementById("selectArgumentScheme");
 
 // Selecting and revealing forms
-// const actionSchemeForm = document.getElementById("criticalActionScheme");
 const argumentSchemeForm = document.getElementById("initialArgumentScheme");
 
 // Number of arguments in debate
@@ -28,7 +27,7 @@ selectElement.addEventListener('change', (event) => {
 
     if (argumentSchemeSelected.value === "1") { // Will need to change to make better 
         argumentSchemeForm.className = "show";
-        createCasForm(initialArgumentScheme, "initialArgumentScheme", "btn pink white-text", "initialArgumentButton", modal);
+
 
     } else {
         argumentSchemeForm.className = "hide";
@@ -41,9 +40,9 @@ db.collection("arguments").onSnapshot(function (querySnapshot) {
     console.log("Number of arguments = " + querySnapshot.docs.length);
     numberOfArguments = querySnapshot.docs.length;
 
-    if (numberOfArguments > 0) {
-        initialAddArgumentButton.className = "hide"; // TEST TO SEE WORKS ON ZERO
-    }
+    // if (numberOfArguments > 0) {
+    //     initialAddArgumentButton.className = "hide"; // TEST TO SEE WORKS ON ZERO
+    // }
 });
 
 var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modalName) {
@@ -64,8 +63,7 @@ var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modal
 
 });
 
-// Sort form submission 
-
+// Sort form submission to database
 var casSubmissionToDatabaseFromForm = (function (id, modalName) {
 
     const form = document.getElementById(id);
@@ -74,7 +72,7 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
     const casAction = document.querySelector("#casAction");
     const casNewCircumstance = document.querySelector("#casNewCircumstance");
     const casGoal = document.querySelector("#casGoal");
-    const casValue = document.querySelector("#casValue");
+    const casValue = document.querySelector("#casValue"); 
 
     var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
     console.log("Argument = " + argumentFromUser);
@@ -103,9 +101,6 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
 });
 
 var createArgumentForm = (function (elementToAppend, placeholder, id) {
-    // var casForm = document.createElement("form"); 
-    // casForm.setAttribute("class", "show"); 
-    // casForm.setAttribute("id", "counterArgumentScheme"); 
 
     var div = document.createElement("div");
     div.setAttribute("class", "input-field");
@@ -144,6 +139,31 @@ var appendArgumentButton = (function (elementToAppend, colour, id) {
 });
 
 export { createCasForm, casSubmissionToDatabaseFromForm, createArgumentForm, appendArgumentButton }; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // --------------------------------------- SETTING UP COUNTER-ARGUMENT ------------------------------------------------------------
