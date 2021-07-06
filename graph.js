@@ -1,17 +1,16 @@
 // Data & firebase hook-up
-
 // Sort argumentation adding / name of databases
-var databasePlusPlotGraph = (function(arguments, links) {
+var databasePlusPlotGraph = (function (arguments, links) {
 
     db.collection('arguments').onSnapshot(res => {
 
         res.docChanges().forEach(change => {
-    
+
             const doc = {
                 ...change.doc.data(),
                 id: change.doc.id
             };
-    
+
             switch (change.type) {
                 case 'added':
                     arguments.push(doc);
@@ -26,18 +25,18 @@ var databasePlusPlotGraph = (function(arguments, links) {
                 default:
                     break;
             }
-    
+
         });
-    
+
         db.collection('links').onSnapshot(res2 => {
-    
+
             res2.docChanges().forEach(change => {
-    
+
                 const doc = {
                     ...change.doc.data(),
                     id: change.doc.id
                 };
-    
+
                 switch (change.type) {
                     case 'added':
                         links.push(doc);
@@ -52,23 +51,30 @@ var databasePlusPlotGraph = (function(arguments, links) {
                     default:
                         break;
                 }
-    
+
             });
-    
+
             console.log(arguments);
             console.log(links);
-    
+
             update(arguments, links);
         });
-    
+
     });
 
 });
 
+// Graph drawn here 
 var labellingSwitch = document.getElementById("mySwitch");
 let status = false;
+
 var arguments = [];
 var links = [];
+
+var inArguments = [];
+var outArguments = [];
+var undecidedNodes = [];
+
 
 console.log("Drawing graph");
 databasePlusPlotGraph(arguments, links);
@@ -95,13 +101,12 @@ const update = (arguments, links) => {
     console.log("Status of labelling =", status);
     // Labellings dependent on switch
     if (status) {
-        arguments.forEach(function (d) {
-            graph.setNode(d.name, {
-                labelType: "html",
-                label: "<b>" + d.name + "</b><br><br>ID: " + d.id,
-                class: "comp",
-            });
-        });
+        labellingAlgorithm(arguments);
+        console.log("Out arguments within if statement = ", outArguments);
+        console.log("In arguments within if statement = ", inArguments);
+
+        drawNodesWithArgumentLabellings(arguments, graph);
+
     } else {
         arguments.forEach(function (d) {
             graph.setNode(d.name, {
@@ -111,7 +116,7 @@ const update = (arguments, links) => {
             });
         });
     }
-    
+
     graph.nodes().forEach(function (v) {
         var node = graph.node(v);
         node.rx = node.ry = 5;
@@ -170,15 +175,12 @@ var labellingAlgorithm = (function (arguments) {
     console.log(links);
     console.log(arguments);
 
-    var argumentNames = [];
+    var argumentNames = []; // May need to make global 
     var targets = [];
     var sources = [];
-    var inArguments = [];
-    var outArguments = [];
     var labelledNodes = [];
     var inArgumentsAttacking = [];
     var unlabelledNodes = [];
-    var undecidedNodes = [];
 
     arguments.forEach(function (l) {
         argumentNames.push(l.name);
@@ -239,10 +241,8 @@ var labellingAlgorithm = (function (arguments) {
 
     unlabelledNodes.forEach(d => d.push(undecidedNodes));
     console.log("Undecided nodes = ", undecidedNodes);
-    console.log("Out arguments", outArguments);
-    console.log("In arguments", inArguments);
-
-
+    console.log("Out arguments = ", outArguments);
+    console.log("In arguments = ", inArguments);
 
 });
 
@@ -298,78 +298,45 @@ var removeDuplicates = (function (chars) {
 });
 
 
-var callArguments = (function () {
-
-    var arguments = [];
-
-    db.collection('arguments').onSnapshot(res => {
-
-        res.docChanges().forEach(change => {
-
-            const doc = {
-                ...change.doc.data(),
-                id: change.doc.id
-            };
-
-            switch (change.type) {
-                case 'added':
-                    arguments.push(doc);
-                    break;
-                case 'modified':
-                    const index = arguments.findIndex(item => item.id == doc.id);
-                    arguments[index] = doc;
-                    break;
-                case 'removed':
-                    arguments = arguments.filter(item => item.id !== doc.id);
-                    break;
-                default:
-                    break;
-            }
-
-        });
-
-        return arguments;
-
+var drawNodesWithArgumentLabellings = (function (arguments, graph) {
+    arguments.forEach(function (d) {
+        if (outArguments.includes(d.name)) {
+            setNodeWithOutLabelling(graph, d);
+        }
+        if (inArguments.includes(d.name)) {
+            setNodeWithInLabelling(graph, d);
+        }
+        if (undecidedNodes.includes(d.name)) {
+            setNodeWithUndecLabelling(graph, d);
+        }
     });
-
-
 });
 
 
-var callLinks = (function () {
-
-    var links = [];
-
-    db.collection('links').onSnapshot(res2 => {
-
-        res2.docChanges().forEach(change => {
-
-            const doc = {
-                ...change.doc.data(),
-                id: change.doc.id
-            };
-
-            switch (change.type) {
-                case 'added':
-                    links.push(doc);
-                    break;
-                case 'modified':
-                    const index = data.findIndex(item => item.id == doc.id);
-                    links[index] = doc;
-                    break;
-                case 'removed':
-                    links = links.filter(item => item.id !== doc.id);
-                    break;
-                default:
-                    break;
-            }
-
-        });
-
-        return links;
-
+var setNodeWithOutLabelling = (function (graph, d) {
+    graph.setNode(d.name, {
+        labelType: "html",
+        label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "<b><br><br>Complete label = OUT</b>",
+        class: "comp",
     });
-})
+});
+
+var setNodeWithInLabelling = (function (graph, d) {
+    graph.setNode(d.name, {
+        labelType: "html",
+        label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "<b><br><br>Complete label = IN</b>",
+        class: "comp",
+    });
+});
+
+var setNodeWithUndecLabelling = (function (graph, d) {
+    graph.setNode(d.name, {
+        labelType: "html",
+        label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "<b><br><br>Complete label = UNDEC, IN/OUT</b>",
+        class: "comp",
+    });
+});
+
 
 
 
