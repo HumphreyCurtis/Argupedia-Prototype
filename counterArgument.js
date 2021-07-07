@@ -103,6 +103,7 @@ var appendSelectCriticalQuestions = (function (elementToAppend) {
 
     var label = document.createElement("label");
     label.textContent = "Select a critical question";
+    label.setAttribute("id", "selectCriticalQuestionLabel");
 
     var select = document.createElement("select");
     select.setAttribute("class", "browser-default");
@@ -126,23 +127,18 @@ counterArgumentSelectElement.addEventListener('change', (event) => {
         // Add critical quesiton to null form 
         createCasForm(counterArgumentScheme, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1);
 
-        var argumentSubmissionButton = document.getElementById("counterArgumentButton");
+        // var argumentSubmissionButton = document.getElementById("counterArgumentButton");
 
-        if (argumentStatus == "counterArgument") {
+        // if (argumentStatus == "counterArgument") {
 
-            argumentSubmissionButton.addEventListener("click", function () {
-                console.log("Counter argument target name = " + counterArgumentTargetName.value);
-                currentArgumentName();
-                console.log("Current counter-argument name = " + currentArgument);
-                createLinksForCounterArgument(currentArgument, counterArgumentTargetName.value);
+        //     argumentSubmissionButton.addEventListener("click", function () {
+        //         console.log("Counter argument target name = " + counterArgumentTargetName.value);
+        //         currentArgumentName();
+        //         console.log("Current counter-argument name = " + currentArgument);
+        //         createLinksForCounterArgument(currentArgument, counterArgumentTargetName.value);
+        //     });
 
-                window.location.reload(); // Resetting fields in modal
-   
-
-
-            });
-
-        }
+        // }
 
     }
 
@@ -177,18 +173,7 @@ var counterArgumentEventListener = (function () {
 
         console.log("Counter argument target name = " + counterArgumentTargetNameValue);
 
-
         var args = db.collection("arguments");
-
-        // var query = arguments.where("name", "==", "argument0").get().then((querySnapshot) => {
-        //         querySnapshot.forEach((doc) => {
-        //             // doc.data() is never undefined for query doc snapshots
-        //             console.log(doc.id, " => ", doc.data());
-        //         });
-        //     })
-        //     .catch((error) => {
-        //         console.log("Error getting documents: ", error);
-        //     });
 
         // Generating critical questions - rename variables
         var query2 = args.where("name", "==", counterArgumentTargetNameValue).get()
@@ -302,6 +287,29 @@ var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modal
 
     argumentSubmissionButton.addEventListener("click", function () {
         casSubmissionToDatabaseFromForm(id, modalName);
+
+        if (argumentStatus == "counterArgument") {
+
+            // argumentSubmissionButton.addEventListener("click", function () {
+                console.log("Counter argument target name = " + counterArgumentTargetName.value);
+                currentArgumentName();
+                console.log("Current counter-argument name = " + currentArgument);
+                createLinksForCounterArgument(currentArgument, counterArgumentTargetName.value);
+
+                // Resetting fields
+                var selectCriticalQuestion = document.getElementById("selectCriticalQuestion");
+                var selectCriticalQuestionLabel = document.getElementById("selectCriticalQuestionLabel");
+
+                counterArgumentTargetName.remove();
+                selectCriticalQuestion.remove(); 
+                selectCriticalQuestionLabel.remove(); 
+                counterArgumentTargetButton.remove(); 
+
+
+            // });
+
+        }
+
     });
 
 });
