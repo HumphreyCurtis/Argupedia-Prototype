@@ -21,18 +21,18 @@ const initialAddArgumentButton = document.getElementById("initialAddButton");
 const initialArgumentScheme = document.getElementById("initialArgumentScheme");
 
 // Dynamically create argument scheme form 
-selectElement.addEventListener('change', (event) => {
-    console.log("Value selected is:");
-    console.log(argumentSchemeSelected.value);
+// selectElement.addEventListener('change', (event) => {
+//     console.log("Value selected is:");
+//     console.log(argumentSchemeSelected.value);
 
-    if (argumentSchemeSelected.value === "1") { // Will need to change to make better 
-        argumentSchemeForm.className = "show";
+//     if (argumentSchemeSelected.value === "1") { // Will need to change to make better 
+//         argumentSchemeForm.className = "show";
 
 
-    } else {
-        argumentSchemeForm.className = "hide";
-    }
-});
+//     } else {
+//         argumentSchemeForm.className = "hide";
+//     }
+// });
 
 // Check to hide initial argument button 
 db.collection("arguments").onSnapshot(function (querySnapshot) {
@@ -67,7 +67,6 @@ var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modal
 var casSubmissionToDatabaseFromForm = (function (id, modalName) {
 
     const form = document.getElementById(id);
-
     const casCircumstance = document.querySelector("#casCircumstance");
     const casAction = document.querySelector("#casAction");
     const casNewCircumstance = document.querySelector("#casNewCircumstance");
@@ -87,58 +86,59 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
         value: casValue.value.toLowerCase()
     });
 
+
     var instance = M.Modal.getInstance(modalName);
     instance.close();
 
     form.reset();
 
     // Bug due to having the same id names on modals when accessing values 
-    if (numberOfArguments === 0) {
-        console.log("hello from argument 0");
-        argumentSchemeForm.className = "hide";
-        initialArgumentScheme.remove(); 
-    }
+    // if (numberOfArguments === 0) {
+    //     console.log("hello from argument 0");
+    //     argumentSchemeForm.className = "hide";
+    //     initialArgumentScheme.remove(); 
+    // }
 });
 
-var createArgumentForm = (function (elementToAppend, placeholder, id) {
+// var createArgumentForm = (function (elementToAppend, placeholder, id) {
 
-    var div = document.createElement("div");
-    div.setAttribute("class", "input-field");
+//     var div = document.createElement("div");
+//     div.setAttribute("class", "input-field");
 
-    var inputField = document.createElement("input");
-    inputField.setAttribute("type", "text");
-    inputField.setAttribute("placeholder", placeholder);
-    inputField.setAttribute("id", id);
+//     var inputField = document.createElement("input");
+//     inputField.setAttribute("type", "text");
+//     inputField.setAttribute("placeholder", placeholder);
+//     inputField.setAttribute("id", id);
 
-    div.append(inputField);
+//     div.append(inputField);
 
-    var div2 = document.createElement("div");
-    div.append(div2);
+//     var div2 = document.createElement("div");
+//     div.append(div2);
 
-    elementToAppend.append(div);
-});
-
-
-var appendArgumentButton = (function (elementToAppend, colour, id) {
-    var div = document.createElement("div");
-    div.setAttribute("class", "input-field");
-
-    var button = document.createElement("btn");
-    button.setAttribute("class", colour);
-    button.textContent = "Create argument";
-    button.setAttribute("id", id);
-
-    div.append(button);
-
-    var div2 = document.createElement("div");
-    div.append(div2);
+//     elementToAppend.append(div);
+// });
 
 
-    elementToAppend.append(div);
+// var appendArgumentButton = (function (elementToAppend, colour, id) {
+//     var div = document.createElement("div");
+//     div.setAttribute("class", "input-field");
 
-});
+//     var button = document.createElement("btn");
+//     button.setAttribute("class", colour);
+//     button.textContent = "Create argument";
+//     button.setAttribute("id", id);
 
-export { createCasForm, casSubmissionToDatabaseFromForm, createArgumentForm, appendArgumentButton }; 
+//     div.append(button);
+
+//     var div2 = document.createElement("div");
+//     div.append(div2);
+
+
+//     elementToAppend.append(div);
+
+// });
+
+// export { createCasForm, casSubmissionToDatabaseFromForm, createArgumentForm, appendArgumentButton }; 
 
 
 

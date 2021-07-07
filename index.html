@@ -22,13 +22,13 @@
     <div class="grey lighten-3 section grey-text" style="position: relative">
         <p class="flow-text center">The number ONE AI argumentation platform!</p>
         <!-- Initial add button  -->
-        <a href="#modal" class="btn halfway-fab red modal-trigger right" id="initialAddButton"
+        <!-- <a href="#modal" class="btn halfway-fab red modal-trigger right" id="initialAddButton"
             style="margin-right: 50px">
             Add initial argument
-        </a>
+        </a> -->
     </div>
 
-    <div id="modal" class="modal">
+    <!-- <div id="modal" class="modal">
         <div class="modal-content">
             <h4 class="pink-text center">Add new argument</h4>
             <label>Select an argument scheme</label>
@@ -40,7 +40,7 @@
             <form class="hide" id="initialArgumentScheme">
             </form>
         </div>
-    </div>
+    </div> -->
 
     <div class="container">
         <div class="canvas">
@@ -50,14 +50,15 @@
     </div>
 
     <!-- Second modal button for counter-arguments -->
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1" style="margin: 50px">Add counter-argument</a>
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1" style="margin: 50px">Add argument</a>
 
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
         <div class="modal-content">
             <h4>Add a counter-argument</h4>
+            <label>Select type of argument</label>
             <select class="browser-default" id="selectArgument">
-                <option value="" disabled selected>Choose your option</option>
+                <option value="reset" disabled selected>Choose your option</option>
                 <option value="initialArgument">Add initial argument</option>
                 <option value="counterArgument">Add counter-argument</option>
             </select>
@@ -76,7 +77,7 @@
             </select> -->
             <label>Select an argument scheme</label>
             <select class="browser-default" id="selectArgumentScheme2">
-                <option value="" disabled selected>Choose your option</option>
+                <option value="reset" disabled selected>Choose your option</option>
                 <option value="casForm">Critical action scheme</option>
                 <option value="2">Expert opinion scheme</option>
             </select>

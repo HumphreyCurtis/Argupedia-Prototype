@@ -79,6 +79,8 @@ var undecidedNodes = [];
 console.log("Drawing graph");
 databasePlusPlotGraph(arguments, links);
 
+
+
 labellingSwitch.addEventListener("change", function () {
     var arguments = [];
     var links = [];
@@ -99,23 +101,34 @@ const update = (arguments, links) => {
     var graph = new dagreD3.graphlib.Graph().setGraph({});
 
     console.log("Status of labelling =", status);
+    
     // Labellings dependent on switch
-    if (status) {
-        labellingAlgorithm(arguments);
-        console.log("Out arguments within if statement = ", outArguments);
-        console.log("In arguments within if statement = ", inArguments);
+    // if (status) {
+    //     labellingAlgorithm(arguments);
+    //     console.log("Out arguments within if statement = ", outArguments);
+    //     console.log("In arguments within if statement = ", inArguments);
 
-        drawNodesWithArgumentLabellings(arguments, graph);
+    //     drawNodesWithArgumentLabellings(arguments, graph);
 
-    } else {
-        arguments.forEach(function (d) {
-            graph.setNode(d.name, {
-                labelType: "html",
-                label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "</b><br><br>" + d.argumentDescription + "</b>",
-                class: "comp",
-            });
+    // } else {
+    //     console.log("Labelling beginning");
+    //     console.log(arguments);
+    //     arguments.forEach(function (d) {
+    //         graph.setNode(d.name, {
+    //             labelType: "html",
+    //             label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "</b><br><br>" + d.argumentDescription + "</b>",
+    //             class: "comp",
+    //         });
+    //     });
+    // }
+
+    arguments.forEach(function (d) {
+        graph.setNode(d.name, {
+            labelType: "html",
+            label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "</b><br><br>" + d.argumentDescription + "</b>",
+            class: "comp",
         });
-    }
+    });
 
     graph.nodes().forEach(function (v) {
         var node = graph.node(v);
@@ -249,7 +262,7 @@ var labellingAlgorithm = (function (arguments) {
 // Functions to correct Test 3
 var argumentsAttackingNode = (function (node, links) {
     var argumentsAttackingNode = [];
-
+    console.log(links);
     links.forEach(function (d) {
         if (d.target == node) {
             argumentsAttackingNode.push(d.source);

@@ -1,9 +1,9 @@
-import {
-    createCasForm,
-    casSubmissionToDatabaseFromForm,
-    createArgumentForm,
-    appendArgumentButton
-} from "./index.js";
+// import {
+//     createCasForm,
+//     casSubmissionToDatabaseFromForm,
+//     createArgumentForm,
+//     appendArgumentButton
+// } from "./index.js";
 
 // Initialise modal
 const modal1 = document.getElementById("modal1");
@@ -19,11 +19,19 @@ const counterArgumentScheme = document.getElementById("counterArgumentScheme");
 
 const counterArgumentInputFields = document.getElementById("counterArgumentInputFields");
 
-
-
 var currentArgument = "";
 
 var argumentStatus = null;
+
+// Number of arguments in debate
+var numberOfArguments = 0;
+
+db.collection("arguments").onSnapshot(function (querySnapshot) {
+
+    console.log("Number of arguments = " + querySnapshot.docs.length);
+    numberOfArguments = querySnapshot.docs.length;
+
+});
 
 selectArgument.addEventListener('change', (event) => {
 
@@ -33,6 +41,7 @@ selectArgument.addEventListener('change', (event) => {
 
         counterArgumentScheme.className = "show";
         argumentStatus = "initialArgument";
+
     } else if (selectArgument.value == "counterArgument") {
 
         argumentStatus = "counterArgument";
@@ -47,6 +56,8 @@ selectArgument.addEventListener('change', (event) => {
         var counterArgumentTargetName = document.querySelector("#counterArgumentTargetName");
 
         counterArgumentEventListener(); 
+
+        
 
     }
 
@@ -86,7 +97,6 @@ var appendSeeCriticalQuestionsButton = (function (elementToAppend, colour, id) {
 
 
     elementToAppend.append(div);
-
 });
 
 var appendSelectCriticalQuestions = (function (elementToAppend) {
@@ -125,6 +135,11 @@ counterArgumentSelectElement.addEventListener('change', (event) => {
                 currentArgumentName();
                 console.log("Current counter-argument name = " + currentArgument);
                 createLinksForCounterArgument(currentArgument, counterArgumentTargetName.value);
+
+                window.location.reload(); // Resetting fields in modal
+   
+
+
             });
 
         }
@@ -272,25 +287,105 @@ var addAndAppendOption = (function (criticalQuestion, valueNumber) {
     criticalQuestionsForSelection.add(option);
 });
 
-// const counterArgumentScheme = document.getElementById("counterArgumentScheme");
 
-// var createArgumentForm = (function (elementToAppend, placeholder, id) {
-//     // var casForm = document.createElement("form"); 
-//     // casForm.setAttribute("class", "show"); 
-//     // casForm.setAttribute("id", "counterArgumentScheme"); 
+var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modalName) {
 
-//     var div = document.createElement("div");
-//     div.setAttribute("class", "input-field");
+    createArgumentForm(elementToAppend, "In the current circumstance...", "casCircumstance");
+    createArgumentForm(elementToAppend, "We should perform the action...", "casAction");
+    createArgumentForm(elementToAppend, "Which would result in new circumstances...", "casNewCircumstance");
+    createArgumentForm(elementToAppend, "Which will realise goal...", "casGoal");
+    createArgumentForm(elementToAppend, "Which will promote value...", "casValue");
 
-//     var inputField = document.createElement("input");
-//     inputField.setAttribute("type", "text");
-//     inputField.setAttribute("placeholder", placeholder);
-//     inputField.setAttribute("id", id);
+    appendArgumentButton(elementToAppend, buttonClass, buttonId);
 
-//     div.append(inputField);
+    var argumentSubmissionButton = document.getElementById(buttonId);
 
-//     var div2 = document.createElement("div");
-//     div.append(div2);
+    argumentSubmissionButton.addEventListener("click", function () {
+        casSubmissionToDatabaseFromForm(id, modalName);
+    });
 
-//     elementToAppend.append(div);
-// });
+});
+
+var createArgumentForm = (function (elementToAppend, placeholder, id) {
+
+    var div = document.createElement("div");
+    div.setAttribute("class", "input-field");
+
+    var inputField = document.createElement("input");
+    inputField.setAttribute("type", "text");
+    inputField.setAttribute("placeholder", placeholder);
+    inputField.setAttribute("id", id);
+
+    div.append(inputField);
+
+    var div2 = document.createElement("div");
+    div.append(div2);
+
+    elementToAppend.append(div);
+});
+
+
+var appendArgumentButton = (function (elementToAppend, colour, id) {
+    var div = document.createElement("div");
+    div.setAttribute("class", "input-field");
+
+    var button = document.createElement("btn");
+    button.setAttribute("class", colour);
+    button.textContent = "Create argument";
+    button.setAttribute("id", id);
+
+    div.append(button);
+
+    var div2 = document.createElement("div");
+    div.append(div2);
+
+
+    elementToAppend.append(div);
+});
+
+
+var casSubmissionToDatabaseFromForm = (function (id, modalName) {
+
+    const form = document.getElementById(id);
+    const casCircumstance = document.querySelector("#casCircumstance");
+    const casAction = document.querySelector("#casAction");
+    const casNewCircumstance = document.querySelector("#casNewCircumstance");
+    const casGoal = document.querySelector("#casGoal");
+    const casValue = document.querySelector("#casValue"); 
+    var argumentButton = document.getElementById("counterArgumentButton");
+
+    var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
+    console.log("Argument = " + argumentFromUser);
+
+    db.collection("arguments").add({
+        name: "argument" + numberOfArguments,
+        argumentDescription: argumentFromUser,
+        currentCircumstance: casCircumstance.value.toLowerCase(),
+        action: casAction.value.toLowerCase(),
+        newCircumstance: casNewCircumstance.value.toLowerCase(),
+        goal: casGoal.value.toLowerCase(),
+        value: casValue.value.toLowerCase()
+    });
+
+    // Trying to reset fields after argument submission
+    var instance = M.Modal.getInstance(modalName);
+    instance.close();
+
+    var selectArgument = document.getElementById("selectArgument"); 
+    selectArgument.selectedIndex = "reset";
+
+    var selectArgumentScheme = document.getElementById("selectArgumentScheme2"); 
+    selectArgumentScheme.selectedIndex = "reset";
+
+    counterArgumentScheme.className = "hide";
+
+    form.reset();
+    casCircumstance.remove(); 
+    casAction.remove(); 
+    casNewCircumstance.remove(); 
+    casGoal.remove(); 
+    casValue.remove(); 
+    argumentButton.remove(); 
+});
+
+
