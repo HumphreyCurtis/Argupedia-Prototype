@@ -13,7 +13,7 @@
     - index.js []
     - graph.js []
 
-- Check that the app is not breakable based on user input []
+- Check that the app is not breakable based on user input - initial tests in place []
     
 - Improve labelling algorithm code []
 
