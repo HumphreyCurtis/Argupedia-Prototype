@@ -8,14 +8,13 @@
 
 - Add labelling algorithm [x]
 
-- Improve labelling algorithm code []
-
 - Add unit tests []
+    - counterArgument.js []
     - index.js []
     - graph.js []
-    - counterArgument.js []
-    
 
-- Check that the app is not breakable []
+- Check that the app is not breakable based on user input []
+    
+- Improve labelling algorithm code []
 
 - Add more schemes []
