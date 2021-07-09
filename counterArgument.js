@@ -6,9 +6,9 @@ M.Modal.init(modal1);
 
 const selectTypeOfArgument = document.getElementById("selectArgument");
 
-const counterArgumentSelectElement = document.getElementById("selectArgumentScheme2");
+const selectArgumentScheme = document.getElementById("selectArgumentScheme2");
 
-const counterArgumentScheme = document.getElementById("counterArgumentScheme");
+const argumentForm = document.getElementById("counterArgumentScheme");
 
 const counterArgumentInputFields = document.getElementById("counterArgumentInputFields");
 
@@ -33,7 +33,7 @@ selectTypeOfArgument.addEventListener('change', (event) => {
 
     if (selectTypeOfArgument.value == "initialArgument") {
 
-        counterArgumentScheme.className = "show";
+        argumentForm.className = "show";
         argumentStatus = "initialArgument";
         // counterArgumentSelectElementEventListener next function 
 
@@ -46,12 +46,12 @@ selectTypeOfArgument.addEventListener('change', (event) => {
         createInputFieldsForCounterArgument(counterArgumentInputFields, "Counter argument target name", "counterArgumentTargetName");
         appendSeeCriticalQuestionsButton(counterArgumentInputFields, "btn waves-effect white-text", "counterArgumentTargetButton");
         appendSelectCriticalQuestions(counterArgumentInputFields);
-        counterArgumentScheme.className = "show";
+        argumentForm.className = "show";
 
         var counterArgumentTargetButton = document.getElementById("counterArgumentTargetButton");
         var counterArgumentTargetName = document.querySelector("#counterArgumentTargetName");
 
-        counterArgumentEventListener(); 
+        counterArgumentEventListener();
 
     }
 
@@ -59,12 +59,12 @@ selectTypeOfArgument.addEventListener('change', (event) => {
 
 // Listen to select element to determine which form to be produced 
 // Will need to rename variables --> need to get working for counter arguments 
-counterArgumentSelectElement.addEventListener('change', (event) => {
-    console.log("Value selected is = " + counterArgumentSelectElement.value)
+selectArgumentScheme.addEventListener('change', (event) => {
+    console.log("Value selected is = " + selectArgumentScheme.value)
 
-    if (counterArgumentSelectElement.value == "casForm") {
-        counterArgumentScheme.className = "show";
-        createCasForm(counterArgumentScheme, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1);
+    if (selectArgumentScheme.value == "casForm") {
+        argumentForm.className = "show";
+        createCasForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1);
     }
 
 
@@ -138,7 +138,7 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
     const casAction = document.querySelector("#casAction");
     const casNewCircumstance = document.querySelector("#casNewCircumstance");
     const casGoal = document.querySelector("#casGoal");
-    const casValue = document.querySelector("#casValue"); 
+    const casValue = document.querySelector("#casValue");
     var argumentButton = document.getElementById("counterArgumentButton");
 
     var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
@@ -161,18 +161,18 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
     // var selectArgument = document.getElementById("selectArgument"); 
     selectTypeOfArgument.selectedIndex = "reset";
 
-    var selectArgumentScheme = document.getElementById("selectArgumentScheme2"); 
+    var selectArgumentScheme = document.getElementById("selectArgumentScheme2");
     selectArgumentScheme.selectedIndex = "reset";
 
-    counterArgumentScheme.className = "hide";
+    argumentForm.className = "hide";
 
     form.reset();
-    casCircumstance.remove(); 
-    casAction.remove(); 
-    casNewCircumstance.remove(); 
-    casGoal.remove(); 
-    casValue.remove(); 
-    argumentButton.remove(); 
+    casCircumstance.remove();
+    casAction.remove();
+    casNewCircumstance.remove();
+    casGoal.remove();
+    casValue.remove();
+    argumentButton.remove();
 });
 
 
@@ -240,10 +240,9 @@ var counterArgumentEventListener = (function () {
     counterArgumentTargetButton.addEventListener("click", function () {
 
         var counterArgumentTargetNameValue = counterArgumentTargetName.value;
+        var args = db.collection("arguments");
 
         console.log("Counter argument target name = " + counterArgumentTargetNameValue);
-
-        var args = db.collection("arguments");
 
         // Generating critical questions - rename variables
         var query2 = args.where("name", "==", counterArgumentTargetNameValue).get()
@@ -340,7 +339,7 @@ var addAndAppendOption = (function (criticalQuestion, valueNumber) {
 });
 
 
-var counterArgumentSubmissionToDatabase = (function() {
+var counterArgumentSubmissionToDatabase = (function () {
 
     console.log("Counter argument target name = " + counterArgumentTargetName.value);
     currentArgumentName();
@@ -352,9 +351,9 @@ var counterArgumentSubmissionToDatabase = (function() {
     var selectCriticalQuestionLabel = document.getElementById("selectCriticalQuestionLabel");
 
     counterArgumentTargetName.remove();
-    selectCriticalQuestion.remove(); 
-    selectCriticalQuestionLabel.remove(); 
-    counterArgumentTargetButton.remove(); 
+    selectCriticalQuestion.remove();
+    selectCriticalQuestionLabel.remove();
+    counterArgumentTargetButton.remove();
 
 });
 
@@ -373,7 +372,3 @@ var createLinksForCounterArgument = (function (source, target) {
         target: target
     });
 });
-
-
-
-
