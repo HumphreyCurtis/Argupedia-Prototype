@@ -16,10 +16,10 @@ var currentArgument = "";
 
 var argumentStatus = null;
 
-// Number of arguments in debate
+/* Number of arguments in debate */
 var numberOfArguments = 0;
 
-// Update status of number of arguments to create ID
+/* Function which updates variable status of number of arguments to create unique ID */
 db.collection("arguments").onSnapshot(function (querySnapshot) {
 
     console.log("Number of arguments = " + querySnapshot.docs.length);
@@ -27,6 +27,7 @@ db.collection("arguments").onSnapshot(function (querySnapshot) {
 
 });
 
+/* Event listener which deduces whether user wants to create a counter argument or initial argument */
 selectTypeOfArgument.addEventListener('change', (event) => {
 
     console.log("Value selected is = ", selectTypeOfArgument.value);
@@ -42,23 +43,18 @@ selectTypeOfArgument.addEventListener('change', (event) => {
         argumentStatus = "counterArgument";
         // counterArgumentSelectElementEventListener next function 
 
-        // Piping in fields for counter argument using DIV 
+        /* Piping in fields for counter argument using div counterargumentInputFields */
         createInputFieldsForCounterArgument(counterArgumentInputFields, "Counter argument target name", "counterArgumentTargetName");
         appendSeeCriticalQuestionsButton(counterArgumentInputFields, "btn waves-effect white-text", "counterArgumentTargetButton");
         appendSelectCriticalQuestions(counterArgumentInputFields);
         argumentForm.className = "show";
 
-        var counterArgumentTargetButton = document.getElementById("counterArgumentTargetButton");
-        var counterArgumentTargetName = document.querySelector("#counterArgumentTargetName");
-
         counterArgumentEventListener();
-
     }
 
 });
 
-// Listen to select element to determine which form to be produced 
-// Will need to rename variables --> need to get working for counter arguments 
+/* Event listener which listens to type of argument scheme to be selected e.g. critical action scheme */
 selectArgumentScheme.addEventListener('change', (event) => {
     console.log("Value selected is = " + selectArgumentScheme.value)
 
@@ -70,6 +66,7 @@ selectArgumentScheme.addEventListener('change', (event) => {
 
 });
 
+/* Function to create CAS form for database */
 var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modalName) {
 
     createArgumentForm(elementToAppend, "In the current circumstance...", "casCircumstance");
@@ -79,7 +76,6 @@ var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modal
     createArgumentForm(elementToAppend, "Which will promote value...", "casValue");
 
     appendArgumentButton(elementToAppend, buttonClass, buttonId);
-
     var argumentSubmissionButton = document.getElementById(buttonId);
 
     argumentSubmissionButton.addEventListener("click", function () {
@@ -88,13 +84,11 @@ var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modal
         if (argumentStatus == "counterArgument") {
             counterArgumentSubmissionToDatabase();
         }
-
     });
 
 });
 
 var createArgumentForm = (function (elementToAppend, placeholder, id) {
-
     var div = document.createElement("div");
     div.setAttribute("class", "input-field");
 
@@ -111,7 +105,6 @@ var createArgumentForm = (function (elementToAppend, placeholder, id) {
     elementToAppend.append(div);
 });
 
-
 var appendArgumentButton = (function (elementToAppend, colour, id) {
     var div = document.createElement("div");
     div.setAttribute("class", "input-field");
@@ -126,24 +119,23 @@ var appendArgumentButton = (function (elementToAppend, colour, id) {
     var div2 = document.createElement("div");
     div.append(div2);
 
-
     elementToAppend.append(div);
 });
 
-
+/* Function which submits CAS form to database */
 var casSubmissionToDatabaseFromForm = (function (id, modalName) {
 
-    const form = document.getElementById(id);
-    const casCircumstance = document.querySelector("#casCircumstance");
-    const casAction = document.querySelector("#casAction");
-    const casNewCircumstance = document.querySelector("#casNewCircumstance");
-    const casGoal = document.querySelector("#casGoal");
-    const casValue = document.querySelector("#casValue");
-    var argumentButton = document.getElementById("counterArgumentButton");
-
+    var form = document.getElementById(id);
+    var casCircumstance = document.querySelector("#casCircumstance");
+    var casAction = document.querySelector("#casAction");
+    var casNewCircumstance = document.querySelector("#casNewCircumstance");
+    var casGoal = document.querySelector("#casGoal");
+    var casValue = document.querySelector("#casValue");
+ 
     var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
     console.log("Argument = " + argumentFromUser);
 
+    /* Submit fields to database */
     db.collection("arguments").add({
         name: "argument" + numberOfArguments,
         argumentDescription: argumentFromUser,
@@ -154,16 +146,12 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
         value: casValue.value.toLowerCase()
     });
 
-    // Trying to reset fields after argument submission
+    /*----- Reset modal fields after argument submission ----*/
     var instance = M.Modal.getInstance(modalName);
     instance.close();
 
-    // var selectArgument = document.getElementById("selectArgument"); 
     selectTypeOfArgument.selectedIndex = "reset";
-
-    var selectArgumentScheme = document.getElementById("selectArgumentScheme2");
     selectArgumentScheme.selectedIndex = "reset";
-
     argumentForm.className = "hide";
 
     form.reset();
@@ -172,12 +160,13 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
     casNewCircumstance.remove();
     casGoal.remove();
     casValue.remove();
+
+    var argumentButton = document.getElementById("counterArgumentButton");
     argumentButton.remove();
 });
 
 
-/*------------------------------------------------------ COUNTER ARGUMENT FUNCTIONALITY BELOW ----------------------------------------------------------------------------*/
-
+/*------------------------------------------------------ COUNTER ARGUMENT FUNCTIONALITY BELOW -----------------------------------------------------*/
 var createInputFieldsForCounterArgument = (function (elementToAppend, placeholder, id) {
 
     var div = document.createElement("div");
@@ -235,6 +224,9 @@ var appendSelectCriticalQuestions = (function (elementToAppend) {
 
 /* Function to create critical questions for user */
 var counterArgumentEventListener = (function () {
+
+    var counterArgumentTargetButton = document.getElementById("counterArgumentTargetButton");
+    var counterArgumentTargetName = document.querySelector("#counterArgumentTargetName");
 
     // Will have to adapt to work for multiple different types of scheme 
     counterArgumentTargetButton.addEventListener("click", function () {
@@ -338,15 +330,18 @@ var addAndAppendOption = (function (criticalQuestion, valueNumber) {
     criticalQuestionsForSelection.add(option);
 });
 
-
 var counterArgumentSubmissionToDatabase = (function () {
 
+    var counterArgumentTargetButton = document.getElementById("counterArgumentTargetButton");
+    var counterArgumentTargetName = document.querySelector("#counterArgumentTargetName");
+
+    /* Creating links */
     console.log("Counter argument target name = " + counterArgumentTargetName.value);
     currentArgumentName();
     console.log("Current counter-argument name = " + currentArgument);
     createLinksForCounterArgument(currentArgument, counterArgumentTargetName.value);
 
-    // Resetting fields from counterargument
+    /* Resetting fields from counterargument modal */
     var selectCriticalQuestion = document.getElementById("selectCriticalQuestion");
     var selectCriticalQuestionLabel = document.getElementById("selectCriticalQuestionLabel");
 
@@ -354,7 +349,6 @@ var counterArgumentSubmissionToDatabase = (function () {
     selectCriticalQuestion.remove();
     selectCriticalQuestionLabel.remove();
     counterArgumentTargetButton.remove();
-
 });
 
 var currentArgumentName = db.collection("arguments").onSnapshot(function (querySnapshot) {
@@ -364,7 +358,6 @@ var currentArgumentName = db.collection("arguments").onSnapshot(function (queryS
 
     currentArgument = "argument" + numberOfArguments;
 });
-
 
 var createLinksForCounterArgument = (function (source, target) {
     db.collection("links").add({

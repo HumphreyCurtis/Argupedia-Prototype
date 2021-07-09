@@ -9,7 +9,7 @@
 - Add labelling algorithm [x]
 
 - Add unit tests []
-    - counterArgument.js []
+    - counterArgument.js [x]
     - index.js []
     - graph.js []
 
