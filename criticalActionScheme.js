@@ -27,11 +27,11 @@ var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modal
     lib.createArgumentForm(elementToAppend, "Which will promote value...", "casValue");
 
     lib.appendArgumentButton(elementToAppend, buttonClass, buttonId);
-    
+
     var argumentSubmissionButton = document.getElementById(buttonId);
 
-    argumentSubmissionButton.addEventListener("click", function () { 
-        console.log("Hello"); 
+    argumentSubmissionButton.addEventListener("click", function () {
+        console.log("Hello");
         casSubmissionToDatabaseFromForm(id, modalName);
 
         if (argumentStatus == "counterArgument") {
@@ -97,12 +97,12 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
  * -------------------------------------------------------------------- Counter-argument functionality ----------------------------------------------------------------------------
  */
 
-var setupCasCriticalQuestions = (function(data) {
+var setupCasCriticalQuestions = (function (data) {
     var currentCircumstance;
-    var action; 
-    var newCircumstance; 
-    var goal; 
-    var value; 
+    var action;
+    var newCircumstance;
+    var goal;
+    var value;
 
     data.forEach(function (d) {
         currentCircumstance = d.currentCircumstance;
@@ -182,4 +182,7 @@ var casCriticalQuestionsSwitch = (function (questionNumber, currentCircumstance,
 });
 
 
-export {createCasForm, setupCasCriticalQuestions}; 
+export {
+    createCasForm,
+    setupCasCriticalQuestions
+};

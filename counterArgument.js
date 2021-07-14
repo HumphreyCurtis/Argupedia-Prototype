@@ -1,5 +1,5 @@
 import * as cas from "./criticalActionScheme.js";
-import * as eos from "./expertOpinionScheme.js";  
+import * as eos from "./expertOpinionScheme.js";
 /* 
  *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -24,8 +24,6 @@ const counterArgumentInputFields = document.getElementById("counterArgumentInput
 
 var argumentStatus = null;
 
-// var numberOfArguments = 0;
-
 
 /* 
  * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -36,14 +34,6 @@ var argumentStatus = null;
  * --------------------------------------------------------------------- Functions needed for initial arguments ------------------------------------------------------------------- 
  */
 
-
-/* Function which updates variable status of number of arguments to create unique ID */
-// db.collection("arguments").onSnapshot(function (querySnapshot) {
-
-//     console.log("Number of arguments = " + querySnapshot.docs.length);
-//     numberOfArguments = querySnapshot.docs.length;
-
-// });
 
 /* Event listener which deduces whether user wants to create a counter argument or initial argument */
 selectTypeOfArgument.addEventListener('change', (event) => {
@@ -65,6 +55,7 @@ selectTypeOfArgument.addEventListener('change', (event) => {
         createInputFieldsForCounterArgument(counterArgumentInputFields, "Counter argument target name", "counterArgumentTargetName");
         appendSeeCriticalQuestionsButton(counterArgumentInputFields, "btn waves-effect white-text", "counterArgumentTargetButton");
         appendSelectCriticalQuestions(counterArgumentInputFields);
+
         argumentForm.className = "show";
 
         counterArgumentEventListener();
@@ -77,11 +68,11 @@ selectArgumentScheme.addEventListener('change', (event) => {
     console.log("Value selected is = " + selectArgumentScheme.value)
 
     if (selectArgumentScheme.value == "casForm") {
-        // argumentForm.className = "show";
         cas.createCasForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
+
     } else if (selectArgumentScheme.value == "expertForm") {
-        // console.log("Expert opinion scheme selected");
         eos.createExpertOpinionForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
+
     }
 
 
@@ -202,11 +193,11 @@ var counterArgumentEventListener = (function () {
 var schemeSwitch = (function (scheme, data) {
     switch (scheme) {
         case "Expert Opinion Scheme":
-            return eos.setupEosCriticalQuestions(data); 
+            return eos.setupEosCriticalQuestions(data);
             break;
         case "Critical Action Scheme":
-            console.log("cas activating"); 
-            return cas.setupCasCriticalQuestions(data); 
+            console.log("cas activating");
+            return cas.setupCasCriticalQuestions(data);
             break;
         default:
             return "Not a valid scheme";

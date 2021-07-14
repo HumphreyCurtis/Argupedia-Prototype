@@ -27,11 +27,11 @@ var createExpertOpinionForm = (function (elementToAppend, id, buttonClass, butto
     var argumentSubmissionButton = document.getElementById(buttonId);
 
     argumentSubmissionButton.addEventListener("click", function () {
-        console.log("Hello 2"); 
+        console.log("Hello 2");
         eosSubmissionToDatabaseFromForm(id, modalName);
 
         if (argumentStatus == "counterArgument") {
-            lib.counterArgumentSubmissionToDatabase(numberOfArguments); 
+            lib.counterArgumentSubmissionToDatabase(numberOfArguments);
         }
     });
 });
@@ -52,7 +52,7 @@ var eosSubmissionToDatabaseFromForm = (function (id, modalName) {
         name: "argument" + numberOfArguments,
         scheme: "Expert Opinion Scheme",
         argumentDescription: argumentFromUser,
-        opinion: casOpinion.value, 
+        opinion: casOpinion.value,
         truth: casTruth.value,
         assertion: casAssertion.value,
         conclusion: casConclusion.value
@@ -86,51 +86,54 @@ var eosSubmissionToDatabaseFromForm = (function (id, modalName) {
  * -------------------------------------------------------------------- Counter-argument functionality ----------------------------------------------------------------------------
  */
 
-var setupEosCriticalQuestions = (function(data){
-    var opinion; 
-    var assertion; 
-    var conclusion; 
-    var truth; 
+var setupEosCriticalQuestions = (function (data) {
+    var opinion;
+    var assertion;
+    var conclusion;
+    var truth;
 
-    data.forEach(function(d) {
-        opinion = d.opinion; 
-        assertion = d.assertion; 
-        conclusion = d.conclusion; 
-        truth = d.truth; 
+    data.forEach(function (d) {
+        opinion = d.opinion;
+        assertion = d.assertion;
+        conclusion = d.conclusion;
+        truth = d.truth;
     });
 
-    createAndAppendEosCriticalQuestions(opinion, assertion); 
+    createAndAppendEosCriticalQuestions(opinion, assertion);
 });
 
-var createAndAppendEosCriticalQuestions = (function(expert, assertion) {
-    for (let i=1; i<6; i++) {
-        var tempCriticalQuestion = eosQuestionsSwitch(i, expert, assertion); 
-        lib.addAndAppendOption(tempCriticalQuestion, i); 
+var createAndAppendEosCriticalQuestions = (function (expert, assertion) {
+    for (let i = 1; i < 6; i++) {
+        var tempCriticalQuestion = eosQuestionsSwitch(i, expert, assertion);
+        lib.addAndAppendOption(tempCriticalQuestion, i);
     }
 
 });
 
-var eosQuestionsSwitch = (function(questionNumber, expert, assertion){
+var eosQuestionsSwitch = (function (questionNumber, expert, assertion) {
     switch (questionNumber) {
-        case 1: 
-            return "Is " + expert + " in a positon to know whether " + assertion + " is true?"; 
-            break; 
-        case 2: 
-            return "What is it about " + expert + " that makes him/her likely to know about " + assertion + "?"; 
-            break; 
-        case 3: 
-            return "Is " + expert + " an honest, trustworthy and reliable source?"; 
-            break; 
-        case 4: 
-            return "Did " + expert + " really make an assertion that " + assertion + " is true or false?"; 
-            break; 
-        case 5: 
-            return "Are we hearing about " + assertion + " first-hand or second-hand?"; 
-            break; 
-        default: 
-            "Select a scheme to generate critical questions"; 
+        case 1:
+            return "Is " + expert + " in a positon to know whether " + assertion + " is true?";
+            break;
+        case 2:
+            return "What is it about " + expert + " that makes him/her likely to know about " + assertion + "?";
+            break;
+        case 3:
+            return "Is " + expert + " an honest, trustworthy and reliable source?";
+            break;
+        case 4:
+            return "Did " + expert + " really make an assertion that " + assertion + " is true or false?";
+            break;
+        case 5:
+            return "Are we hearing about " + assertion + " first-hand or second-hand?";
+            break;
+        default:
+            "Select a scheme to generate critical questions";
     }
 });
 
 
-export {createExpertOpinionForm, setupEosCriticalQuestions};
+export {
+    createExpertOpinionForm,
+    setupEosCriticalQuestions
+};
