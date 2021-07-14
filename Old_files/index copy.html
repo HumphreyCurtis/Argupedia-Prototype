@@ -15,6 +15,12 @@
 </head>
 
 <body>
+
+    <!-- <title>Argupedia</title>
+    <div class="pink section">
+        <h2 class="white-text center">Argupedia</h2>
+
+    </div> -->
     <nav>
         <div class="nav-wrapper">
           <a href="#" class="brand-logo center">Argupedia</a>
@@ -30,11 +36,29 @@
 
     <div class="grey lighten-3 section grey-text" style="position: relative">
         <p class="flow-text center">The number ONE AI argumentation platform!</p>
+        <!-- <a href="#modal" class="btn halfway-fab red modal-trigger right" id="initialAddButton"
+            style="margin-right: 50px">
+            Add initial argument
+        </a> -->
     </div>
 
+    <!-- <div id="modal" class="modal">
+        <div class="modal-content">
+            <h4 class="pink-text center">Add new argument</h4>
+            <label>Select an argument scheme</label>
+            <select class="browser-default" id="selectArgumentScheme">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Critical action scheme</option>
+                <option value="2">Expert opinion scheme</option>
+            </select>
+            <form class="hide" id="initialArgumentScheme">
+            </form>
+        </div>
+    </div> -->
 
     <div class="container">
         <div class="canvas">
+            <!-- <svg id="svg" width=960 height=600></svg> -->
             <svg id="svg"></svg>
         </div>
     </div>
@@ -53,6 +77,18 @@
                 <option value="counterArgument">Add counter-argument</option>
             </select>
             <div id="counterArgumentInputFields"></div>
+            <!-- <div class="input-field">
+                Name of argument target<input type="text" id="counterArgumentTargetName"
+                    placeholder="Counter argument target name">
+            </div>
+            <div class="input-field">
+                <button class="btn waves-effect white-text" id="counterArgumentTargetButton">See critical
+                    questions</button>
+            </div>
+            <label>Select a critical question</label>
+            <select class="browser-default" id="selectCriticalQuestion">
+                <option value="" disabled selected>Choose your option</option>
+            </select> -->
             <label>Select an argument scheme</label>
             <select class="browser-default" id="selectArgumentScheme2">
                 <option value="reset" disabled selected>Choose your option</option>
@@ -62,6 +98,9 @@
             <form class="hide" id="counterArgumentScheme">
             </form>
         </div>
+        <!-- <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div> -->
     </div>
 
     <h5>Complete labelling</h5>
@@ -79,6 +118,9 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script> -->
 
     <script>
         // Your web app's Firebase configuration
@@ -105,7 +147,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.3/dagre-d3.js"></script>
+    <!-- <script type="module" src="index.js"></script> -->
     <script type="module" src="counterArgument.js"></script>
+    <!-- <script type="module" src="criticalActionScheme.js"></script> -->
     <script src="graph.js"></script>
 </body>
 
