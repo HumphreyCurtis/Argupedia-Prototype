@@ -20,3 +20,5 @@
 - Improve labelling algorithm code []
 
 - Add more schemes []
+
+- Rename expert opinion scheme as argument from position to know [] 

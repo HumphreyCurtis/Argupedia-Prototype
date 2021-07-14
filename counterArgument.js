@@ -1,5 +1,6 @@
 import * as cas from "./criticalActionScheme.js";
 import * as eos from "./expertOpinionScheme.js";
+import * as apo from "./appealToPopularOpinion.js"; 
 /* 
  *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -72,6 +73,10 @@ selectArgumentScheme.addEventListener('change', (event) => {
 
     } else if (selectArgumentScheme.value == "expertForm") {
         eos.createExpertOpinionForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
+
+    } else if (selectArgumentScheme.value == "appealToPopularOpinionForm") {
+        console.log("Appeal to popular opinion selected"); 
+        apo.createAppealToPopularOpinionForm(argumentForm, "counterArgumentScheme",  "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     }
 
@@ -160,11 +165,11 @@ var counterArgumentEventListener = (function () {
         // Generating critical questions - rename variables
         var query2 = args.where("name", "==", counterArgumentTargetNameValue).get()
             .then(querySnapshot => {
-                query2 = querySnapshot.docs.map(doc => doc.data())
-                console.log(query2);
-                console.log("Empty array test on query = ", emptyArrayTest(query2));
-
                 var scheme;
+
+                query2 = querySnapshot.docs.map(doc => doc.data());
+                console.log(query2);
+                // console.log("Empty array test on query = ", emptyArrayTest(query2));
 
                 query2.forEach(function (d) {
                     scheme = d.scheme;
@@ -172,17 +177,6 @@ var counterArgumentEventListener = (function () {
 
                 console.log("Scheme of selected = " + scheme);
                 schemeSwitch(scheme, query2);
-
-                // query2.forEach(function (d) {
-
-                //     var currentCircumstance = d.currentCircumstance;
-                //     var action = d.action;
-                //     var newCircumstance = d.newCircumstance;
-                //     var goal = d.goal;
-                //     var value = d.value;
-
-                //     createAndAppendCriticalQuestions(currentCircumstance, action, goal, value, newCircumstance);
-                // });
 
             });
 
@@ -199,11 +193,18 @@ var schemeSwitch = (function (scheme, data) {
             console.log("cas activating");
             return cas.setupCasCriticalQuestions(data);
             break;
+        case "Appeal to Popular Opinion": 
+            console.log("apo activating"); 
+            return apo.setupApoCriticalQuestions(data); 
+            break; 
         default:
             return "Not a valid scheme";
 
     }
 });
+
+
+
 
 /* MOVE TO NEW FILE CALLED UNIT TESTS */
 /* 
