@@ -1,6 +1,79 @@
 // Data & firebase hook-up
 // Sort argumentation adding / name of databases
+var arguments = [];
+var links = [];
+
+// var databasePlusPlotGraph = (function (arguments, links) {
+
+//     db.collection('arguments').onSnapshot(res => {
+
+//         res.docChanges().forEach(change => {
+
+//             const doc = {
+//                 ...change.doc.data(),
+//                 id: change.doc.id
+//             };
+
+//             switch (change.type) {
+//                 case 'added':
+//                     arguments.push(doc);
+//                     break;
+//                 case 'modified':
+//                     const index = arguments.findIndex(item => item.id == doc.id);
+//                     arguments[index] = doc;
+//                     break;
+//                 case 'removed':
+//                     arguments = arguments.filter(item => item.id !== doc.id);
+//                     break;
+//                 default:
+//                     break;
+//             }
+
+
+//         });
+
+//         db.collection('links').onSnapshot(res2 => {
+
+//             links = []; /* There is a bug here with links being updated twice - will need to fix */
+
+//             res2.docChanges().forEach(change => {
+
+//                 const doc = {
+//                     ...change.doc.data(),
+//                     id: change.doc.id
+//                 };
+
+//                 switch (change.type) {
+//                     case 'added':
+//                         links.push(doc);
+//                         break;
+//                     case 'modified':
+//                         const index = data.findIndex(item => item.id == doc.id);
+//                         links[index] = doc;
+//                         break;
+//                     case 'removed':
+//                         links = links.filter(item => item.id !== doc.id);
+//                         break;
+//                     default:
+//                         break;
+//                 }
+
+//             });
+
+//             console.log(arguments);
+//             console.log(links);
+
+//             update(arguments, links);
+//         });
+
+//     });
+
+// });
+
+
 var databasePlusPlotGraph = (function (arguments, links) {
+
+    var arguments = [];
 
     db.collection('arguments').onSnapshot(res => {
 
@@ -25,51 +98,50 @@ var databasePlusPlotGraph = (function (arguments, links) {
                 default:
                     break;
             }
-
         });
 
-        db.collection('links').onSnapshot(res2 => {
-
-            res2.docChanges().forEach(change => {
-
-                const doc = {
-                    ...change.doc.data(),
-                    id: change.doc.id
-                };
-
-                switch (change.type) {
-                    case 'added':
-                        links.push(doc);
-                        break;
-                    case 'modified':
-                        const index = data.findIndex(item => item.id == doc.id);
-                        links[index] = doc;
-                        break;
-                    case 'removed':
-                        links = links.filter(item => item.id !== doc.id);
-                        break;
-                    default:
-                        break;
-                }
-
-            });
-
-            console.log(arguments);
-            console.log(links);
-
-            update(arguments, links);
-        });
+        update(arguments, links);
 
     });
 
+    var links = [];
+
+    db.collection('links').onSnapshot(res2 => {
+
+        res2.docChanges().forEach(change => {
+
+            const doc = {
+                ...change.doc.data(),
+                id: change.doc.id
+            };
+
+            switch (change.type) {
+                case 'added':
+                    links.push(doc);
+                    break;
+                case 'modified':
+                    const index = data.findIndex(item => item.id == doc.id);
+                    links[index] = doc;
+                    break;
+                case 'removed':
+                    links = links.filter(item => item.id !== doc.id);
+                    break;
+                default:
+                    break;
+            }
+
+        });
+
+        console.log(arguments);
+        console.log(links);
+
+        update(arguments, links);
+    });
 });
 
 // Graph drawn here 
 var labellingSwitch = document.getElementById("mySwitch");
 let status = false;
-
-var arguments = [];
-var links = [];
 
 var inArguments = [];
 var outArguments = [];
@@ -79,7 +151,8 @@ var undecidedNodes = [];
 console.log("Drawing graph");
 databasePlusPlotGraph(arguments, links);
 
-
+console.log(arguments);
+console.log(links);
 
 labellingSwitch.addEventListener("change", function () {
     var arguments = [];
@@ -87,7 +160,7 @@ labellingSwitch.addEventListener("change", function () {
 
     status = labellingSwitch.checked;
     console.log("Status of labelling =", status);
-    databasePlusPlotGraph(arguments, links);
+    // databasePlusPlotGraph(arguments, links);
 });
 
 
@@ -101,7 +174,7 @@ const update = (arguments, links) => {
     var graph = new dagreD3.graphlib.Graph().setGraph({});
 
     console.log("Status of labelling =", status);
-    
+
     // Labellings dependent on switch
     // if (status) {
     //     labellingAlgorithm(arguments);
@@ -349,12 +422,6 @@ var setNodeWithUndecLabelling = (function (graph, d) {
         class: "comp",
     });
 });
-
-
-
-
-
-
 
 
 
