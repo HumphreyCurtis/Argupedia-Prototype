@@ -3,9 +3,7 @@ import * as lib from "./library.js";
 var numberOfArguments = 0;
 
 const selectTypeOfArgument = document.getElementById("selectArgument");
-
 const selectArgumentScheme = document.getElementById("selectArgumentScheme2");
-
 const argumentForm = document.getElementById("counterArgumentScheme");
 
 

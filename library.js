@@ -33,17 +33,17 @@ var appendArgumentButton = (function (elementToAppend, colour, id) {
 });
 
 /* 
-* Function for creating links to add to collection within database 
-* Removing all necessary fields to clean up after submission
-*
-*/
-var counterArgumentSubmissionToDatabase = (function(numberOfArguments) {
+ * Function for creating links to add to collection within database 
+ * Removing all necessary fields to clean up after submission
+ *
+ */
+var counterArgumentSubmissionToDatabase = (function (numberOfArguments) {
 
     var counterArgumentTargetButton = document.getElementById("counterArgumentTargetButton");
     var counterArgumentTargetName = document.querySelector("#counterArgumentTargetName");
     var currentArgument = "argument" + numberOfArguments;
 
-    console.log("Number of arguments at creation of links = ", numberOfArguments);  
+    console.log("Number of arguments at creation of links = ", numberOfArguments);
 
     /* Creating links to add to collection within database */
     console.log("Counter argument target name = " + counterArgumentTargetName.value);
@@ -77,4 +77,9 @@ var addAndAppendOption = (function (criticalQuestion, valueNumber) {
     criticalQuestionsForSelection.add(option);
 });
 
-export {createArgumentForm, appendArgumentButton, counterArgumentSubmissionToDatabase, addAndAppendOption};
+export {
+    createArgumentForm,
+    appendArgumentButton,
+    counterArgumentSubmissionToDatabase,
+    addAndAppendOption
+};
