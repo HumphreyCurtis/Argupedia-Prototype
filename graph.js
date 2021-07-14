@@ -232,15 +232,15 @@ const update = (arguments, links) => {
     // Run the renderer. This is what draws the final graph.
     render(inner, graph);
 
-    const nodes = svg.selectAll("g.nodes");
+    // const nodes = svg.selectAll("g.nodes");
 
-    nodes
-        .on("mouseover", function (d) {
-            console.log("hello");
-        })
-        .on("mouseleave", function (d) {
-            console.log("goodbye");
-        });
+    // nodes
+    //     .on("mouseover", function (d) {
+    //         console.log("hello");
+    //     })
+    //     .on("mouseleave", function (d) {
+    //         console.log("goodbye");
+    //     });
 
     // Center the graph
     console.log("Arguments length = " + arguments.length);

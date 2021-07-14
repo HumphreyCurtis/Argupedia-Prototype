@@ -1,4 +1,4 @@
-import * as cas from "./criticalActionScheme.js"; 
+import * as cas from "../criticalActionScheme.js"; 
 /* 
  *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -86,6 +86,28 @@ selectArgumentScheme.addEventListener('change', (event) => {
 
 });
 
+/* Function to create Cas form for database */
+// var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modalName) {
+
+//     createArgumentForm(elementToAppend, "In the current circumstance...", "casCircumstance");
+//     createArgumentForm(elementToAppend, "We should perform the action...", "casAction");
+//     createArgumentForm(elementToAppend, "Which would result in new circumstances...", "casNewCircumstance");
+//     createArgumentForm(elementToAppend, "Which will realise goal...", "casGoal");
+//     createArgumentForm(elementToAppend, "Which will promote value...", "casValue");
+
+//     appendArgumentButton(elementToAppend, buttonClass, buttonId);
+//     var argumentSubmissionButton = document.getElementById(buttonId);
+
+//     argumentSubmissionButton.addEventListener("click", function () { 
+//         console.log("Hello"); 
+//         casSubmissionToDatabaseFromForm(id, modalName);
+
+//         if (argumentStatus == "counterArgument") {
+//             counterArgumentSubmissionToDatabase();
+//         }
+//     });
+
+// });
 
 var createExpertOpinionForm = (function (elementToAppend, id, buttonClass, buttonId, modalName) {
     createArgumentForm(elementToAppend, "X is in the position to know...", "casOpinion");
@@ -139,6 +161,52 @@ var appendArgumentButton = (function (elementToAppend, colour, id) {
 
     elementToAppend.append(div);
 });
+
+/* Function which submits CAS form to database */
+// var casSubmissionToDatabaseFromForm = (function (id, modalName) {
+
+//     var form = document.getElementById(id);
+//     var casCircumstance = document.querySelector("#casCircumstance");
+//     var casAction = document.querySelector("#casAction");
+//     var casNewCircumstance = document.querySelector("#casNewCircumstance");
+//     var casGoal = document.querySelector("#casGoal");
+//     var casValue = document.querySelector("#casValue");
+
+//     userArgumentVariableTests(casCircumstance.value, casAction.value, casNewCircumstance.value, casGoal.value, casValue.value);
+
+//     var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
+//     console.log("Argument = " + argumentFromUser);
+
+//     /* Submit fields to database */
+//     db.collection("arguments").add({
+//         name: "argument" + numberOfArguments,
+//         scheme: "Critical Action Scheme",
+//         argumentDescription: argumentFromUser,
+//         currentCircumstance: casCircumstance.value.toLowerCase(),
+//         action: casAction.value.toLowerCase(),
+//         newCircumstance: casNewCircumstance.value.toLowerCase(),
+//         goal: casGoal.value.toLowerCase(),
+//         value: casValue.value.toLowerCase()
+//     });
+
+//     /*----- Reset modal fields after argument submission ----*/
+//     var instance = M.Modal.getInstance(modalName);
+//     instance.close();
+
+//     selectTypeOfArgument.selectedIndex = "reset";
+//     selectArgumentScheme.selectedIndex = "reset";
+//     argumentForm.className = "hide";
+
+//     form.reset();
+//     casCircumstance.remove();
+//     casAction.remove();
+//     casNewCircumstance.remove();
+//     casGoal.remove();
+//     casValue.remove();
+
+//     var argumentButton = document.getElementById("counterArgumentButton");
+//     argumentButton.remove();
+// });
 
 var eosSubmissionToDatabaseFromForm = (function (id, modalName) {
     var form = document.getElementById(id);
@@ -324,6 +392,23 @@ var setupEosCriticalQuestions = (function(data){
     createAndAppendEosCriticalQuestions(opinion, assertion); 
 });
 
+// var setupCasCriticalQuestions = (function(data) {
+//     var currentCircumstance;
+//     var action; 
+//     var newCircumstance; 
+//     var goal; 
+//     var value; 
+
+//     data.forEach(function (d) {
+//         currentCircumstance = d.currentCircumstance;
+//         action = d.action;
+//         newCircumstance = d.newCircumstance;
+//         goal = d.goal;
+//         value = d.value;
+//     });
+
+//     createAndAppendCriticalQuestions(currentCircumstance, action, goal, value, newCircumstance);
+// });
 
 var createAndAppendEosCriticalQuestions = (function(expert, assertion) {
     for (let i=1; i<6; i++) {
