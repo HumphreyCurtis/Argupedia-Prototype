@@ -4,14 +4,12 @@
 
 - Set up zoom support [x]
 
-- Add hover functionality [n]
-
 - Add labelling algorithm [x]
 
-- Add unit tests []
+- Add unit tests [x]
     - counterArgument.js [x]
-    - index.js []
-    - graph.js []
+    - index.js [x]
+    - graph.js [x]
 
 - Check that the app is not breakable based on user input[]
     - Initial tests in place [x]
@@ -19,6 +17,19 @@
     
 - Improve labelling algorithm code []
 
-- Add more schemes []
+- Add more schemes and move into folder []
+    - Critical aciton scheme [x] 
+    - Argument from position to know [] 
+    - Appeal to expert opinion []
+    - Appeal to popular opinion [x]
+    - Argument from analogy []
+    - Argument from correlation to cause []
+    - Argument from positive / negative consequences []
+    - The slippery slope argument []
+    - Rename expert opinion scheme as argument from position to know and sort out variable names [] 
+    - Troubleshoot questions and see if they can be improved []
+    - Check that appealToPopularOpinion.js storing only premise variables is accurate [] 
 
-- Rename expert opinion scheme as argument from position to know [] 
+- Code quality []
+    - Improve variable names in index.html file and rename file argupedia.html []
+    - Improve variable names in counterargument.js and rename file argument.js []

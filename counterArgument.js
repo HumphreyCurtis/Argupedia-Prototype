@@ -1,6 +1,8 @@
 import * as cas from "./criticalActionScheme.js";
 import * as eos from "./expertOpinionScheme.js";
 import * as apo from "./appealToPopularOpinion.js"; 
+import * as afa from "./argumentFromAnalogy.js"; 
+
 /* 
  *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -78,6 +80,9 @@ selectArgumentScheme.addEventListener('change', (event) => {
         console.log("Appeal to popular opinion selected"); 
         apo.createAppealToPopularOpinionForm(argumentForm, "counterArgumentScheme",  "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
+    } else if (selectArgumentScheme.value == "argumentFromAnalogy") {
+        console.log("Argument from analogy selected"); 
+        afa.createArgumentFromAnalogyForm(argumentForm, "counterArgumentScheme",  "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
     }
 
 
@@ -186,17 +191,20 @@ var counterArgumentEventListener = (function () {
 
 var schemeSwitch = (function (scheme, data) {
     switch (scheme) {
-        case "Expert Opinion Scheme":
-            return eos.setupEosCriticalQuestions(data);
-            break;
         case "Critical Action Scheme":
             console.log("cas activating");
             return cas.setupCasCriticalQuestions(data);
+            break;
+        case "Expert Opinion Scheme":
+            return eos.setupEosCriticalQuestions(data);
             break;
         case "Appeal to Popular Opinion": 
             console.log("apo activating"); 
             return apo.setupApoCriticalQuestions(data); 
             break; 
+        case "Argument from Analogy":
+            console.log("afa activating"); 
+            return afa.setupAfaCriticalQuestions(data); 
         default:
             return "Not a valid scheme";
 
