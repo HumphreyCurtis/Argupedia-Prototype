@@ -1,7 +1,7 @@
-import * as cas from "./criticalActionScheme.js";
+import * as cas from "./schemes/criticalActionScheme.js";
 import * as eos from "./expertOpinionScheme.js";
-import * as apo from "./appealToPopularOpinion.js"; 
-import * as afa from "./argumentFromAnalogy.js"; 
+import * as apo from "./schemes/appealToPopularOpinion.js"; 
+import * as afa from "./schemes/argumentFromAnalogy.js"; 
 
 /* 
  *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 

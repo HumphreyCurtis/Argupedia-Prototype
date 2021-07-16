@@ -22,7 +22,7 @@
     - Argument from position to know [] 
     - Appeal to expert opinion []
     - Appeal to popular opinion [x]
-    - Argument from analogy []
+    - Argument from analogy [x]
     - Argument from correlation to cause []
     - Argument from positive / negative consequences []
     - The slippery slope argument []
