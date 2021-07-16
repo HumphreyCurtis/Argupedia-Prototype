@@ -8,6 +8,7 @@ import * as apo from "./schemes/appealToPopularOpinion.js";
 import * as afa from "./schemes/argumentFromAnalogy.js"; 
 import * as acc from "./schemes/argumentFromCorrelationToCause.js";
 import * as afc from "./schemes/argumentFromConsequences.js";
+import * as ss from "./schemes/slipperySlopeArgument.js";
 
 /* 
  *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -97,6 +98,9 @@ selectArgumentScheme.addEventListener('change', (event) => {
     } else if (selectArgumentScheme.value == "argumentFromConsequences") {
         console.log("Argument from consequences selected"); 
         afc.createArgumentFromConsequencesForm(argumentForm, "counterArgumentScheme",  "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
+    } else if (selectArgumentScheme.value == "slipperySlopeArgument") {
+        console.log("Slippery Slope Argument selected");
+        ss.createSlipperySlopeArgumentForm(argumentForm, "counterArgumentScheme",  "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
     }
 
 
@@ -219,12 +223,19 @@ var schemeSwitch = (function (scheme, data) {
         case "Argument from Analogy":
             console.log("afa activating"); 
             return afa.setupAfaCriticalQuestions(data); 
+            break;
         case "Argument from Correlation to Cause":
             console.log("acc activating"); 
             return acc.setupAccCriticalQuestions(data); 
+            break;
         case "Argument from Consequences":
             console.log("afc activating"); 
-            return afc.setupAfcCriticalQuestions(data); 
+            return afc.setupAfcCriticalQuestions(data);
+            break;
+        case "Slippery Slope Argument":
+            console.log("ss activating");
+            return ss.setupSsCriticalQuestions(data);  
+            break;
         default:
             console.log("Add switch functionality");
             return "Not a valid scheme";
