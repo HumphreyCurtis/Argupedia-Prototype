@@ -2,6 +2,7 @@ import * as cas from "./schemes/criticalActionScheme.js";
 import * as eos from "./expertOpinionScheme.js";
 import * as apo from "./schemes/appealToPopularOpinion.js"; 
 import * as afa from "./schemes/argumentFromAnalogy.js"; 
+import * as acc from "./schemes/argumentFromCorrelationToCause.js";
 
 /* 
  *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -83,6 +84,9 @@ selectArgumentScheme.addEventListener('change', (event) => {
     } else if (selectArgumentScheme.value == "argumentFromAnalogy") {
         console.log("Argument from analogy selected"); 
         afa.createArgumentFromAnalogyForm(argumentForm, "counterArgumentScheme",  "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
+    } else if (selectArgumentScheme.value == "argumentFromCorrelationToCause") {
+        console.log("Argument from correlation to cause selected"); 
+        acc.createArgumentFromCorrelationToCauseForm(argumentForm, "counterArgumentScheme",  "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
     }
 
 
@@ -205,7 +209,11 @@ var schemeSwitch = (function (scheme, data) {
         case "Argument from Analogy":
             console.log("afa activating"); 
             return afa.setupAfaCriticalQuestions(data); 
+        case "Argument from Correlation to Cause":
+            console.log("acc activating"); 
+            return acc.setupAccCriticalQuestions(data); 
         default:
+            console.log("Add switch functionality");
             return "Not a valid scheme";
 
     }
