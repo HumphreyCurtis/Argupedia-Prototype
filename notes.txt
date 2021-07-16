@@ -23,7 +23,7 @@
     - Appeal to expert opinion []
     - Appeal to popular opinion [x]
     - Argument from analogy [x]
-    - Argument from correlation to cause []
+    - Argument from correlation to cause [x]
     - Argument from positive / negative consequences []
     - The slippery slope argument []
     - Rename expert opinion scheme as argument from position to know and sort out variable names [] 
