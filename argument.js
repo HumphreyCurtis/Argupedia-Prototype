@@ -3,13 +3,13 @@
  *
  */
 import * as cas from "./schemes/criticalActionScheme.js";
-import * as eos from "./expertOpinionScheme.js";
 import * as apo from "./schemes/appealToPopularOpinion.js"; 
 import * as afa from "./schemes/argumentFromAnalogy.js"; 
 import * as acc from "./schemes/argumentFromCorrelationToCause.js";
 import * as afc from "./schemes/argumentFromConsequences.js";
 import * as ss from "./schemes/slipperySlopeArgument.js";
 import * as afp from "./schemes/argumentFromPositionToKnow.js"; 
+import * as eos from "./schemes/appealToExpertOpinion.js"; 
 
 /* 
  *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -81,8 +81,9 @@ selectArgumentScheme.addEventListener('change', (event) => {
     if (selectArgumentScheme.value == "casForm") {
         cas.createCasForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
-    } else if (selectArgumentScheme.value == "expertForm") {
-        eos.createExpertOpinionForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
+    } else if (selectArgumentScheme.value == "appealToExpertOpinion") {
+        console.log("Appeal to expoert opinion selected"); 
+        eos.createEosForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     } else if (selectArgumentScheme.value == "appealToPopularOpinionForm") {
         console.log("Appeal to popular opinion selected"); 
@@ -219,7 +220,8 @@ var schemeSwitch = (function (scheme, data) {
             console.log("cas activating");
             return cas.setupCasCriticalQuestions(data);
             break;
-        case "Expert Opinion Scheme":
+        case "Appeal to Expert Opinion":
+            console.log("eos activating");
             return eos.setupEosCriticalQuestions(data);
             break;
         case "Appeal to Popular Opinion": 

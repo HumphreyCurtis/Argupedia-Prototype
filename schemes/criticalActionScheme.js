@@ -33,7 +33,6 @@ var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modal
     lib.createArgumentForm(elementToAppend, "Which will promote value...", "casValue");
 
     lib.appendArgumentButton(elementToAppend, buttonClass, buttonId);
-
     var argumentSubmissionButton = document.getElementById(buttonId);
 
     argumentSubmissionButton.addEventListener("click", function () {
