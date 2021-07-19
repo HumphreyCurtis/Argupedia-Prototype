@@ -9,6 +9,7 @@ import * as afa from "./schemes/argumentFromAnalogy.js";
 import * as acc from "./schemes/argumentFromCorrelationToCause.js";
 import * as afc from "./schemes/argumentFromConsequences.js";
 import * as ss from "./schemes/slipperySlopeArgument.js";
+import * as afp from "./schemes/argumentFromPositionToKnow.js"; 
 
 /* 
  *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -101,6 +102,11 @@ selectArgumentScheme.addEventListener('change', (event) => {
     } else if (selectArgumentScheme.value == "slipperySlopeArgument") {
         console.log("Slippery Slope Argument selected");
         ss.createSlipperySlopeArgumentForm(argumentForm, "counterArgumentScheme",  "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
+    
+    } else if (selectArgumentScheme.value == "argumentFromPositionToKnow") {
+        console.log("Argument From Position to Know Selected");
+        afp.createArgumentFromPositionToKnowForm(argumentForm, "counterArgumentScheme",  "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
+
     }
 
 
@@ -236,6 +242,10 @@ var schemeSwitch = (function (scheme, data) {
             console.log("ss activating");
             return ss.setupSsCriticalQuestions(data);  
             break;
+        case "Argument from Position to Know":
+            console.log("afp activating"); 
+            return afp.setupAfpCriticalQuestions(data); 
+            break; 
         default:
             console.log("Add switch functionality");
             return "Not a valid scheme";

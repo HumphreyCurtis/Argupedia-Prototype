@@ -25,7 +25,7 @@
     - Argument from analogy [x]
     - Argument from correlation to cause [x]
     - Argument from positive / negative consequences []
-    - The slippery slope argument []
+    - The slippery slope argument [x]
     - Rename expert opinion scheme as argument from position to know and sort out variable names [] 
     - Troubleshoot questions and see if they can be improved []
     - Check that appealToPopularOpinion.js storing only premise variables is accurate [] 
