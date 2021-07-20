@@ -1,8 +1,24 @@
-// Data & firebase hook-up
-// Sort argumentation adding / name of databases
+
+/* 
+ *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * --------------------------------------------------------------- Graph file for plotting graph and applying labelling algorithm  ------------------------------------------------ 
+ */
+
+/*
+ * Data & firebase hook-up
+ * Arguments denotes argument storage whilst links provides edges from arguments
+ */  
 var arguments = [];
 var links = [];
 
+/* 
+ * Function to connect and adapt on the basis of changes to database 
+ *
+ */
 var databasePlusPlotGraph = (function (arguments, links) {
 
     var arguments = [];
@@ -71,7 +87,10 @@ var databasePlusPlotGraph = (function (arguments, links) {
     });
 });
 
-// Graph drawn here 
+/* 
+ * Switch which denotes if user wishes to have graph labelled 
+ *
+ */
 var labellingSwitch = document.getElementById("mySwitch");
 let status = false;
 
@@ -79,7 +98,6 @@ var unlabelledArguments = [];
 var inArguments = [];
 var outArguments = [];
 var undecidedNodes = [];
-
 
 console.log("Drawing graph");
 databasePlusPlotGraph(arguments, links);
@@ -91,15 +109,17 @@ labellingSwitch.addEventListener("change", function () {
     var arguments = [];
     var links = [];
 
+    // Status of labelling
     status = labellingSwitch.checked;
     console.log("Status of labelling =", status);
     databasePlusPlotGraph(arguments, links);
 
 });
 
-
-
-// Draw graph using library and data
+/* 
+ * Draw graph using library and data with zoom functionality
+ *
+ */
 const update = (arguments, links) => {
     // Delete the old graph
     d3.selectAll("svg > *").remove();
@@ -109,42 +129,12 @@ const update = (arguments, links) => {
 
     console.log("Status of labelling =", status);
 
-    // Labellings dependent on switch
-    // if (status) {
-    //     labellingAlgorithm(arguments);
-    //     console.log("Out arguments within if statement = ", outArguments);
-    //     console.log("In arguments within if statement = ", inArguments);
-
-    //     drawNodesWithArgumentLabellings(arguments, graph);
-
-    // } else {
-    //     console.log("Labelling beginning");
-    //     console.log(arguments);
-    //     arguments.forEach(function (d) {
-    //         graph.setNode(d.name, {
-    //             labelType: "html",
-    //             label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "</b><br><br>" + d.argumentDescription + "</b>",
-    //             class: "comp",
-    //         });
-    //     });
-    // }
-
-    // arguments.forEach(function (d) {
-    //     graph.setNode(d.name, {
-    //         labelType: "html",
-    //         label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "</b><br><br>" + d.argumentDescription + "</b>",
-    //         class: "comp",
-    //     });
-    // });
-
     if (status) {
         completeLabelling(arguments, links, graph);
     } else {
         standardLabelling(arguments, graph);
         removeHeadersForInArguments();
     }
-
-
 
     graph.nodes().forEach(function (v) {
         var node = graph.node(v);
@@ -188,28 +178,31 @@ const update = (arguments, links) => {
     // Center the graph
     console.log("Arguments length = " + arguments.length);
 
-    if (arguments.length > 0) {
-        // var xCenterOffset = (svg.attr("width") - graph.graph().width / 2); // Variable moves graph left and right - will need to change was originally divided by 2 
-        // inner.attr("transform", "translate(" + xCenterOffset + "");
-        svg.attr("height", graph.graph().height + 40); // Was originally + 40
-        svg.attr("width", graph.graph().width + 40);
-    }
+    // if (arguments.length > 0) {
+    //     // var xCenterOffset = (svg.attr("width") - graph.graph().width / 2); // Variable moves graph left and right - will need to change was originally divided by 2 
+    //     // inner.attr("transform", "translate(" + xCenterOffset + "");
+    //     // svg.attr("height", calc( 100% - 50px )); // Was originally + 40
+    //     // svg.attr("width", graph.graph().height + 600);
+    // }
 
 };
 
-
+// Standard labelling just presenting argumentative graph 
 var standardLabelling = (function (arguments, graph) {
 
     arguments.forEach(function (d) {
         graph.setNode(d.name, {
             labelType: "html",
-            label: "<b>" + d.name + "</b><br></br><b>ID: " + d.id + "</b><br></br><b>" + "Scheme: " + d.scheme + "</b><br></br>" + d.argumentDescription,
+            label: "<b>" + d.name + "<br></br>" + "Scheme: " + d.scheme + "</b><br></br>" + d.argumentDescription,
             class: "comp",
         });
     });
 
 });
 
+/*
+ * Complete labelling with nodes of argument labelled as IN / OUT contingent on criteria
+ */
 var completeLabelling = (function (arguments, links, graph) {
 
     labellingAlgorithm(arguments, links);
@@ -230,7 +223,14 @@ var completeLabelling = (function (arguments, links, graph) {
 
 });
 
-
+/* 
+ *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * --------------------------------------------------------------- Labelling algorithm to output graph nodes with IN / OUT  ------------------------------------------------------- 
+ */
 
 var labellingAlgorithm = (function (arguments, links) {
     // console.log(links);
@@ -272,6 +272,7 @@ var labellingAlgorithm = (function (arguments, links) {
 
 });
 
+/* Function which returns all argument names */
 var getArgumentNames = (function (arguments) {
     var argumentNames = [];
 
@@ -282,6 +283,7 @@ var getArgumentNames = (function (arguments) {
     return argumentNames;
 });
 
+/* Function which returns all arguments that are attacked */
 var getTargets = (function (links) {
     var targets = [];
 
@@ -292,6 +294,10 @@ var getTargets = (function (links) {
     return targets;
 });
 
+
+/* 
+ * Function which returns all arguments that are the source of attacks 
+ */
 var getSources = (function (links) {
     var sources = [];
 
@@ -302,6 +308,7 @@ var getSources = (function (links) {
     return sources;
 });
 
+/* Function which finds all arguments unattacked and labels them as IN */
 var setExclusionBetweenArgumentsAndTargets = (function (targets) {
 
     inArguments = unlabelledArguments.filter(x => !targets.includes(x));
@@ -310,6 +317,9 @@ var setExclusionBetweenArgumentsAndTargets = (function (targets) {
     return unlabelledArguments;
 });
 
+/* 
+ * Function which finds all arguments attacked by IN arguments and labels them as OUT
+ */
 var argumentsAttackedByInArguments = (function (links, sources) {
     var inArgumentsAttacking = inArguments.filter(item => sources.includes(item));
     console.log("In arguments attacking = ", inArgumentsAttacking);
@@ -328,6 +338,9 @@ var argumentsAttackedByInArguments = (function (links, sources) {
     return unlabelledArguments;
 });
 
+/* 
+ * Function which finds all arguments attacked by only OUT arguments and labels them as IN
+ */
 var argumentsAttackedAllByOutArguments = (function (links) {
     unlabelledArguments.forEach(function (currentNode) {
 
@@ -348,7 +361,7 @@ var argumentsAttackedAllByOutArguments = (function (links) {
     return unlabelledArguments; 
 });
 
-
+/* Function which identifies arguments attacking node */
 var argumentsAttackingNode = (function (node, links) {
     var argumentsAttackingNode = [];
 
@@ -361,10 +374,12 @@ var argumentsAttackingNode = (function (node, links) {
     return argumentsAttackingNode;
 });
 
+/* Function which checks if arguments attacking node are all out */
 var argumentsAttackingNodeAllOut = (function (argumentsAttackingNode, outArguments) {
     return (argumentsAttackingNode.every(elem => outArguments.includes(elem)));
 });
 
+/* Function which labels remaining nodes as UNDEC */
 var labelRemainingNodesUndec = (function(){
     unlabelledArguments.forEach(d => d.push(undecidedNodes));
 
@@ -373,31 +388,17 @@ var labelRemainingNodesUndec = (function(){
     unlabelledArguments = unlabelledArguments.filter(item => !undecidedNodes.includes(item));
 
     return unlabelledArguments; 
-}); 
-
-var determineLabelledNodes = (function (inArguments, outArguments) {
-    var labelledNodes = [];
-
-    inArguments.forEach(function (d) {
-        labelledNodes.push(d);
-    });
-
-    outArguments.forEach(function (d) {
-        labelledNodes.push(d);
-    });
-
-    return labelledNodes;
 });
 
-var determineUnlabelledNodes = (function (argumentNames, labelledNodes) {
-    var unlabelledNodes = [];
-
-    unlabelledNodes = argumentNames.filter(x => !labelledNodes.includes(x));
-
-    return unlabelledNodes; // Could create set exclusion function
-});
-
-
+/* 
+ *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * --------------------------------------------------------------- Accessory functions and code to draw svg nodes for user   ------------------------------------------------------
+ */
+ 
 var removeDuplicates = (function (chars) {
 
     let uniqueChars = chars.filter((c, index) => {
@@ -446,6 +447,15 @@ var setNodeWithUndecLabelling = (function (graph, d) {
         class: "comp",
     });
 });
+
+/* 
+ *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * ------------------------------------------------------- Functions which adapt headers below the svg argumentation graph   ------------------------------------------------------
+ */
 
 
 var addHeadersForInArguments = (function(){
@@ -503,6 +513,30 @@ var appendInArgumentsToHeaderPreferred = (function(currentArgument){
     tempHeader.innerText = currentArgument; 
     preferredArgumentHeader.appendChild(tempHeader);
 }); 
+
+
+// var determineLabelledNodes = (function (inArguments, outArguments) {
+//     var labelledNodes = [];
+
+//     inArguments.forEach(function (d) {
+//         labelledNodes.push(d);
+//     });
+
+//     outArguments.forEach(function (d) {
+//         labelledNodes.push(d);
+//     });
+
+//     return labelledNodes;
+// });
+
+// var determineUnlabelledNodes = (function (argumentNames, labelledNodes) {
+//     var unlabelledNodes = [];
+
+//     unlabelledNodes = argumentNames.filter(x => !labelledNodes.includes(x));
+
+//     return unlabelledNodes; // Could create set exclusion function
+// });
+
 
 // var oldLabellingAlgorithm = (function (arguments) {
 

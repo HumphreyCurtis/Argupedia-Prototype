@@ -33,7 +33,11 @@ text {
 
 .switch {
     margin-bottom: 30px;
-    margin-left: 30px;  
+    margin-left: 30px;
 }
 
 
+svg {
+    width: calc(100% - 20px);
+    height: calc(100% - 150px);
+}
