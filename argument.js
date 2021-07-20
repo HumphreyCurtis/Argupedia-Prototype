@@ -60,9 +60,10 @@ selectTypeOfArgument.addEventListener('change', (event) => {
     } else if (selectTypeOfArgument.value == "counterArgument") {
 
         argumentStatus = "counterArgument";
-        // selectArgumentSchemeEventListener next function 
-
-        /* Piping in fields for counter argument using div counterargumentInputFields */
+        /* 
+         * selectArgumentSchemeEventListener next function 
+         * Piping in fields for counterargument using div counterargumentInputFields on modal
+         */
         createInputFieldsForCounterArgument(counterArgumentInputFields, "Counter argument target name", "counterArgumentTargetName");
         appendSeeCriticalQuestionsButton(counterArgumentInputFields, "btn waves-effect white-text", "counterArgumentTargetButton");
         appendSelectCriticalQuestions(counterArgumentInputFields);
@@ -82,7 +83,7 @@ selectArgumentScheme.addEventListener('change', (event) => {
         cas.createCasForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     } else if (selectArgumentScheme.value == "appealToExpertOpinion") {
-        console.log("Appeal to expoert opinion selected"); 
+        console.log("Appeal to expert opinion selected"); 
         eos.createEosForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     } else if (selectArgumentScheme.value == "appealToPopularOpinionForm") {
@@ -100,6 +101,7 @@ selectArgumentScheme.addEventListener('change', (event) => {
     } else if (selectArgumentScheme.value == "argumentFromConsequences") {
         console.log("Argument from consequences selected"); 
         afc.createArgumentFromConsequencesForm(argumentForm, "counterArgumentScheme",  "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
+
     } else if (selectArgumentScheme.value == "slipperySlopeArgument") {
         console.log("Slippery Slope Argument selected");
         ss.createSlipperySlopeArgumentForm(argumentForm, "counterArgumentScheme",  "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);

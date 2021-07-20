@@ -1,3 +1,33 @@
+///////////////\\\\\\\\\\\\\\\
+++++++++++++++++++++++++++++++
+++++++ NOTES FOR CODING ++++++
+++++++++++++++++++++++++++++++
+
+- Improve labelling algorithm code []
+    - Improve interface of standard label [x]
+    - Improve labelling algorithm - divide and conquer approach []
+    - Export code to labelling.js file []
+    - Make graph not break boundaries []
+    - Move javascript into javascript folder [] 
+    - Add functionality on the basis of grounded and preferred []
+
+- Troubleshoot questions and see if they can be improved []
+    - Check that appealToPopularOpinion.js storing only premise variables is accurate [] - refer to appeal to expert opinion for good example of variable usage!!!
+
+- Check that the app is not breakable based on user input []
+    - Initial tests in place [x]
+    - Improve testing - make more thorough with external file []
+    - Create unit tests folder and test inputs from user [] 
+
+- Create YouTube videos for user studies [] 
+
+- Add a ReadMe file []
+    - Improve comments throughout files []
+
+//////////////////////////
+....... COMPLETED .......
+\\\\\\\\\\\\\\\\\\\\\\\\\\
+
 - Add links between arguments [x]
 
 - Create labelling algorithm [x]
@@ -5,31 +35,26 @@
 - Set up zoom support [x]
 
 - Add labelling algorithm [x]
+    
+- Add more schemes and move into folder [x]
+    - Critical action scheme [x] 
+    - Argument from position to know [x] 
+    - Appeal to expert opinion [x]
+    - Appeal to popular opinion [x]
+    - Argument from analogy [x]
+    - Argument from correlation to cause [x]
+    - Argument from positive / negative consequences [x]
+    - The slippery slope argument [x]
+    - Rename expert opinion scheme as argument from position to know and sort out variable names [x] 
 
 - Add unit tests [x]
     - counterArgument.js [x]
     - index.js [x]
     - graph.js [x]
 
-- Check that the app is not breakable based on user input[]
-    - Initial tests in place [x]
-    - Improve testing []
-    
-- Improve labelling algorithm code []
+- Code quality [x]
+    - Improve variable names in index.html file and rename file argupedia.html [x]
+    - Improve variable names in counterargument.js and rename file argument.js [x]
 
-- Add more schemes and move into folder []
-    - Critical aciton scheme [x] 
-    - Argument from position to know [] 
-    - Appeal to expert opinion []
-    - Appeal to popular opinion [x]
-    - Argument from analogy [x]
-    - Argument from correlation to cause [x]
-    - Argument from positive / negative consequences []
-    - The slippery slope argument [x]
-    - Rename expert opinion scheme as argument from position to know and sort out variable names [] 
-    - Troubleshoot questions and see if they can be improved []
-    - Check that appealToPopularOpinion.js storing only premise variables is accurate [] 
 
-- Code quality []
-    - Improve variable names in index.html file and rename file argupedia.html []
-    - Improve variable names in counterargument.js and rename file argument.js []
+

@@ -3,74 +3,6 @@
 var arguments = [];
 var links = [];
 
-// var databasePlusPlotGraph = (function (arguments, links) {
-
-//     db.collection('arguments').onSnapshot(res => {
-
-//         res.docChanges().forEach(change => {
-
-//             const doc = {
-//                 ...change.doc.data(),
-//                 id: change.doc.id
-//             };
-
-//             switch (change.type) {
-//                 case 'added':
-//                     arguments.push(doc);
-//                     break;
-//                 case 'modified':
-//                     const index = arguments.findIndex(item => item.id == doc.id);
-//                     arguments[index] = doc;
-//                     break;
-//                 case 'removed':
-//                     arguments = arguments.filter(item => item.id !== doc.id);
-//                     break;
-//                 default:
-//                     break;
-//             }
-
-
-//         });
-
-//         db.collection('links').onSnapshot(res2 => {
-
-//             links = []; /* There is a bug here with links being updated twice - will need to fix */
-
-//             res2.docChanges().forEach(change => {
-
-//                 const doc = {
-//                     ...change.doc.data(),
-//                     id: change.doc.id
-//                 };
-
-//                 switch (change.type) {
-//                     case 'added':
-//                         links.push(doc);
-//                         break;
-//                     case 'modified':
-//                         const index = data.findIndex(item => item.id == doc.id);
-//                         links[index] = doc;
-//                         break;
-//                     case 'removed':
-//                         links = links.filter(item => item.id !== doc.id);
-//                         break;
-//                     default:
-//                         break;
-//                 }
-
-//             });
-
-//             console.log(arguments);
-//             console.log(links);
-
-//             update(arguments, links);
-//         });
-
-//     });
-
-// });
-
-
 var databasePlusPlotGraph = (function (arguments, links) {
 
     var arguments = [];
@@ -195,13 +127,15 @@ const update = (arguments, links) => {
     //     });
     // }
 
-    arguments.forEach(function (d) {
-        graph.setNode(d.name, {
-            labelType: "html",
-            label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "</b><br><br>" + d.argumentDescription + "</b>",
-            class: "comp",
-        });
-    });
+    // arguments.forEach(function (d) {
+    //     graph.setNode(d.name, {
+    //         labelType: "html",
+    //         label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "</b><br><br>" + d.argumentDescription + "</b>",
+    //         class: "comp",
+    //     });
+    // });
+
+    standardLabelling(arguments, graph);
 
     graph.nodes().forEach(function (v) {
         var node = graph.node(v);
@@ -253,6 +187,19 @@ const update = (arguments, links) => {
     }
 
 };
+
+
+var standardLabelling = (function (arguments, graph) {
+
+    arguments.forEach(function (d) {
+        graph.setNode(d.name, {
+            labelType: "html",
+            label: "<b>" + d.name + "</b><br></br><b>ID: " + d.id + "</b><br></br>" + "Scheme: " + d.scheme + "<br></br>"  + d.argumentDescription,
+            class: "comp",
+        });
+    });
+
+}); 
 
 
 
@@ -426,7 +373,72 @@ var setNodeWithUndecLabelling = (function (graph, d) {
 
 
 
+// var databasePlusPlotGraph = (function (arguments, links) {
 
+//     db.collection('arguments').onSnapshot(res => {
+
+//         res.docChanges().forEach(change => {
+
+//             const doc = {
+//                 ...change.doc.data(),
+//                 id: change.doc.id
+//             };
+
+//             switch (change.type) {
+//                 case 'added':
+//                     arguments.push(doc);
+//                     break;
+//                 case 'modified':
+//                     const index = arguments.findIndex(item => item.id == doc.id);
+//                     arguments[index] = doc;
+//                     break;
+//                 case 'removed':
+//                     arguments = arguments.filter(item => item.id !== doc.id);
+//                     break;
+//                 default:
+//                     break;
+//             }
+
+
+//         });
+
+//         db.collection('links').onSnapshot(res2 => {
+
+//             links = []; /* There is a bug here with links being updated twice - will need to fix */
+
+//             res2.docChanges().forEach(change => {
+
+//                 const doc = {
+//                     ...change.doc.data(),
+//                     id: change.doc.id
+//                 };
+
+//                 switch (change.type) {
+//                     case 'added':
+//                         links.push(doc);
+//                         break;
+//                     case 'modified':
+//                         const index = data.findIndex(item => item.id == doc.id);
+//                         links[index] = doc;
+//                         break;
+//                     case 'removed':
+//                         links = links.filter(item => item.id !== doc.id);
+//                         break;
+//                     default:
+//                         break;
+//                 }
+
+//             });
+
+//             console.log(arguments);
+//             console.log(links);
+
+//             update(arguments, links);
+//         });
+
+//     });
+
+// });
 
 // const updateLinks = (links) => {
 
