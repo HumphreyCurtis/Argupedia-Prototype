@@ -136,8 +136,7 @@ const update = (arguments, links) => {
     // });
 
     if (status) {
-        console.log("complete labelling");
-        completeLabelling(arguments, graph);
+        completeLabelling(arguments, links, graph);
     } else {
         standardLabelling(arguments, graph);
     }
@@ -187,7 +186,7 @@ const update = (arguments, links) => {
     console.log("Arguments length = " + arguments.length);
 
     if (arguments.length > 0) {
-        var xCenterOffset = (svg.attr("width") - graph.graph().width / 2); // Variable moves graph left and right - will need to change was originally divided by 2 
+        // var xCenterOffset = (svg.attr("width") - graph.graph().width / 2); // Variable moves graph left and right - will need to change was originally divided by 2 
         // inner.attr("transform", "translate(" + xCenterOffset + "");
         svg.attr("height", graph.graph().height + 40); // Was originally + 40
         // svg.attr("width", graph.graph().width + 40);
@@ -202,38 +201,90 @@ var standardLabelling = (function (arguments, graph) {
     arguments.forEach(function (d) {
         graph.setNode(d.name, {
             labelType: "html",
-            label: "<b>" + d.name + "</b><br></br><b>ID: " + d.id + "</b><br></br><b>" + "Scheme: " + d.scheme + "</b><br></br>"  + d.argumentDescription,
+            label: "<b>" + d.name + "</b><br></br><b>ID: " + d.id + "</b><br></br><b>" + "Scheme: " + d.scheme + "</b><br></br>" + d.argumentDescription,
             class: "comp",
         });
     });
 
-}); 
+});
 
-var completeLabelling = (function (arguments, graph) {
+var completeLabelling = (function (arguments, links, graph) {
+
+    labellingAlgorithm(arguments, links);
+    console.log("Out arguments within if statement = ", outArguments);
+    console.log("In arguments within if statement = ", inArguments);
 
     arguments.forEach(function (d) {
         graph.setNode(d.name, {
             labelType: "html",
-            label: "<b>" + d.name + "</b><br></br><b>" + "Scheme: " + d.scheme + "</b><br></br>"  + d.argumentDescription,
+            label: "<b>" + d.name + "</b><br></br><b>" + "Scheme: " + d.scheme + "</b><br></br>" + d.argumentDescription,
             class: "comp",
         });
     });
 
-}); 
+});
 
 
 
-var labellingAlgorithm = (function (arguments) {
-    // We have names within both arrays - can match on name
+var labellingAlgorithm = (function (arguments, links) {
     console.log(links);
-    console.log(arguments);
+    // console.log(arguments);
 
-    var argumentNames = []; // May need to make global 
+    var argumentNames = [];
+    argumentNames = getArgumentNames(arguments);
+
+    var targets = [];
+    targets = getTargets(links); 
+
+    var sources = [];
+    sources = getSources(links); 
+
+    console.log("All argument names = ", argumentNames);
+    console.log("Arguments being attacked = ", targets);
+    console.log("Arguments attacking = ", sources);
+
+
+});
+
+var getArgumentNames = (function (arguments) {
+    var argumentNames = [];
+
+    arguments.forEach(function (l) {
+        argumentNames.push(l.name);
+    });
+
+    return argumentNames;
+});
+
+var getTargets = (function (links) {
+    var targets = []; 
+
+    links.forEach(function (d) {
+        targets.push(d.target);
+    });
+
+    return targets; 
+});
+
+var getSources = (function (links) {
+    var sources = []; 
+
+    links.forEach(function (d) {
+        sources.push(d.source);
+    });
+
+    return sources; 
+});
+
+var oldLabellingAlgorithm = (function (arguments) {
+
+    var argumentNames = [];
     var targets = [];
     var sources = [];
     var labelledNodes = [];
-    var inArgumentsAttacking = [];
     var unlabelledNodes = [];
+    var inArgumentsAttacking = [];
+
 
     arguments.forEach(function (l) {
         argumentNames.push(l.name);
@@ -244,8 +295,7 @@ var labellingAlgorithm = (function (arguments) {
         sources.push(d.source);
     });
 
-    console.log("All argument names");
-    console.log(argumentNames);
+
     console.log("Arguments being attacked");
     console.log(targets); // Arguments being attacked
     console.log("Arguments attacking");
@@ -298,6 +348,8 @@ var labellingAlgorithm = (function (arguments) {
     console.log("In arguments = ", inArguments);
 
 });
+
+
 
 // Functions to correct Test 3
 var argumentsAttackingNode = (function (node, links) {
