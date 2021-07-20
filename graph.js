@@ -94,6 +94,7 @@ labellingSwitch.addEventListener("change", function () {
     status = labellingSwitch.checked;
     console.log("Status of labelling =", status);
     databasePlusPlotGraph(arguments, links);
+
 });
 
 
@@ -140,6 +141,7 @@ const update = (arguments, links) => {
         completeLabelling(arguments, links, graph);
     } else {
         standardLabelling(arguments, graph);
+        removeHeadersForInArguments();
     }
 
 
@@ -215,6 +217,8 @@ var completeLabelling = (function (arguments, links, graph) {
     // console.log("In arguments within if statement = ", inArguments);
 
     drawNodesWithArgumentLabellings(arguments, graph); 
+
+    addHeadersForInArguments(); 
 
     // arguments.forEach(function (d) {
     //     graph.setNode(d.name, {
@@ -442,6 +446,63 @@ var setNodeWithUndecLabelling = (function (graph, d) {
         class: "comp",
     });
 });
+
+
+var addHeadersForInArguments = (function(){
+    removeHeadersForInArguments(); 
+    var switchDiv = document.getElementById("switchDiv");
+    var groundedArgumentHeader = document.createElement("h6"); 
+    var preferredArgumentHeader = document.createElement("h6"); 
+
+
+    groundedArgumentHeader.innerText = "Grounded IN arguments: "; 
+    preferredArgumentHeader.innerText = "Preferred IN arguments: ";
+    
+    groundedArgumentHeader.setAttribute("id", "groundedArgumentHeader"); 
+    preferredArgumentHeader.setAttribute("id", "preferredArgumentHeader");
+
+    switchDiv.append(groundedArgumentHeader); 
+    switchDiv.append(preferredArgumentHeader); 
+
+    console.log("In arguments to text...");
+    inArgumentsToText(); 
+});
+
+var removeHeadersForInArguments = (function(){
+
+    var groundedArgumentHeader = document.getElementById("groundedArgumentHeader"); 
+    var preferredArgumentHeader = document.getElementById("preferredArgumentHeader"); 
+
+    if (groundedArgumentHeader) {
+        groundedArgumentHeader.remove(); 
+        preferredArgumentHeader.remove(); 
+    }
+});
+
+var inArgumentsToText = (function(){
+    inArguments.forEach(function(currentArgument) {
+        appendInArgumentsToHeaderGrounded(currentArgument);
+        appendInArgumentsToHeaderPreferred(currentArgument);
+    });
+
+    undecidedNodes.forEach(function(currentArgument){
+        appendInArgumentsToHeaderPreferred(currentArgument);
+    });
+});
+
+var appendInArgumentsToHeaderGrounded = (function(currentArgument){
+    var groundedArgumentHeader = document.getElementById("groundedArgumentHeader"); 
+    var tempHeader = document.createElement("p");
+    tempHeader.innerText = currentArgument; 
+    groundedArgumentHeader.appendChild(tempHeader);
+}); 
+
+var appendInArgumentsToHeaderPreferred = (function(currentArgument){
+    var preferredArgumentHeader = document.getElementById("preferredArgumentHeader"); 
+    var tempHeader = document.createElement("p");
+    tempHeader.innerText = currentArgument; 
+    preferredArgumentHeader.appendChild(tempHeader);
+}); 
 
 // var oldLabellingAlgorithm = (function (arguments) {
 
