@@ -75,6 +75,7 @@ var databasePlusPlotGraph = (function (arguments, links) {
 var labellingSwitch = document.getElementById("mySwitch");
 let status = false;
 
+var unlabelledArguments = [];
 var inArguments = [];
 var outArguments = [];
 var undecidedNodes = [];
@@ -189,8 +190,7 @@ const update = (arguments, links) => {
         // var xCenterOffset = (svg.attr("width") - graph.graph().width / 2); // Variable moves graph left and right - will need to change was originally divided by 2 
         // inner.attr("transform", "translate(" + xCenterOffset + "");
         svg.attr("height", graph.graph().height + 40); // Was originally + 40
-        // svg.attr("width", graph.graph().width + 40);
-        svg.attr("width", graph.graph().width - 1500);
+        svg.attr("width", graph.graph().width + 40);
     }
 
 };
@@ -211,38 +211,60 @@ var standardLabelling = (function (arguments, graph) {
 var completeLabelling = (function (arguments, links, graph) {
 
     labellingAlgorithm(arguments, links);
-    console.log("Out arguments within if statement = ", outArguments);
-    console.log("In arguments within if statement = ", inArguments);
+    // console.log("Out arguments within if statement = ", outArguments);
+    // console.log("In arguments within if statement = ", inArguments);
 
-    arguments.forEach(function (d) {
-        graph.setNode(d.name, {
-            labelType: "html",
-            label: "<b>" + d.name + "</b><br></br><b>" + "Scheme: " + d.scheme + "</b><br></br>" + d.argumentDescription,
-            class: "comp",
-        });
-    });
+    drawNodesWithArgumentLabellings(arguments, graph); 
+
+    // arguments.forEach(function (d) {
+    //     graph.setNode(d.name, {
+    //         labelType: "html",
+    //         label: "<b>" + d.name + "</b><br></br><b>" + "Scheme: " + d.scheme + "</b><br></br>" + d.argumentDescription,
+    //         class: "comp",
+    //     });
+    // });
 
 });
 
 
 
 var labellingAlgorithm = (function (arguments, links) {
-    console.log(links);
+    // console.log(links);
     // console.log(arguments);
+    var targets = getTargets(links);
+    var sources = getSources(links);
 
-    var argumentNames = [];
-    argumentNames = getArgumentNames(arguments);
+    unlabelledArguments = getArgumentNames(arguments);
 
-    var targets = [];
-    targets = getTargets(links); 
+    // console.log("Arguments being attacked = ", targets);
+    // console.log("Arguments attacking = ", sources);
 
-    var sources = [];
-    sources = getSources(links); 
+    // Test 1 - If an argument is not a target at all then it must be labelled as IN as no arguments are attacking it
+    unlabelledArguments = setExclusionBetweenArgumentsAndTargets(targets);
 
-    console.log("All argument names = ", argumentNames);
-    console.log("Arguments being attacked = ", targets);
-    console.log("Arguments attacking = ", sources);
+    console.log("In arguments after test 1 = ", inArguments);
+    console.log("Unlabelled arguments after test 1 = ", unlabelledArguments);
 
+    // Test 2 - If an argument is attacked by an IN argument it must be labelled as OUT 
+    unlabelledArguments = argumentsAttackedByInArguments(links, sources);
+
+    console.log("In arguments after test 2 = ", inArguments);
+    console.log("Out arguments after test 2 = ", outArguments);
+    console.log("Unlabelled arguments after test 2 = ", unlabelledArguments);
+
+    // Test 3 - A4 on algorithm design tab --> an argument where ALL attacking it are OUT 
+    unlabelledArguments = argumentsAttackedAllByOutArguments(links);
+
+    console.log("In arguments after test 3 = ", inArguments);
+    console.log("Out arguments after test 3 = ", outArguments);
+    console.log("Unlabelled arguments after test 3 = ", unlabelledArguments);
+
+    unlabelledArguments = labelRemainingNodesUndec(); 
+
+    console.log("In arguments after test 4 = ", inArguments);
+    console.log("Out arguments after test 4 = ", outArguments);
+    console.log("Undec arguments after test 4 = ", undecidedNodes);
+    console.log("Unlabelled arguments after test 4 = ", unlabelledArguments);
 
 });
 
@@ -257,104 +279,75 @@ var getArgumentNames = (function (arguments) {
 });
 
 var getTargets = (function (links) {
-    var targets = []; 
+    var targets = [];
 
     links.forEach(function (d) {
         targets.push(d.target);
     });
 
-    return targets; 
+    return targets;
 });
 
 var getSources = (function (links) {
-    var sources = []; 
+    var sources = [];
 
     links.forEach(function (d) {
         sources.push(d.source);
     });
 
-    return sources; 
+    return sources;
 });
 
-var oldLabellingAlgorithm = (function (arguments) {
+var setExclusionBetweenArgumentsAndTargets = (function (targets) {
 
-    var argumentNames = [];
-    var targets = [];
-    var sources = [];
-    var labelledNodes = [];
-    var unlabelledNodes = [];
-    var inArgumentsAttacking = [];
+    inArguments = unlabelledArguments.filter(x => !targets.includes(x));
+    unlabelledArguments = unlabelledArguments.filter(inArguments => targets.includes(inArguments));
 
+    return unlabelledArguments;
+});
 
-    arguments.forEach(function (l) {
-        argumentNames.push(l.name);
-    });
-
-    links.forEach(function (d) {
-        targets.push(d.target);
-        sources.push(d.source);
-    });
-
-
-    console.log("Arguments being attacked");
-    console.log(targets); // Arguments being attacked
-    console.log("Arguments attacking");
-    console.log(sources); // Arguments attacking 
-
-
-    // Test 1 if an argument is not a target then it should be labelled as IN 
-    inArguments = argumentNames.filter(x => !targets.includes(x));
-    console.log("IN arguments as not targeted = " + inArguments);
-
-    // Test 2 if an argument is attacked by IN arguments should be labelled as OUT 
-    inArgumentsAttacking = inArguments.filter(x => sources.includes(x));
-    console.log("IN arguments attacking = " + inArgumentsAttacking);
+var argumentsAttackedByInArguments = (function (links, sources) {
+    var inArgumentsAttacking = inArguments.filter(item => sources.includes(item));
+    console.log("In arguments attacking = ", inArgumentsAttacking);
 
     links.forEach(function (d) {
         if (inArgumentsAttacking.includes(d.source)) {
             outArguments.push(d.target);
         }
     });
+
     outArguments = removeDuplicates(outArguments);
-    console.log(outArguments);
 
-    // Test 3 - A4 on algorithm design tab --> an argument where ALL attacking it are OUT 
-    labelledNodes = determineLabelledNodes(inArguments, outArguments);
-    console.log("Labelled nodes = " + labelledNodes);
+    unlabelledArguments = unlabelledArguments.filter(item => !outArguments.includes(item));
+    unlabelledArguments = unlabelledArguments.filter(item => !inArguments.includes(item));
 
-    unlabelledNodes = determineUnlabelledNodes(argumentNames, labelledNodes);
-    console.log("Unlabelled nodes = " + unlabelledNodes);
-    console.log(unlabelledNodes);
+    return unlabelledArguments;
+});
 
+var argumentsAttackedAllByOutArguments = (function (links) {
+    unlabelledArguments.forEach(function (currentNode) {
 
-    unlabelledNodes.forEach(function (currentNode) {
         let argumentsAttackingCurrentNode = [];
-        argumentsAttackingCurrentNode = argumentsAttackingNode(currentNode);
+        argumentsAttackingCurrentNode = argumentsAttackingNode(currentNode, links);
+
+        console.log("Arguments attacking current node = ", argumentsAttackingCurrentNode);
+
         if (argumentsAttackingNodeAllOut(argumentsAttackingCurrentNode, outArguments)) {
             inArguments.push(currentNode);
         }
+
     });
 
-    // Test 4 - remaining arguments should be labelled as UNDEC or IN / OUT
-    labelledNodes = determineLabelledNodes(inArguments, outArguments);
-    // console.log("Labelled nodes = " + labelledNodes);
+    unlabelledArguments = unlabelledArguments.filter(item => !outArguments.includes(item));
+    unlabelledArguments = unlabelledArguments.filter(item => !inArguments.includes(item));
 
-    unlabelledNodes = determineUnlabelledNodes(argumentNames, labelledNodes);
-    // console.log("Unlabelled nodes = " + unlabelledNodes);
-
-    unlabelledNodes.forEach(d => d.push(undecidedNodes));
-    console.log("Undecided nodes = ", undecidedNodes);
-    console.log("Out arguments = ", outArguments);
-    console.log("In arguments = ", inArguments);
-
+    return unlabelledArguments; 
 });
 
 
-
-// Functions to correct Test 3
 var argumentsAttackingNode = (function (node, links) {
     var argumentsAttackingNode = [];
-    console.log(links);
+
     links.forEach(function (d) {
         if (d.target == node) {
             argumentsAttackingNode.push(d.source);
@@ -365,10 +358,18 @@ var argumentsAttackingNode = (function (node, links) {
 });
 
 var argumentsAttackingNodeAllOut = (function (argumentsAttackingNode, outArguments) {
-
     return (argumentsAttackingNode.every(elem => outArguments.includes(elem)));
-
 });
+
+var labelRemainingNodesUndec = (function(){
+    unlabelledArguments.forEach(d => d.push(undecidedNodes));
+
+    unlabelledArguments = unlabelledArguments.filter(item => !outArguments.includes(item));
+    unlabelledArguments = unlabelledArguments.filter(item => !inArguments.includes(item));
+    unlabelledArguments = unlabelledArguments.filter(item => !undecidedNodes.includes(item));
+
+    return unlabelledArguments; 
+}); 
 
 var determineLabelledNodes = (function (inArguments, outArguments) {
     var labelledNodes = [];
@@ -421,7 +422,7 @@ var drawNodesWithArgumentLabellings = (function (arguments, graph) {
 var setNodeWithOutLabelling = (function (graph, d) {
     graph.setNode(d.name, {
         labelType: "html",
-        label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "<b><br><br>Complete label = OUT</b>",
+        label: "<b>" + d.name + "</b><br></br>" + "Scheme: " + d.scheme + "<br></br><b>Complete label = OUT</b>",
         class: "comp",
     });
 });
@@ -429,7 +430,7 @@ var setNodeWithOutLabelling = (function (graph, d) {
 var setNodeWithInLabelling = (function (graph, d) {
     graph.setNode(d.name, {
         labelType: "html",
-        label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "<b><br><br>Complete label = IN</b>",
+        label: "<b>" + d.name + "</b><br></br>Scheme: " + d.scheme + "<br></br><b>Complete label = IN</b>",
         class: "comp",
     });
 });
@@ -437,12 +438,82 @@ var setNodeWithInLabelling = (function (graph, d) {
 var setNodeWithUndecLabelling = (function (graph, d) {
     graph.setNode(d.name, {
         labelType: "html",
-        label: "<b>" + d.name + "</b><br><br>ID: " + d.id + "<b><br><br>Complete label = UNDEC, IN/OUT</b>",
+        label: "<b>" + d.name + "</b><br></br>Scheme: " + d.scheme + "<br></br><b>Complete label = UNDEC, IN/OUT</b>",
         class: "comp",
     });
 });
 
+// var oldLabellingAlgorithm = (function (arguments) {
 
+//     var argumentNames = [];
+//     var targets = [];
+//     var sources = [];
+//     var labelledNodes = [];
+//     var unlabelledNodes = [];
+//     var inArgumentsAttacking = [];
+
+//     arguments.forEach(function (l) {
+//         argumentNames.push(l.name);
+//     });
+
+//     links.forEach(function (d) {
+//         targets.push(d.target);
+//         sources.push(d.source);
+//     });
+
+
+//     console.log("Arguments being attacked");
+//     console.log(targets); // Arguments being attacked
+//     console.log("Arguments attacking");
+//     console.log(sources); // Arguments attacking 
+
+
+//     // Test 1 if an argument is not a target then it should be labelled as IN 
+//     inArguments = argumentNames.filter(x => !targets.includes(x));
+//     console.log("IN arguments as not targeted = " + inArguments);
+
+//     // Test 2 if an argument is attacked by IN arguments should be labelled as OUT 
+//     inArgumentsAttacking = inArguments.filter(x => sources.includes(x));
+//     console.log("IN arguments attacking = " + inArgumentsAttacking);
+
+//     links.forEach(function (d) {
+//         if (inArgumentsAttacking.includes(d.source)) {
+//             outArguments.push(d.target);
+//         }
+//     });
+//     outArguments = removeDuplicates(outArguments);
+//     console.log(outArguments);
+
+//     // Test 3 - A4 on algorithm design tab --> an argument where ALL attacking it are OUT 
+//     labelledNodes = determineLabelledNodes(inArguments, outArguments);
+//     console.log("Labelled nodes = " + labelledNodes);
+
+//     unlabelledNodes = determineUnlabelledNodes(argumentNames, labelledNodes);
+//     console.log("Unlabelled nodes = " + unlabelledNodes);
+//     console.log(unlabelledNodes);
+
+
+//     unlabelledNodes.forEach(function (currentNode) {
+//         let argumentsAttackingCurrentNode = [];
+//         argumentsAttackingCurrentNode = argumentsAttackingNode(currentNode);
+//         if (argumentsAttackingNodeAllOut(argumentsAttackingCurrentNode, outArguments)) {
+//             inArguments.push(currentNode);
+//         }
+//     });
+
+//     // Test 4 - remaining arguments should be labelled as UNDEC or IN / OUT
+//     labelledNodes = determineLabelledNodes(inArguments, outArguments);
+//     // console.log("Labelled nodes = " + labelledNodes);
+
+//     unlabelledNodes = determineUnlabelledNodes(argumentNames, labelledNodes);
+//     // console.log("Unlabelled nodes = " + unlabelledNodes);
+
+//     unlabelledNodes.forEach(d => d.push(undecidedNodes));
+//     console.log("Undecided nodes = ", undecidedNodes);
+//     console.log("Out arguments = ", outArguments);
+//     console.log("In arguments = ", inArguments);
+
+// });
 
 
 // var databasePlusPlotGraph = (function (arguments, links) {
