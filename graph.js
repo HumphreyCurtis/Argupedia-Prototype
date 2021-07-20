@@ -92,7 +92,7 @@ labellingSwitch.addEventListener("change", function () {
 
     status = labellingSwitch.checked;
     console.log("Status of labelling =", status);
-    // databasePlusPlotGraph(arguments, links);
+    databasePlusPlotGraph(arguments, links);
 });
 
 
@@ -135,7 +135,14 @@ const update = (arguments, links) => {
     //     });
     // });
 
-    standardLabelling(arguments, graph);
+    if (status) {
+        console.log("complete labelling");
+        completeLabelling(arguments, graph);
+    } else {
+        standardLabelling(arguments, graph);
+    }
+
+
 
     graph.nodes().forEach(function (v) {
         var node = graph.node(v);
@@ -180,10 +187,11 @@ const update = (arguments, links) => {
     console.log("Arguments length = " + arguments.length);
 
     if (arguments.length > 0) {
-        // var xCenterOffset = (svg.attr("width") - graph.graph().width / 2); // Variable moves graph left and right - will need to change was originally divided by 2 
+        var xCenterOffset = (svg.attr("width") - graph.graph().width / 2); // Variable moves graph left and right - will need to change was originally divided by 2 
         // inner.attr("transform", "translate(" + xCenterOffset + "");
         svg.attr("height", graph.graph().height + 40); // Was originally + 40
-        svg.attr("width", graph.graph().width + 40);
+        // svg.attr("width", graph.graph().width + 40);
+        svg.attr("width", graph.graph().width - 1500);
     }
 
 };
@@ -194,7 +202,19 @@ var standardLabelling = (function (arguments, graph) {
     arguments.forEach(function (d) {
         graph.setNode(d.name, {
             labelType: "html",
-            label: "<b>" + d.name + "</b><br></br><b>ID: " + d.id + "</b><br></br>" + "Scheme: " + d.scheme + "<br></br>"  + d.argumentDescription,
+            label: "<b>" + d.name + "</b><br></br><b>ID: " + d.id + "</b><br></br><b>" + "Scheme: " + d.scheme + "</b><br></br>"  + d.argumentDescription,
+            class: "comp",
+        });
+    });
+
+}); 
+
+var completeLabelling = (function (arguments, graph) {
+
+    arguments.forEach(function (d) {
+        graph.setNode(d.name, {
+            labelType: "html",
+            label: "<b>" + d.name + "</b><br></br><b>" + "Scheme: " + d.scheme + "</b><br></br>"  + d.argumentDescription,
             class: "comp",
         });
     });

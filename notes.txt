@@ -6,7 +6,6 @@
 - Improve labelling algorithm code []
     - Improve interface of standard label [x]
     - Improve labelling algorithm - divide and conquer approach []
-    - Export code to labelling.js file []
     - Make graph not break boundaries []
     - Move javascript into javascript folder [] 
     - Add functionality on the basis of grounded and preferred []
