@@ -12,7 +12,8 @@
     - Add buttons to explain features e.g. schemes / grouned and preferred [x]
     - Neaten code base [x]
     - Add colour to nodes [x]
-
+    - Add a reset button []
+    
 - Troubleshoot questions and see if they can be improved []
     - Check that appealToPopularOpinion.js storing only premise variables is accurate [] - refer to appeal to expert opinion for good example of variable usage!!!
 

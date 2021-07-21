@@ -1,4 +1,5 @@
 import * as lib from "../library.js";
+import * as test from "../test.js";
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -55,9 +56,12 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
     var casGoal = document.querySelector("#casGoal");
     var casValue = document.querySelector("#casValue");
 
-    // userArgumentVariableTests(casCircumstance.value, casAction.value, casNewCircumstance.value, casGoal.value, casValue.value);
+    var variables = [];
+    variables.push(casCircumstance.value, casAction.value, casNewCircumstance.value, casGoal.value, casValue.value);
+    test.fullVariableTesting(variables);
 
-    var argumentFromUser = casCircumstance.value.toLowerCase() + " -> " + casAction.value.toLowerCase() + " -> " + casNewCircumstance.value.toLowerCase() + " -> " + casGoal.value.toLowerCase() + " -> " + casValue.value.toLowerCase();
+    var argumentFromUser = "In the current circumstance: " + casCircumstance.value.toLowerCase() + "<br></br>We should perform action: " + casAction.value.toLowerCase() + "<br></br>Which will result in new circumstance: " 
+    + casNewCircumstance.value.toLowerCase() + "<br></br>Which will realise the goal: " + casGoal.value.toLowerCase() + "<br></br>Which will promote the value: " + casValue.value.toLowerCase();
     console.log("Argument = " + argumentFromUser);
 
     /* Submit fields to database */
