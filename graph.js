@@ -396,7 +396,7 @@ var labelRemainingNodesUndec = (function(){
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
  * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- * --------------------------------------------------------------- Accessory functions and code to draw svg nodes for user   ------------------------------------------------------
+ * ---------------------------------------- Accessory functions and code to draw svg nodes for user according to labelling   ------------------------------------------------------
  */
  
 var removeDuplicates = (function (chars) {
@@ -429,6 +429,7 @@ var setNodeWithOutLabelling = (function (graph, d) {
         labelType: "html",
         label: "<b>" + d.name + "</b><br></br>" + "Scheme: " + d.scheme + "<br></br><b>Complete label = OUT</b>",
         class: "comp",
+        style: "fill: #ff6961",
     });
 });
 
@@ -437,6 +438,7 @@ var setNodeWithInLabelling = (function (graph, d) {
         labelType: "html",
         label: "<b>" + d.name + "</b><br></br>Scheme: " + d.scheme + "<br></br><b>Complete label = IN</b>",
         class: "comp",
+        style: "fill: #77dd77", 
     });
 });
 
@@ -445,6 +447,7 @@ var setNodeWithUndecLabelling = (function (graph, d) {
         labelType: "html",
         label: "<b>" + d.name + "</b><br></br>Scheme: " + d.scheme + "<br></br><b>Complete label = UNDEC, IN/OUT</b>",
         class: "comp",
+        style: "fill: #fdfd96",
     });
 });
 
