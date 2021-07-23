@@ -1,4 +1,5 @@
 import * as lib from "../library.js";
+import * as test from "../test.js";
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -24,7 +25,7 @@ db.collection("arguments").onSnapshot(function (querySnapshot) {
 
 var createAppealToPopularOpinionForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
     lib.createArgumentForm(elementToAppend, "A is generally accepted as being true", "apoGeneralAcceptancePremise");
-    lib.createArgumentForm(elementToAppend, "If A is generaly accepted as being true that gives a reasaon in favour of A", "apoPresumptionPremise");
+    lib.createArgumentForm(elementToAppend, "If A is generaly accepted as being true that gives a reason in favour of A", "apoPresumptionPremise");
     lib.createArgumentForm(elementToAppend, "There is a reason in favour of A", "apoOpinion");
 
     lib.appendArgumentButton(elementToAppend, buttonClass, buttonId);
@@ -46,13 +47,20 @@ var apoSubmissionToDatabaseFromForm = (function (id, modalName) {
     var presumptionPremise = document.querySelector("#apoPresumptionPremise");
     var opinion = document.querySelector("#apoOpinion");
 
-    var argumentFromUser = "Not much more than -> " + premise.value;
+    var variables = [];
+
+    variables.push(premise.value, presumptionPremise.value, opinion.value);
+    test.fullVariableTesting(variables);
+    // HERE NUM NUT  
+
+    var argumentFromUser = "General acceptance premise: " + premise.value.toLowerCase() + "<br></br>Presumption Premise: " + 
+    presumptionPremise.value.toLowerCase() + "<br></br>Conclusion: " + opinion.value.toLowerCase();
 
     db.collection("arguments").add({
         name: "argument" + numberOfArguments,
         scheme: "Appeal to Popular Opinion",
         argumentDescription: argumentFromUser,
-        userPremise: premise.value
+        userPremise: premise.value.toLowerCase()
     });
 
     var instance = M.Modal.getInstance(modalName);
@@ -103,10 +111,10 @@ var createAndAppendApoCriticalQUestions = (function (premise) {
 var apoCriticalQuestionSwitch = (function (questionNumber, premise) {
     switch (questionNumber) {
         case 1:
-            return "What evidence do we have for believing that " + premise + " is generally accepted?";
+            return "What evidence do we have for believing that \"" + premise + "\" is generally accepted?";
             break;
         case 2:
-            return "Even if " + premise + " is generally accepted as being true, are there good reasons for doubting its veracity?";
+            return "Even if \"" + premise + "\" is generally accepted as being true, are there good reasons for doubting its veracity?";
             break;
         default:
             "Select a scheme to genearte critical questions";
