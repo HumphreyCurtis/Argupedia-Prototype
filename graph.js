@@ -1,4 +1,3 @@
-
 /* 
  *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -11,7 +10,7 @@
 /*
  * Data & firebase hook-up
  * Arguments denotes argument storage whilst links provides edges from arguments
- */  
+ */
 var arguments = [];
 var links = [];
 
@@ -209,9 +208,9 @@ var completeLabelling = (function (arguments, links, graph) {
     // console.log("Out arguments within if statement = ", outArguments);
     // console.log("In arguments within if statement = ", inArguments);
 
-    drawNodesWithArgumentLabellings(arguments, graph); 
+    drawNodesWithArgumentLabellings(arguments, graph);
 
-    addHeadersForInArguments(); 
+    addHeadersForInArguments();
 
     // arguments.forEach(function (d) {
     //     graph.setNode(d.name, {
@@ -263,7 +262,7 @@ var labellingAlgorithm = (function (arguments, links) {
     console.log("Out arguments after test 3 = ", outArguments);
     console.log("Unlabelled arguments after test 3 = ", unlabelledArguments);
 
-    unlabelledArguments = labelRemainingNodesUndec(); 
+    unlabelledArguments = labelRemainingNodesUndec();
 
     console.log("In arguments after test 4 = ", inArguments);
     console.log("Out arguments after test 4 = ", outArguments);
@@ -358,7 +357,7 @@ var argumentsAttackedAllByOutArguments = (function (links) {
     unlabelledArguments = unlabelledArguments.filter(item => !outArguments.includes(item));
     unlabelledArguments = unlabelledArguments.filter(item => !inArguments.includes(item));
 
-    return unlabelledArguments; 
+    return unlabelledArguments;
 });
 
 /* Function which identifies arguments attacking node */
@@ -380,14 +379,16 @@ var argumentsAttackingNodeAllOut = (function (argumentsAttackingNode, outArgumen
 });
 
 /* Function which labels remaining nodes as UNDEC */
-var labelRemainingNodesUndec = (function(){
-    unlabelledArguments.forEach(d => d.push(undecidedNodes));
+var labelRemainingNodesUndec = (function () {
+    unlabelledArguments.forEach(function (currentNode) {
+        undecidedNodes.push(currentNode);
+    });
 
     unlabelledArguments = unlabelledArguments.filter(item => !outArguments.includes(item));
     unlabelledArguments = unlabelledArguments.filter(item => !inArguments.includes(item));
     unlabelledArguments = unlabelledArguments.filter(item => !undecidedNodes.includes(item));
 
-    return unlabelledArguments; 
+    return unlabelledArguments;
 });
 
 /* 
@@ -398,7 +399,7 @@ var labelRemainingNodesUndec = (function(){
  * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  * ---------------------------------------- Accessory functions and code to draw svg nodes for user according to labelling   ------------------------------------------------------
  */
- 
+
 var removeDuplicates = (function (chars) {
 
     let uniqueChars = chars.filter((c, index) => {
@@ -438,7 +439,7 @@ var setNodeWithInLabelling = (function (graph, d) {
         labelType: "html",
         label: "<b>" + d.name + "</b><br></br>Scheme: " + d.scheme + "<br></br><b>Complete label = IN</b>",
         class: "comp",
-        style: "fill: #77dd77", 
+        style: "fill: #77dd77",
     });
 });
 
@@ -461,61 +462,61 @@ var setNodeWithUndecLabelling = (function (graph, d) {
  */
 
 
-var addHeadersForInArguments = (function(){
-    removeHeadersForInArguments(); 
+var addHeadersForInArguments = (function () {
+    removeHeadersForInArguments();
     var switchDiv = document.getElementById("switchDiv");
-    var groundedArgumentHeader = document.createElement("h6"); 
-    var preferredArgumentHeader = document.createElement("h6"); 
+    var groundedArgumentHeader = document.createElement("h6");
+    var preferredArgumentHeader = document.createElement("h6");
 
 
-    groundedArgumentHeader.innerText = "Grounded IN arguments: "; 
+    groundedArgumentHeader.innerText = "Grounded IN arguments: ";
     preferredArgumentHeader.innerText = "Preferred IN arguments: ";
-    
-    groundedArgumentHeader.setAttribute("id", "groundedArgumentHeader"); 
+
+    groundedArgumentHeader.setAttribute("id", "groundedArgumentHeader");
     preferredArgumentHeader.setAttribute("id", "preferredArgumentHeader");
 
-    switchDiv.append(groundedArgumentHeader); 
-    switchDiv.append(preferredArgumentHeader); 
+    switchDiv.append(groundedArgumentHeader);
+    switchDiv.append(preferredArgumentHeader);
 
     console.log("In arguments to text...");
-    inArgumentsToText(); 
+    inArgumentsToText();
 });
 
-var removeHeadersForInArguments = (function(){
+var removeHeadersForInArguments = (function () {
 
-    var groundedArgumentHeader = document.getElementById("groundedArgumentHeader"); 
-    var preferredArgumentHeader = document.getElementById("preferredArgumentHeader"); 
+    var groundedArgumentHeader = document.getElementById("groundedArgumentHeader");
+    var preferredArgumentHeader = document.getElementById("preferredArgumentHeader");
 
     if (groundedArgumentHeader) {
-        groundedArgumentHeader.remove(); 
-        preferredArgumentHeader.remove(); 
+        groundedArgumentHeader.remove();
+        preferredArgumentHeader.remove();
     }
 });
 
-var inArgumentsToText = (function(){
-    inArguments.forEach(function(currentArgument) {
+var inArgumentsToText = (function () {
+    inArguments.forEach(function (currentArgument) {
         appendInArgumentsToHeaderGrounded(currentArgument);
         appendInArgumentsToHeaderPreferred(currentArgument);
     });
 
-    undecidedNodes.forEach(function(currentArgument){
+    undecidedNodes.forEach(function (currentArgument) {
         appendInArgumentsToHeaderPreferred(currentArgument);
     });
 });
 
-var appendInArgumentsToHeaderGrounded = (function(currentArgument){
-    var groundedArgumentHeader = document.getElementById("groundedArgumentHeader"); 
+var appendInArgumentsToHeaderGrounded = (function (currentArgument) {
+    var groundedArgumentHeader = document.getElementById("groundedArgumentHeader");
     var tempHeader = document.createElement("p");
-    tempHeader.innerText = currentArgument; 
+    tempHeader.innerText = currentArgument;
     groundedArgumentHeader.appendChild(tempHeader);
-}); 
+});
 
-var appendInArgumentsToHeaderPreferred = (function(currentArgument){
-    var preferredArgumentHeader = document.getElementById("preferredArgumentHeader"); 
+var appendInArgumentsToHeaderPreferred = (function (currentArgument) {
+    var preferredArgumentHeader = document.getElementById("preferredArgumentHeader");
     var tempHeader = document.createElement("p");
-    tempHeader.innerText = currentArgument; 
+    tempHeader.innerText = currentArgument;
     preferredArgumentHeader.appendChild(tempHeader);
-}); 
+});
 
 
 

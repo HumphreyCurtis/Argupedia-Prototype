@@ -61,7 +61,7 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
     test.fullVariableTesting(variables);
 
     var argumentFromUser = "In the current circumstance: " + casCircumstance.value.toLowerCase() + "<br></br>We should perform action: " + casAction.value.toLowerCase() + "<br></br>Which will result in new circumstance: " 
-    + casNewCircumstance.value.toLowerCase() + "<br></br>Which will realise the goal: " + casGoal.value.toLowerCase() + "<br></br>Which will promote the value: " + casValue.value.toLowerCase();
+    + casNewCircumstance.value.toLowerCase() + "<br></br>Which will realise the goal: " + casGoal.value.toLowerCase() + "<br></br>Which will promote the value: " + casValue.value.toLowerCase() + "<br></br>";
     console.log("Argument = " + argumentFromUser);
 
     /* Submit fields to database */

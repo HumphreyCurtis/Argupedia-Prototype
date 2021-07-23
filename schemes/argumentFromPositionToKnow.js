@@ -1,4 +1,5 @@
 import * as lib from "../library.js";
+import * as test from "../test.js";
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -25,8 +26,8 @@ db.collection("arguments").onSnapshot(function (querySnapshot) {
 
 
 var createArgumentFromPositionToKnowForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
-    lib.createArgumentForm(elementToAppend, "X is in the position to know...", "afpPositionToKnow");
-    lib.createArgumentForm(elementToAppend, "X asserts that A is true or false...", "afpAssertion");
+    lib.createArgumentForm(elementToAppend, "a is in the position to know...", "afpPositionToKnow");
+    lib.createArgumentForm(elementToAppend, "a asserts that A is true or false...", "afpAssertion");
     lib.createArgumentForm(elementToAppend, "A may be plausibly taken to be true or false...", "afpConclusion");
 
     lib.appendArgumentButton(elementToAppend, buttonClass, buttonId);
@@ -49,7 +50,16 @@ var afpSubmissionToDatabaseForm = (function (id, modalName) {
     var assertionPremise = document.querySelector("#afpAssertion");
     var conclusion = document.querySelector("#afpConclusion");
 
-    var argumentFromUser = positionToKnow.value + " -> " + assertionPremise.value + " -> " + conclusion.value;
+    // var argumentFromUser = positionToKnow.value + " -> " + assertionPremise.value + " -> " + conclusion.value;
+
+    var variables = []; 
+    variables.push(positionToKnow.value, assertionPremise.value, conclusion.value);
+    test.fullVariableTesting(variables); 
+
+
+    var argumentFromUser = "Position to know premise: " + positionToKnow.value.toLowerCase() + "<br></br>Assertion premise: " + assertionPremise.value.toLowerCase() 
+    + "<br></br>Conclusion: " + conclusion.value.toLowerCase(); 
+
     console.log("Argument = " + argumentFromUser);
     console.log("Number of arguments = " + numberOfArguments); 
 
@@ -58,9 +68,9 @@ var afpSubmissionToDatabaseForm = (function (id, modalName) {
         name: "argument" + numberOfArguments,
         scheme: "Argument from Position to Know",
         argumentDescription: argumentFromUser,
-        positionToKnow: positionToKnow.value,
-        assertionPremise: assertionPremise.value,
-        conclusion: conclusion.value
+        positionToKnow: positionToKnow.value.toLowerCase(),
+        assertionPremise: assertionPremise.value.toLowerCase(),
+        conclusion: conclusion.value.toLowerCase()
     });
 
     /*----- Reset modal fields after argument submission ----*/
@@ -110,16 +120,22 @@ var createAndAppendAfpCriticalQuestions = (function (positionToKnow, assertionPr
     }
 });
 
+/*
+ * Variable information for function
+ * positionToKnow = a 
+ * conclusion = A 
+ */
+
 var afpQuestionSwitch = (function(questionNumber, positionToKnow, assertionPremise, conclusion){
     switch (questionNumber) {
         case 1: 
-            return "Is the " + positionToKnow + " really in a position to know the " + conclusion + "?";
+            return "Is the " + positionToKnow + " really in a position to know if the " + conclusion + " is true or false?";
             break;  
         case 2:
-            return "Is the source of " + positionToKnow + " honest, trustworthy and reliable?";   
+            return "Is " + positionToKnow + " an honest, trustworthy and reliable source?";   
             break;
         case 3: 
-            return "Did the " + positionToKnow + " really assert the " + assertionPremise; 
+            return "Did the " + positionToKnow + " really assert the " + conclusion + "?"; 
             break;
         default: 
             "Select a scheme to generate a critical question"; 

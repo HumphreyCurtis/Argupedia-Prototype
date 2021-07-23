@@ -13,14 +13,14 @@
     - Neaten code base [x]
     - Add colour to nodes [x]
     - Add a reset button []
-    
+
 - Troubleshoot questions and see if they can be improved []
     - Check that appealToPopularOpinion.js storing only premise variables is accurate [] - refer to appeal to expert opinion for good example of variable usage!!!
 
 - Check that the app is not breakable based on user input []
     - Initial tests in place [x]
-    - Improve testing - make more thorough with external file []
-    - Create unit tests folder and test inputs from user [] 
+    - Improve testing - make more thorough with external file [x]
+    - Create unit tests folder and test inputs from user [x] 
 
 - Create YouTube videos for user studies [] 
 

@@ -1,4 +1,5 @@
 import * as lib from "../library.js";
+import * as test from "../test.js";
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -57,18 +58,26 @@ var eosSubmissionToDatabaseForm = (function (id, modalName) {
     // console.log(eosAssertionPremise.value); 
     // console.log(eosConclusion.value);
 
-    var argumentFromUser = eosExpert.value + " -> " + eosDomain.value + " -> " + eosProposition.value + " -> " + eosAssertionPremise.value + " -> " + eosConclusion.value;
+    var variables = []; 
+    variables.push(eosExpert.value, eosDomain.value, eosProposition.value, eosAssertionPremise.value, eosConclusion.value); 
+    test.fullVariableTesting(variables);
+
+    // var argumentFromUser = eosExpert.value + " -> " + eosDomain.value + " -> " + eosProposition.value + " -> " + eosAssertionPremise.value + " -> " + eosConclusion.value;
+    var argumentFromUser = "Expert: " + eosExpert.value.toLowerCase() + "<br></br>Domain: " + eosDomain.value.toLowerCase() + 
+    "<br></br>Proposition: " + eosProposition.value.toLowerCase() + "<br></br>Assertion premise: " + eosAssertionPremise.value.toLowerCase() +
+    "<br></br>Conclusion: " + eosConclusion.value.toLowerCase(); 
+    
     console.log("Argument = " + argumentFromUser);
 
     db.collection("arguments").add({
         name: "argument" + numberOfArguments,
         scheme: "Appeal to Expert Opinion",
         argumentDescription: argumentFromUser,
-        expert: eosExpert.value,
-        domain: eosDomain.value,
-        proposition: eosProposition.value,
-        assertionPremise: eosAssertionPremise.value,
-        conclusion: eosConclusion.value
+        expert: eosExpert.value.toLowerCase(),
+        domain: eosDomain.value.toLowerCase(),
+        proposition: eosProposition.value.toLowerCase(),
+        assertionPremise: eosAssertionPremise.value.toLowerCase(),
+        conclusion: eosConclusion.value.toLowerCase()
     });
 
     /*----- Reset modal fields after argument submission ----*/
@@ -124,6 +133,12 @@ var createAndAppendEosCriticalQuestions = (function(expert, domain, proposition,
     }
 });
 
+/*
+ * E - expert
+ * D - domain
+ * A - proposition
+ * 
+ */
 var eosQuestionSwitch = (function(questionNumber, expert, domain, proposition, assertionPremise, conclusion) {
     switch(questionNumber) {
         case 1: 
