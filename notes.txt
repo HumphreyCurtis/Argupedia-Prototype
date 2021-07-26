@@ -4,8 +4,7 @@
 ++++++++++++++++++++++++++++++
 
 - Improve labelling algorithm code []
-    - Add a reset button []
-    - Move javascript into javascript folder [] 
+    - Move javascript into javascript folder [x] 
 
 - Check that the app is not breakable based on user input []
     - Initial tests in place [x]

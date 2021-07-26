@@ -112,7 +112,6 @@ labellingSwitch.addEventListener("change", function () {
     status = labellingSwitch.checked;
     console.log("Status of labelling =", status);
     databasePlusPlotGraph(arguments, links);
-
 });
 
 /* 
@@ -129,6 +128,10 @@ const update = (arguments, links) => {
     console.log("Status of labelling =", status);
 
     if (status) {
+        unlabelledArguments = [];
+        inArguments = [];
+        outArguments = [];
+        undecidedNodes = [];
         completeLabelling(arguments, links, graph);
     } else {
         standardLabelling(arguments, graph);
@@ -163,27 +166,6 @@ const update = (arguments, links) => {
 
     // Run the renderer. This is what draws the final graph.
     render(inner, graph);
-
-    // const nodes = svg.selectAll("g.nodes");
-
-    // nodes
-    //     .on("mouseover", function (d) {
-    //         console.log("hello");
-    //     })
-    //     .on("mouseleave", function (d) {
-    //         console.log("goodbye");
-    //     });
-
-    // Center the graph
-    console.log("Arguments length = " + arguments.length);
-
-    // if (arguments.length > 0) {
-    //     // var xCenterOffset = (svg.attr("width") - graph.graph().width / 2); // Variable moves graph left and right - will need to change was originally divided by 2 
-    //     // inner.attr("transform", "translate(" + xCenterOffset + "");
-    //     // svg.attr("height", calc( 100% - 50px )); // Was originally + 40
-    //     // svg.attr("width", graph.graph().height + 600);
-    // }
-
 };
 
 // Standard labelling just presenting argumentative graph 
@@ -205,21 +187,10 @@ var standardLabelling = (function (arguments, graph) {
 var completeLabelling = (function (arguments, links, graph) {
 
     labellingAlgorithm(arguments, links);
-    // console.log("Out arguments within if statement = ", outArguments);
-    // console.log("In arguments within if statement = ", inArguments);
 
     drawNodesWithArgumentLabellings(arguments, graph);
 
     addHeadersForInArguments();
-
-    // arguments.forEach(function (d) {
-    //     graph.setNode(d.name, {
-    //         labelType: "html",
-    //         label: "<b>" + d.name + "</b><br></br><b>" + "Scheme: " + d.scheme + "</b><br></br>" + d.argumentDescription,
-    //         class: "comp",
-    //     });
-    // });
-
 });
 
 /* 
@@ -262,7 +233,7 @@ var labellingAlgorithm = (function (arguments, links) {
     console.log("Out arguments after test 3 = ", outArguments);
     console.log("Unlabelled arguments after test 3 = ", unlabelledArguments);
 
-    unlabelledArguments = labelRemainingNodesUndec();
+    unlabelledArguments = labelRemainingNodesUndec(); // May need to perform tests again
 
     console.log("In arguments after test 4 = ", inArguments);
     console.log("Out arguments after test 4 = ", outArguments);
@@ -518,185 +489,6 @@ var appendInArgumentsToHeaderPreferred = (function (currentArgument) {
     preferredArgumentHeader.appendChild(tempHeader);
 });
 
-
-
-
-
-
-
-// var determineLabelledNodes = (function (inArguments, outArguments) {
-//     var labelledNodes = [];
-
-//     inArguments.forEach(function (d) {
-//         labelledNodes.push(d);
-//     });
-
-//     outArguments.forEach(function (d) {
-//         labelledNodes.push(d);
-//     });
-
-//     return labelledNodes;
-// });
-
-// var determineUnlabelledNodes = (function (argumentNames, labelledNodes) {
-//     var unlabelledNodes = [];
-
-//     unlabelledNodes = argumentNames.filter(x => !labelledNodes.includes(x));
-
-//     return unlabelledNodes; // Could create set exclusion function
-// });
-
-
-// var oldLabellingAlgorithm = (function (arguments) {
-
-//     var argumentNames = [];
-//     var targets = [];
-//     var sources = [];
-//     var labelledNodes = [];
-//     var unlabelledNodes = [];
-//     var inArgumentsAttacking = [];
-
-//     arguments.forEach(function (l) {
-//         argumentNames.push(l.name);
-//     });
-
-//     links.forEach(function (d) {
-//         targets.push(d.target);
-//         sources.push(d.source);
-//     });
-
-
-//     console.log("Arguments being attacked");
-//     console.log(targets); // Arguments being attacked
-//     console.log("Arguments attacking");
-//     console.log(sources); // Arguments attacking 
-
-
-//     // Test 1 if an argument is not a target then it should be labelled as IN 
-//     inArguments = argumentNames.filter(x => !targets.includes(x));
-//     console.log("IN arguments as not targeted = " + inArguments);
-
-//     // Test 2 if an argument is attacked by IN arguments should be labelled as OUT 
-//     inArgumentsAttacking = inArguments.filter(x => sources.includes(x));
-//     console.log("IN arguments attacking = " + inArgumentsAttacking);
-
-//     links.forEach(function (d) {
-//         if (inArgumentsAttacking.includes(d.source)) {
-//             outArguments.push(d.target);
-//         }
-//     });
-//     outArguments = removeDuplicates(outArguments);
-//     console.log(outArguments);
-
-//     // Test 3 - A4 on algorithm design tab --> an argument where ALL attacking it are OUT 
-//     labelledNodes = determineLabelledNodes(inArguments, outArguments);
-//     console.log("Labelled nodes = " + labelledNodes);
-
-//     unlabelledNodes = determineUnlabelledNodes(argumentNames, labelledNodes);
-//     console.log("Unlabelled nodes = " + unlabelledNodes);
-//     console.log(unlabelledNodes);
-
-
-//     unlabelledNodes.forEach(function (currentNode) {
-//         let argumentsAttackingCurrentNode = [];
-//         argumentsAttackingCurrentNode = argumentsAttackingNode(currentNode);
-//         if (argumentsAttackingNodeAllOut(argumentsAttackingCurrentNode, outArguments)) {
-//             inArguments.push(currentNode);
-//         }
-//     });
-
-//     // Test 4 - remaining arguments should be labelled as UNDEC or IN / OUT
-//     labelledNodes = determineLabelledNodes(inArguments, outArguments);
-//     // console.log("Labelled nodes = " + labelledNodes);
-
-//     unlabelledNodes = determineUnlabelledNodes(argumentNames, labelledNodes);
-//     // console.log("Unlabelled nodes = " + unlabelledNodes);
-
-//     unlabelledNodes.forEach(d => d.push(undecidedNodes));
-//     console.log("Undecided nodes = ", undecidedNodes);
-//     console.log("Out arguments = ", outArguments);
-//     console.log("In arguments = ", inArguments);
-
-// });
-
-
-// var databasePlusPlotGraph = (function (arguments, links) {
-
-//     db.collection('arguments').onSnapshot(res => {
-
-//         res.docChanges().forEach(change => {
-
-//             const doc = {
-//                 ...change.doc.data(),
-//                 id: change.doc.id
-//             };
-
-//             switch (change.type) {
-//                 case 'added':
-//                     arguments.push(doc);
-//                     break;
-//                 case 'modified':
-//                     const index = arguments.findIndex(item => item.id == doc.id);
-//                     arguments[index] = doc;
-//                     break;
-//                 case 'removed':
-//                     arguments = arguments.filter(item => item.id !== doc.id);
-//                     break;
-//                 default:
-//                     break;
-//             }
-
-
-//         });
-
-//         db.collection('links').onSnapshot(res2 => {
-
-//             links = []; /* There is a bug here with links being updated twice - will need to fix */
-
-//             res2.docChanges().forEach(change => {
-
-//                 const doc = {
-//                     ...change.doc.data(),
-//                     id: change.doc.id
-//                 };
-
-//                 switch (change.type) {
-//                     case 'added':
-//                         links.push(doc);
-//                         break;
-//                     case 'modified':
-//                         const index = data.findIndex(item => item.id == doc.id);
-//                         links[index] = doc;
-//                         break;
-//                     case 'removed':
-//                         links = links.filter(item => item.id !== doc.id);
-//                         break;
-//                     default:
-//                         break;
-//                 }
-
-//             });
-
-//             console.log(arguments);
-//             console.log(links);
-
-//             update(arguments, links);
-//         });
-
-//     });
-
-// });
-
-// const updateLinks = (links) => {
-
-//     links.forEach(function (l) {
-//         graph.setEdge(l.source, l.target, {
-//             curve: d3.curveBasis,
-//             minlen: 2
-//         });
-//     })
-
-// }
 
 
 // let fish = [

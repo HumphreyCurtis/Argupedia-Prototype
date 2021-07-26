@@ -67,7 +67,7 @@ selectTypeOfArgument.addEventListener('change', (event) => {
         createInputFieldsForCounterArgument(counterArgumentInputFields, "Counter argument target name", "counterArgumentTargetName");
         appendSeeCriticalQuestionsButton(counterArgumentInputFields, "btn waves-effect white-text", "counterArgumentTargetButton");
         appendSelectCriticalQuestions(counterArgumentInputFields);
-        appendCheckBox(counterArgumentInputFields);
+        appendConflictingClaims(counterArgumentInputFields);
 
         argumentForm.className = "show";
 
@@ -181,7 +181,7 @@ var appendSelectCriticalQuestions = (function (elementToAppend) {
     elementToAppend.append(select);
 });
 
-var appendCheckBox = (function (elementToAppend) {
+var appendConflictingClaims = (function (elementToAppend) {
 
     var label = document.createElement("label");
     label.textContent = "Are the claims conflicting";
