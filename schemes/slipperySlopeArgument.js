@@ -1,4 +1,5 @@
 import * as lib from "../library.js";
+import * as test from "../test.js";
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -49,7 +50,15 @@ var ssSubmissionToDatabaseForm = (function (id, modalName) {
     var badOutcomePremise = document.querySelector("#ssBadOutcomePremise");
     var conclusion = document.querySelector("#ssConclusion");
 
-    var argumentFromUser = firstStepPremise.value + " -> " + recursivePremise.value + " -> " + badOutcomePremise.value + " -> " + conclusion.value;
+    var variables = []; 
+    variables.push(firstStepPremise.value, recursivePremise.value, badOutcomePremise.value, conclusion.value);
+    test.fullVariableTesting(variables);
+
+    var argumentFromUser = "First step premise: " + firstStepPremise.value.toLowerCase() +
+    "<br></br>Recursive premise: " + recursivePremise.value.toLowerCase() + 
+    "<br></br>Bad outcome premise: " + badOutcomePremise.value.toLowerCase() + 
+    "<br></br>Conclusion: " + conclusion.value.toLowerCase(); 
+    
     console.log("Argument = ", argumentFromUser);
 
     /* Submit fields to database */
@@ -57,10 +66,10 @@ var ssSubmissionToDatabaseForm = (function (id, modalName) {
         name: "argument" + numberOfArguments,
         scheme: "Slippery Slope Argument",
         argumentDescription: argumentFromUser,
-        firstStepPremise: firstStepPremise.value,
-        recursivePremise: recursivePremise.value,
-        badOutcomePremise: badOutcomePremise.value,
-        conclusion: conclusion.value
+        firstStepPremise: firstStepPremise.value.toLowerCase(),
+        recursivePremise: recursivePremise.value.toLowerCase(),
+        badOutcomePremise: badOutcomePremise.value.toLowerCase(),
+        conclusion: conclusion.value.toLowerCase()
     });
 
     /*----- Reset modal fields after argument submission ----*/
@@ -116,7 +125,7 @@ var createAndAppendSsCriticalQuestions = (function (firstStepPremise, recursiveP
 var ssQuestionsSwitch = (function (questionNumber, firstStepPremise, recursivePremise, badOutcomePremise, conclusion) {
     switch (questionNumber) {
         case 1:
-            return "What interveing propositions in the sequence linking " + recursivePremise + " are actually given?";
+            return "What interveing propositions in the sequence linking \"" + recursivePremise + "\" are actually given?";
             break;
         case 2:
             return "What other steps are required to fill in the sequence to make it plausible?";

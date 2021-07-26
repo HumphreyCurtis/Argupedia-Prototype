@@ -4,19 +4,8 @@
 ++++++++++++++++++++++++++++++
 
 - Improve labelling algorithm code []
-    - Improve interface of standard label [x]
-    - Improve labelling algorithm - divide and conquer approach [x]
-    - Make graph not break boundaries [x]
-    - Move javascript into javascript folder [] 
-    - Add functionality on the basis of grounded and preferred [x]
-    - Add buttons to explain features e.g. schemes / grouned and preferred [x]
-    - Neaten code base [x]
-    - Add colour to nodes [x]
     - Add a reset button []
-    - Add inverted commas appropriately []
-
-- Troubleshoot questions and see if they can be improved []
-    - Check that appealToPopularOpinion.js storing only premise variables is accurate [] - refer to appeal to expert opinion for good example of variable usage!!!
+    - Move javascript into javascript folder [] 
 
 - Check that the app is not breakable based on user input []
     - Initial tests in place [x]
@@ -31,6 +20,19 @@
 //////////////////////////
 ....... COMPLETED .......
 \\\\\\\\\\\\\\\\\\\\\\\\\\
+
+- Troubleshoot questions and see if they can be improved [x]
+    - Check that appealToPopularOpinion.js storing only premise variables is accurate [x] 
+
+- Add inverted commas appropriately to all schemes [x]
+    - Improve locution [x]
+    - Improve interface of standard label [x]
+    - Improve labelling algorithm - divide and conquer approach [x]
+    - Make graph not break boundaries [x]
+    - Add functionality on the basis of grounded and preferred [x]
+    - Add buttons to explain features e.g. schemes / grouned and preferred [x]
+    - Neaten code base [x]
+    - Add colour to nodes [x]
 
 - Add links between arguments [x]
 

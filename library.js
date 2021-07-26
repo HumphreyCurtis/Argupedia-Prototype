@@ -56,19 +56,32 @@ var counterArgumentSubmissionToDatabase = (function (numberOfArguments) {
 
     console.log("Number of arguments at creation of links = ", numberOfArguments);
 
+    var conflictingClaimsLabel = document.getElementById("conflictingClaimsLabel");
+    var selectConflictingClaims = document.getElementById("selectConflictingClaims");
+
     /* Creating links to add to collection within database */
     console.log("Counter argument target name = " + counterArgumentTargetName.value);
     console.log("Current counter-argument name = " + currentArgument);
     createLinksForCounterArgument(currentArgument, counterArgumentTargetName.value);
+
+    console.log("Conflicting claims selected value = ", selectConflictingClaims.value); 
+
+    if (selectConflictingClaims.value == "Yes") {
+        console.log("Drawing conflicting claims attack");
+        createLinksForCounterArgument(counterArgumentTargetName.value, currentArgument);
+    }
 
     /* Resetting fields from counterargument modal */
     var selectCriticalQuestion = document.getElementById("selectCriticalQuestion");
     var selectCriticalQuestionLabel = document.getElementById("selectCriticalQuestionLabel");
 
     // selectCriticalQuestion.options.length = 0; --> can re-add if critical questions do not dissappear
-
     counterArgumentTargetName.remove();
     selectCriticalQuestion.remove();
+
+    conflictingClaimsLabel.remove(); 
+    selectConflictingClaims.remove();
+
     selectCriticalQuestionLabel.remove();
     counterArgumentTargetButton.remove();
 });

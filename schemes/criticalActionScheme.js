@@ -60,8 +60,13 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
     variables.push(casCircumstance.value, casAction.value, casNewCircumstance.value, casGoal.value, casValue.value);
     test.fullVariableTesting(variables);
 
-    var argumentFromUser = "In the current circumstance: " + casCircumstance.value.toLowerCase() + "<br></br>We should perform action: " + casAction.value.toLowerCase() + "<br></br>Which will result in new circumstance: " 
-    + casNewCircumstance.value.toLowerCase() + "<br></br>Which will realise the goal: " + casGoal.value.toLowerCase() + "<br></br>Which will promote the value: " + casValue.value.toLowerCase() + "<br></br>";
+    var argumentFromUser = "In the current circumstance: " + casCircumstance.value.toLowerCase() + 
+    "<br></br>We should perform action: " + casAction.value.toLowerCase() + 
+    "<br></br>Which will result in new circumstance: " + casNewCircumstance.value.toLowerCase() + 
+    "<br></br>Which will realise the goal: " + casGoal.value.toLowerCase() + 
+    "<br></br>Which will promote the value: " + casValue.value.toLowerCase() + 
+    "<br></br>";
+    
     console.log("Argument = " + argumentFromUser);
 
     /* Submit fields to database */
@@ -136,52 +141,52 @@ var casCriticalQuestionsSwitch = (function (questionNumber, currentCircumstance,
 
     switch (questionNumber) {
         case 1:
-            return "Are the believed " + currentCircumstance + " true?";
+            return "Are the believed \"" + currentCircumstance + "\" true?";
             break;
         case 2:
-            return "Assuming the " + currentCircumstance + ", does the " + action + " have the stated consequences?";
+            return "Assuming the \"" + currentCircumstance + "\", does the \"" + action + "\" have the stated consequences?";
             break;
         case 3:
-            return "Assuming the " + currentCircumstance + " and that the " + action + " has the stated " + newCircumstances + ", will the " + action + " bring about the desired " + goal + "?";
+            return "Assuming the \"" + currentCircumstance + "\" and that the \"" + action + "\" has the stated \"" + newCircumstances + "\", will the \"" + action + "\" bring about the desired \"" + goal + "\"?";
             break;
         case 4:
-            return "Does the " + goal + " realise the " + value + " stated?";
+            return "Does the \"" + goal + "\" realise the \"" + value + "\" stated?";
             break;
         case 5:
-            return "Are there alternative ways of realising the same " + newCircumstances + "?";
+            return "Are there alternative ways of realising the same \"" + newCircumstances + "\"?";
             break;
         case 6:
-            return "Are there alternative ways of realising the same " + goal + "?";
+            return "Are there alternative ways of realising the same \"" + goal + "\"?";
             break;
         case 7:
-            return "Are there alternative ways of promoting the same " + value + "?";
+            return "Are there alternative ways of promoting the same \"" + value + "\"?";
             break;
         case 8:
-            return "Does doing the " + action + " have a side effect which demotes the " + value + "?";
+            return "Does doing the \"" + action + "\" have a side effect which demotes the \"" + value + "\"?";
             break;
         case 9:
-            return "Does the " + action + " have a side effect which demotes some other value?";
+            return "Does the \"" + action + "\" have a side effect which demotes some other value?";
             break;
         case 10:
-            return "Does doing the " + action + " promote some other value?";
+            return "Does doing the \"" + action + "\" promote some other value?";
             break;
         case 11:
-            return "Does doing the " + action + " preclude some other action which would promote some other value?";
+            return "Does doing the \"" + action + "\" preclude some other action which would promote some other value?";
             break;
         case 12:
-            return "Are the " + currentCircumstance + " as described possible?";
+            return "Are the \"" + currentCircumstance + "\" as described possible?";
             break;
         case 13:
-            return "Is the " + action + " possible?";
+            return "Is the \"" + action + "\" possible?";
             break;
         case 14:
-            return "Are the " + newCircumstances + " as described possible?"
+            return "Are the \"" + newCircumstances + "\" as described possible?"
             break;
         case 15:
-            return "Can the desired " + goal + " be realised?";
+            return "Can the desired \"" + goal + "\" be realised?";
             break;
         case 16:
-            return "Is the " + value + " indeed a legitimate value?";
+            return "Is the \"" + value + "\" indeed a legitimate value?";
             break;
         default:
             "Select a scheme to generate critical questions";

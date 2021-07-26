@@ -56,9 +56,9 @@ var afpSubmissionToDatabaseForm = (function (id, modalName) {
     variables.push(positionToKnow.value, assertionPremise.value, conclusion.value);
     test.fullVariableTesting(variables); 
 
-
-    var argumentFromUser = "Position to know premise: " + positionToKnow.value.toLowerCase() + "<br></br>Assertion premise: " + assertionPremise.value.toLowerCase() 
-    + "<br></br>Conclusion: " + conclusion.value.toLowerCase(); 
+    var argumentFromUser = "Position to know premise: " + positionToKnow.value.toLowerCase() + 
+    "<br></br>Assertion premise: " + assertionPremise.value.toLowerCase() + 
+    "<br></br>Conclusion: " + conclusion.value.toLowerCase(); 
 
     console.log("Argument = " + argumentFromUser);
     console.log("Number of arguments = " + numberOfArguments); 
@@ -129,13 +129,13 @@ var createAndAppendAfpCriticalQuestions = (function (positionToKnow, assertionPr
 var afpQuestionSwitch = (function(questionNumber, positionToKnow, assertionPremise, conclusion){
     switch (questionNumber) {
         case 1: 
-            return "Is the " + positionToKnow + " really in a position to know if the " + conclusion + " is true or false?";
+            return "Is the \"" + positionToKnow + "\" really in a position to know if the \"" + conclusion + "\" is true or false?";
             break;  
         case 2:
-            return "Is " + positionToKnow + " an honest, trustworthy and reliable source?";   
+            return "Is \"" + positionToKnow + "\" an honest, trustworthy and reliable source?";   
             break;
         case 3: 
-            return "Did the " + positionToKnow + " really assert the " + conclusion + "?"; 
+            return "Did the \"" + positionToKnow + "\" really assert the \"" + conclusion + "\"?"; 
             break;
         default: 
             "Select a scheme to generate a critical question"; 

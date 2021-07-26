@@ -1,4 +1,5 @@
 import * as lib from "../library.js";
+import * as test from "../test.js";
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -23,8 +24,8 @@ db.collection("arguments").onSnapshot(function (querySnapshot) {
 });
 
 var createArgumentFromConsequencesForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
-    lib.createArgumentForm(elementToAppend, "If A is brought about good/bad consequences will occur", "afcPremise");
-    lib.createArgumentForm(elementToAppend, "A should or should not be brought about", "afcConclusion");
+    lib.createArgumentForm(elementToAppend, "If A is brought about good/bad consequences will occur...", "afcPremise");
+    lib.createArgumentForm(elementToAppend, "A should or should not be brought about...", "afcConclusion");
 
     lib.appendArgumentButton(elementToAppend, buttonClass, buttonId);
     var argumentSubmissionButton = document.getElementById(buttonId);
@@ -45,7 +46,13 @@ var afcSubmissionToDatabaseForm = (function (id, modalName) {
     var afcPremise = document.querySelector("#afcPremise");
     var afcConclusion = document.querySelector("#afcConclusion");
 
-    var argumentFromUser = afcPremise.value + " -> " + afcConclusion.value;
+    var variables = []
+    variables.push(afcPremise.value, afcConclusion.value); 
+    test.fullVariableTesting(variables);
+
+    var argumentFromUser = "Premise: " + afcPremise.value.toLowerCase() +  
+    "<br></br>Conclusion: " + afcConclusion.value.toLowerCase();
+    
     console.log("Argument = ", argumentFromUser);
 
     /* Submit fields to database */
@@ -53,8 +60,8 @@ var afcSubmissionToDatabaseForm = (function (id, modalName) {
         name: "argument" + numberOfArguments,
         scheme: "Argument from Consequences",
         argumentDescription: argumentFromUser,
-        afcPremise: afcPremise.value,
-        conclusion: afcConclusion.value
+        afcPremise: afcPremise.value.toLowerCase(),
+        conclusion: afcConclusion.value.toLowerCase()
     });
 
     /*----- Reset modal fields after argument submission ----*/
@@ -113,7 +120,7 @@ var afcQuestionsSwitch = (function (questionNumber, afcPremise, conclusion) {
             return "Are the consequences of the opposite value that ought to be taken into account?";
             break; 
         case 4: 
-            return "Is " + conclusion + " really good or bad?"; 
+            return "Is \"" + conclusion + "\" really good or bad?"; 
             break; 
         default: 
             "Select a scheme to generate critical questions"; 

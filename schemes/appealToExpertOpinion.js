@@ -63,8 +63,10 @@ var eosSubmissionToDatabaseForm = (function (id, modalName) {
     test.fullVariableTesting(variables);
 
     // var argumentFromUser = eosExpert.value + " -> " + eosDomain.value + " -> " + eosProposition.value + " -> " + eosAssertionPremise.value + " -> " + eosConclusion.value;
-    var argumentFromUser = "Expert: " + eosExpert.value.toLowerCase() + "<br></br>Domain: " + eosDomain.value.toLowerCase() + 
-    "<br></br>Proposition: " + eosProposition.value.toLowerCase() + "<br></br>Assertion premise: " + eosAssertionPremise.value.toLowerCase() +
+    var argumentFromUser = "Expert: " + eosExpert.value.toLowerCase() + 
+    "<br></br>With the subject of: " + eosDomain.value.toLowerCase() + 
+    "<br></br>Containing the proposition: " + eosProposition.value.toLowerCase() + 
+    "<br></br>Assertion premise: " + eosAssertionPremise.value.toLowerCase() +
     "<br></br>Conclusion: " + eosConclusion.value.toLowerCase(); 
     
     console.log("Argument = " + argumentFromUser);
@@ -142,22 +144,22 @@ var createAndAppendEosCriticalQuestions = (function(expert, domain, proposition,
 var eosQuestionSwitch = (function(questionNumber, expert, domain, proposition, assertionPremise, conclusion) {
     switch(questionNumber) {
         case 1: 
-            return "How credible is " + expert + " as an expert?"; 
+            return "How credible is \"" + expert + "\" as an expert?"; 
             break; 
         case 2: 
-            return "Is " + expert +  " actually an expert in the field that " + proposition + " is in?";  
+            return "Is \"" + expert +  "\" actually an expert in the field that \"" + proposition + "\" is in?";  
             break; 
         case 3: 
-            return "What did " + expert + " assert that implies " + proposition + "?"; 
+            return "What did \"" + expert + "\" assert that implies \"" + proposition + "\"?"; 
             break; 
         case 4: 
-            return "Is " + expert + " personally reliable and trustworthy? Do we have any reason to think that " + expert + " is less than hosest?"; 
+            return "Is \"" + expert + "\" personally reliable and trustworthy? Do we have any reason to think that \"" + expert + "\" is less than hosest?"; 
             break; 
         case 5: 
-            return "Is " + proposition + " consistent with what other experts have asserted?"; 
+            return "Is \"" + proposition + "\" consistent with what other experts have asserted?"; 
             break; 
         case 6: 
-            return "Is the evidence provided by " + expert + " based on actual evidence?"; 
+            return "Is the evidence provided by \"" + expert + "\" based on actual evidence?"; 
             break; 
         default: 
             "Select a scheme to generate a critical question"; 

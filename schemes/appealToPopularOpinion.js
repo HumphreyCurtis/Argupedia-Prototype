@@ -24,9 +24,9 @@ db.collection("arguments").onSnapshot(function (querySnapshot) {
 });
 
 var createAppealToPopularOpinionForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
-    lib.createArgumentForm(elementToAppend, "A is generally accepted as being true", "apoGeneralAcceptancePremise");
-    lib.createArgumentForm(elementToAppend, "If A is generaly accepted as being true that gives a reason in favour of A", "apoPresumptionPremise");
-    lib.createArgumentForm(elementToAppend, "There is a reason in favour of A", "apoOpinion");
+    lib.createArgumentForm(elementToAppend, "A is generally accepted as being true...", "apoGeneralAcceptancePremise");
+    lib.createArgumentForm(elementToAppend, "If A is generaly accepted as being true that gives a reason in favour of A...", "apoPresumptionPremise");
+    lib.createArgumentForm(elementToAppend, "There is a reason in favour of A...", "apoOpinion");
 
     lib.appendArgumentButton(elementToAppend, buttonClass, buttonId);
     var argumentSubmissionButton = document.getElementById(buttonId);
@@ -48,13 +48,12 @@ var apoSubmissionToDatabaseFromForm = (function (id, modalName) {
     var opinion = document.querySelector("#apoOpinion");
 
     var variables = [];
-
     variables.push(premise.value, presumptionPremise.value, opinion.value);
     test.fullVariableTesting(variables);
-    // HERE NUM NUT  
 
-    var argumentFromUser = "General acceptance premise: " + premise.value.toLowerCase() + "<br></br>Presumption Premise: " + 
-    presumptionPremise.value.toLowerCase() + "<br></br>Conclusion: " + opinion.value.toLowerCase();
+    var argumentFromUser = "General acceptance premise: " + premise.value.toLowerCase() + 
+    "<br></br>Presumption Premise: " + presumptionPremise.value.toLowerCase() + 
+    "<br></br>Conclusion: " + opinion.value.toLowerCase();
 
     db.collection("arguments").add({
         name: "argument" + numberOfArguments,
