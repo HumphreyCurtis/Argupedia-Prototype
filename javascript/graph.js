@@ -110,9 +110,31 @@ labellingSwitch.addEventListener("change", function () {
 
     // Status of labelling
     status = labellingSwitch.checked;
-    console.log("Status of labelling =", status);
     databasePlusPlotGraph(arguments, links);
 });
+
+let grounded = false; 
+var groundedSwitch = document.getElementById("groundedSwitch"); 
+
+groundedSwitch.addEventListener("change", function() {
+    var arguments = []; 
+    var links = []; 
+
+    grounded = groundedSwitch.checked; 
+    databasePlusPlotGraph(arguments, links);
+});
+
+let preferred = false; 
+var preferredSwitch = document.getElementById("preferredSwitch"); 
+
+preferredSwitch.addEventListener("change", function() {
+    var arguments = []; 
+    var links = []; 
+
+    preferred = preferredSwitch.checked; 
+    databasePlusPlotGraph(arguments, links); 
+}); 
+
 
 /* 
  * Draw graph using library and data with zoom functionality
@@ -125,14 +147,37 @@ const update = (arguments, links) => {
     // Create the input graph
     var graph = new dagreD3.graphlib.Graph().setGraph({});
 
-    console.log("Status of labelling =", status);
+    console.log("Status of complete labelling =", status);
+    console.log("Status of grounded labelling =", grounded);
+    console.log("Status of preferred labelling =", preferred);
 
     if (status) {
+
         unlabelledArguments = [];
         inArguments = [];
         outArguments = [];
         undecidedNodes = [];
+
         completeLabelling(arguments, links, graph);
+
+    } else if (grounded) {
+
+        unlabelledArguments = [];
+        inArguments = [];
+        outArguments = [];
+        undecidedNodes = [];
+
+        groundedLabelling(arguments, links, graph);
+
+    } else if (preferred) {
+
+        unlabelledArguments = [];
+        inArguments = [];
+        outArguments = [];
+        undecidedNodes = [];
+
+        preferredLabelling(arguments, links, graph);
+
     } else {
         standardLabelling(arguments, graph);
         removeHeadersForInArguments();
@@ -191,6 +236,24 @@ var completeLabelling = (function (arguments, links, graph) {
     drawNodesWithArgumentLabellings(arguments, graph);
 
     addHeadersForInArguments();
+});
+
+var groundedLabelling = (function (arguments, links, graph) {
+
+    labellingAlgorithm(arguments, links);
+
+    drawNodesWithGroundedLabellings(arguments, graph);
+
+    addHeadersForInArguments(); 
+});
+
+var preferredLabelling = (function (arguments, links, graph) {
+
+    labellingAlgorithm(arguments, links);
+
+    drawNodesWithPreferredLabellings(arguments, graph);
+
+    addHeadersForInArguments(); 
 });
 
 /* 
@@ -396,10 +459,40 @@ var drawNodesWithArgumentLabellings = (function (arguments, graph) {
 });
 
 
+var drawNodesWithGroundedLabellings = (function (arguments, graph) {
+    arguments.forEach(function (d) {
+        if (outArguments.includes(d.name)) {
+            setNodeWithOutLabelling(graph, d);
+        }
+        if (inArguments.includes(d.name)) {
+            setNodeWithInLabelling(graph, d);
+        }
+        if (undecidedNodes.includes(d.name)) {
+            setNodeWithUndecGroundedLabelling(graph, d);
+        }
+    });
+});
+
+
+var drawNodesWithPreferredLabellings = (function (arguments, graph) {
+    arguments.forEach(function (d) {
+        if (outArguments.includes(d.name)) {
+            setNodeWithOutLabelling(graph, d);
+        }
+        if (inArguments.includes(d.name)) {
+            setNodeWithInLabelling(graph, d);
+        }
+        if (undecidedNodes.includes(d.name)) {
+            setNodeWithUndecPreferredLabelling(graph, d);
+        }
+    });
+});
+
+
 var setNodeWithOutLabelling = (function (graph, d) {
     graph.setNode(d.name, {
         labelType: "html",
-        label: "<b>" + d.name + "</b><br></br>" + "Scheme: " + d.scheme + "<br></br><b>Complete label = OUT</b>",
+        label: "<b>" + d.name + "</b>" + "<br></br><b>Label = OUT</b>" + "<br></br>" + d.argumentDescription,
         class: "comp",
         style: "fill: #ff6961",
     });
@@ -408,7 +501,7 @@ var setNodeWithOutLabelling = (function (graph, d) {
 var setNodeWithInLabelling = (function (graph, d) {
     graph.setNode(d.name, {
         labelType: "html",
-        label: "<b>" + d.name + "</b><br></br>Scheme: " + d.scheme + "<br></br><b>Complete label = IN</b>",
+        label: "<b>" + d.name + "</b>" + "<br></br><b>Label = IN</b>" + "<br></br>" + d.argumentDescription,
         class: "comp",
         style: "fill: #77dd77",
     });
@@ -417,9 +510,27 @@ var setNodeWithInLabelling = (function (graph, d) {
 var setNodeWithUndecLabelling = (function (graph, d) {
     graph.setNode(d.name, {
         labelType: "html",
-        label: "<b>" + d.name + "</b><br></br>Scheme: " + d.scheme + "<br></br><b>Complete label = UNDEC, IN/OUT</b>",
+        label: "<b>" + d.name + "</b>" + "<br></br><b>Label = UNDEC, IN/OUT</b>" + "<br></br>" + d.argumentDescription,
         class: "comp",
         style: "fill: #fdfd96",
+    });
+});
+
+var setNodeWithUndecGroundedLabelling = (function (graph, d) {
+    graph.setNode(d.name, {
+        labelType: "html",
+        label: "<b>" + d.name + "</b>" + "<br></br><b>Label = UNDEC</b>" + "<br></br>" + d.argumentDescription,
+        class: "comp",
+        style: "fill: #fdfd96",
+    });
+});
+
+var setNodeWithUndecPreferredLabelling = (function (graph, d) {
+    graph.setNode(d.name, {
+        labelType: "html",
+        label: "<b>" + d.name + "</b>" + "<br></br><b>Label = IN/OUT</b>" + "<br></br>" + d.argumentDescription,
+        class: "comp",
+        style: "fill: #77dd77",
     });
 });
 
@@ -438,7 +549,6 @@ var addHeadersForInArguments = (function () {
     var switchDiv = document.getElementById("switchDiv");
     var groundedArgumentHeader = document.createElement("h6");
     var preferredArgumentHeader = document.createElement("h6");
-
 
     groundedArgumentHeader.innerText = "Grounded IN arguments: ";
     preferredArgumentHeader.innerText = "Preferred IN arguments: ";
@@ -460,7 +570,10 @@ var removeHeadersForInArguments = (function () {
 
     if (groundedArgumentHeader) {
         groundedArgumentHeader.remove();
-        preferredArgumentHeader.remove();
+    }
+
+    if (preferredArgumentHeader) {
+        preferredArgumentHeader.remove(); 
     }
 });
 

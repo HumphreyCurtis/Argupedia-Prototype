@@ -53,7 +53,7 @@ var accSubmissionToDatabaseForm = (function (id, modalName) {
     variables.push(variableA.value, variableB.value, conclusion.value); 
     test.fullVariableTesting(variables); 
 
-    var argumentFromUser = "Correlation Premise: There is a positive correlation between " + variableA.value.toLowerCase() + " and " + variableB.value.toLowerCase()
+    var argumentFromUser = "Correlation Premise: there is a positive correlation between " + variableA.value.toLowerCase() + " and " + variableB.value.toLowerCase()
     + "<br></br> Conclusion: " + conclusion.value.toLowerCase();
     console.log("Argument = ", argumentFromUser);
 
