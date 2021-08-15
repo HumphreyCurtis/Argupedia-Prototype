@@ -75,6 +75,8 @@ var counterArgumentSubmissionToDatabase = (function (numberOfArguments) {
     var selectCriticalQuestion = document.getElementById("selectCriticalQuestion");
     var selectCriticalQuestionLabel = document.getElementById("selectCriticalQuestionLabel");
 
+    console.log("Critical question label = ", selectCriticalQuestion.value); 
+
     // selectCriticalQuestion.options.length = 0; --> can re-add if critical questions do not dissappear
     counterArgumentTargetName.remove();
     selectCriticalQuestion.remove();
@@ -96,7 +98,8 @@ var createLinksForCounterArgument = (function (source, target) {
 var addAndAppendOption = (function (criticalQuestion, valueNumber) {
     var criticalQuestionsForSelection = document.getElementById("selectCriticalQuestion");
     var option = document.createElement("option");
-    option.value = valueNumber;
+    // option.value = valueNumber;
+    option.value = criticalQuestion; 
     option.text = criticalQuestion;
     criticalQuestionsForSelection.add(option);
 });
