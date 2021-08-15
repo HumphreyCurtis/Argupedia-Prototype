@@ -113,27 +113,27 @@ labellingSwitch.addEventListener("change", function () {
     databasePlusPlotGraph(arguments, links);
 });
 
-let grounded = false; 
-var groundedSwitch = document.getElementById("groundedSwitch"); 
+let grounded = false;
+var groundedSwitch = document.getElementById("groundedSwitch");
 
-groundedSwitch.addEventListener("change", function() {
-    var arguments = []; 
-    var links = []; 
+groundedSwitch.addEventListener("change", function () {
+    var arguments = [];
+    var links = [];
 
-    grounded = groundedSwitch.checked; 
+    grounded = groundedSwitch.checked;
     databasePlusPlotGraph(arguments, links);
 });
 
-let preferred = false; 
-var preferredSwitch = document.getElementById("preferredSwitch"); 
+let preferred = false;
+var preferredSwitch = document.getElementById("preferredSwitch");
 
-preferredSwitch.addEventListener("change", function() {
-    var arguments = []; 
-    var links = []; 
+preferredSwitch.addEventListener("change", function () {
+    var arguments = [];
+    var links = [];
 
-    preferred = preferredSwitch.checked; 
-    databasePlusPlotGraph(arguments, links); 
-}); 
+    preferred = preferredSwitch.checked;
+    databasePlusPlotGraph(arguments, links);
+});
 
 
 /* 
@@ -244,7 +244,7 @@ var groundedLabelling = (function (arguments, links, graph) {
 
     drawNodesWithGroundedLabellings(arguments, graph);
 
-    addHeadersForInArguments(); 
+    addHeadersForInArguments();
 });
 
 var preferredLabelling = (function (arguments, links, graph) {
@@ -253,7 +253,7 @@ var preferredLabelling = (function (arguments, links, graph) {
 
     drawNodesWithPreferredLabellings(arguments, graph);
 
-    addHeadersForInArguments(); 
+    addHeadersForInArguments();
 });
 
 /* 
@@ -273,6 +273,10 @@ var labellingAlgorithm = (function (arguments, links) {
 
     unlabelledArguments = getArgumentNames(arguments);
 
+    var argumentLength = arguments.length;
+
+    console.log("Argument length = ", argumentLength);
+
     // console.log("Arguments being attacked = ", targets);
     // console.log("Arguments attacking = ", sources);
 
@@ -282,19 +286,34 @@ var labellingAlgorithm = (function (arguments, links) {
     console.log("In arguments after test 1 = ", inArguments);
     console.log("Unlabelled arguments after test 1 = ", unlabelledArguments);
 
-    // Test 2 - If an argument is attacked by an IN argument it must be labelled as OUT 
-    unlabelledArguments = argumentsAttackedByInArguments(links, sources);
+    for (let i = 0; i < argumentLength; i++) {
 
-    console.log("In arguments after test 2 = ", inArguments);
-    console.log("Out arguments after test 2 = ", outArguments);
-    console.log("Unlabelled arguments after test 2 = ", unlabelledArguments);
+        unlabelledArguments = argumentsAttackedByInArguments(links, sources);
+        unlabelledArguments = argumentsAttackedAllByOutArguments(links);
 
-    // Test 3 - A4 on algorithm design tab --> an argument where ALL attacking it are OUT 
-    unlabelledArguments = argumentsAttackedAllByOutArguments(links);
+    }
 
-    console.log("In arguments after test 3 = ", inArguments);
-    console.log("Out arguments after test 3 = ", outArguments);
-    console.log("Unlabelled arguments after test 3 = ", unlabelledArguments);
+    // Test 2 - If an argument is attacked by an IN argument it --> must be labelled as OUT 
+    // unlabelledArguments = argumentsAttackedByInArguments(links, sources);
+
+    // console.log("In arguments after test 2 = ", inArguments);
+    // console.log("Out arguments after test 2 = ", outArguments);
+    // console.log("Unlabelled arguments after test 2 = ", unlabelledArguments);
+
+    // Test 3 - A4 on algorithm design tab --> an argument where ALL attacking it are OUT --> must be labelled as IN
+    // unlabelledArguments = argumentsAttackedAllByOutArguments(links);
+
+    // console.log("In arguments after test 3 = ", inArguments);
+    // console.log("Out arguments after test 3 = ", outArguments);
+    // console.log("Unlabelled arguments after test 3 = ", unlabelledArguments);
+
+
+    // unlabelledArguments = argumentsAttackedByInArguments(links, sources);
+
+    // console.log("In arguments after test 4 =", inArguments); 
+    // console.log("Out arguments after test 4 =", outArguments); 
+    // console.log("Unlabelled arguments after test 4 =", unlabelledArguments); 
+
 
     unlabelledArguments = labelRemainingNodesUndec(); // May need to perform tests again
 
@@ -573,7 +592,7 @@ var removeHeadersForInArguments = (function () {
     }
 
     if (preferredArgumentHeader) {
-        preferredArgumentHeader.remove(); 
+        preferredArgumentHeader.remove();
     }
 });
 
