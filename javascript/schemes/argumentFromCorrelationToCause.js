@@ -15,14 +15,20 @@ const selectTypeOfArgument = document.getElementById("selectArgument");
 const selectArgumentScheme = document.getElementById("selectArgumentScheme2");
 const argumentForm = document.getElementById("counterArgumentScheme");
 
-/* Function which updates variable status of number of arguments to create unique ID */
+/* 
+ * Function which updates variable status of number of arguments to create unique ID 
+ *
+ */
 db.collection("arguments").onSnapshot(function (querySnapshot) {
 
-    console.log("Number of arguments = " + querySnapshot.docs.length);
     numberOfArguments = querySnapshot.docs.length;
-
 });
 
+/*
+ * Function which creates form and has event listener for submission of form 
+ * Also recognises if user is submitting counter-attacking argument
+ * 
+ */
 var createArgumentFromCorrelationToCauseForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
 
     lib.createArgumentForm(elementToAppend, "There is a correlation between A...", "accVariableA");
@@ -42,6 +48,10 @@ var createArgumentFromCorrelationToCauseForm = (function (elementToAppend, id, b
 
 });
 
+/*
+ * Function which performs submission to database of user inputted data 
+ *
+ */
 var accSubmissionToDatabaseForm = (function (id, modalName) {
     var form = document.getElementById(id);
 
@@ -55,7 +65,7 @@ var accSubmissionToDatabaseForm = (function (id, modalName) {
 
     var argumentFromUser = "Correlation Premise: there is a positive correlation between " + variableA.value.toLowerCase() + " and " + variableB.value.toLowerCase()
     + "<br></br> Conclusion: " + conclusion.value.toLowerCase();
-    console.log("Argument = ", argumentFromUser);
+    // console.log("Argument = ", argumentFromUser);
 
     db.collection("arguments").add({
         name: "argument" + numberOfArguments,
@@ -93,6 +103,10 @@ var accSubmissionToDatabaseForm = (function (id, modalName) {
  * -------------------------------------------------------------------- Critical question functionality ----------------------------------------------------------------------------
  */
 
+/*
+ * Function which dynamically builds critical questions 
+ *
+ */
 var setupAccCriticalQuestions = (function (data) {
     var variableA;
     var variableB; 

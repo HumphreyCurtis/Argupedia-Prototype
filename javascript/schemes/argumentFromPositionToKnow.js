@@ -16,15 +16,19 @@ const selectArgumentScheme = document.getElementById("selectArgumentScheme2");
 const argumentForm = document.getElementById("counterArgumentScheme");
 
 
-/* Function which updates variable status of number of arguments to create unique ID */
+/* 
+ * Function which updates variable status of number of arguments to create unique ID 
+ *
+ */
 db.collection("arguments").onSnapshot(function (querySnapshot) {
-
-    console.log("Number of arguments = " + querySnapshot.docs.length);
     numberOfArguments = querySnapshot.docs.length;
-
 });
 
-
+/*
+ * Function which creates form and has event listener for submission of form 
+ * Also recognises if user is submitting counter-attacking argument
+ * 
+ */
 var createArgumentFromPositionToKnowForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
     lib.createArgumentForm(elementToAppend, "a is in the position to know...", "afpPositionToKnow");
     lib.createArgumentForm(elementToAppend, "a asserts that A is true or false...", "afpAssertion");
@@ -43,6 +47,10 @@ var createArgumentFromPositionToKnowForm = (function (elementToAppend, id, butto
 
 });
 
+/*
+ * Function which performs submission to database of user inputted data 
+ *
+ */
 var afpSubmissionToDatabaseForm = (function (id, modalName) {
     var form = document.getElementById(id);
 
@@ -60,8 +68,8 @@ var afpSubmissionToDatabaseForm = (function (id, modalName) {
     "<br></br>Assertion premise: " + assertionPremise.value.toLowerCase() + 
     "<br></br>Conclusion: " + conclusion.value.toLowerCase(); 
 
-    console.log("Argument = " + argumentFromUser);
-    console.log("Number of arguments = " + numberOfArguments); 
+    // console.log("Argument = " + argumentFromUser);
+    // console.log("Number of arguments = " + numberOfArguments); 
 
     /* Submit fields to database */
     db.collection("arguments").add({
@@ -99,6 +107,10 @@ var afpSubmissionToDatabaseForm = (function (id, modalName) {
  * -------------------------------------------------------------------- Critical question functionality ---------------------------------------------------------------------------
  */
 
+/*
+ * Function which dynamically builds critical questions 
+ *
+ */
 var setupAfpCriticalQuestions = (function (data) {
     var positionToKnow;
     var assertionPremise;
@@ -125,7 +137,6 @@ var createAndAppendAfpCriticalQuestions = (function (positionToKnow, assertionPr
  * positionToKnow = a 
  * conclusion = A 
  */
-
 var afpQuestionSwitch = (function(questionNumber, positionToKnow, assertionPremise, conclusion){
     switch (questionNumber) {
         case 1: 

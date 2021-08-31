@@ -15,15 +15,21 @@ const selectTypeOfArgument = document.getElementById("selectArgument");
 const selectArgumentScheme = document.getElementById("selectArgumentScheme2");
 const argumentForm = document.getElementById("counterArgumentScheme");
 
-/* Function which updates variable status of number of arguments to create unique ID */
+/* 
+ * Function which updates variable status of number of arguments to create unique ID 
+ *
+ */
 db.collection("arguments").onSnapshot(function (querySnapshot) {
 
-    console.log("Number of arguments = " + querySnapshot.docs.length);
+    // console.log("Number of arguments = " + querySnapshot.docs.length);
     numberOfArguments = querySnapshot.docs.length;
-
 });
 
-
+/*
+ * Function which creates appeal to expert opinion form and has event listener for submission of form 
+ * Also recognises if user is submitting counter-attacking argument
+ * 
+ */
 var createEosForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
 
     lib.createArgumentForm(elementToAppend, "Expert E...", "eosExpert");
@@ -44,6 +50,10 @@ var createEosForm = (function (elementToAppend, id, buttonClass, buttonId, modal
     });
 });
 
+/*
+ * Function which performs submission to database of user inputted data 
+ *
+ */
 var eosSubmissionToDatabaseForm = (function (id, modalName) {
     var form = document.getElementById(id);
 
@@ -110,6 +120,10 @@ var eosSubmissionToDatabaseForm = (function (id, modalName) {
  * -------------------------------------------------------------------- Critical question functionality ---------------------------------------------------------------------------
  */
 
+/*
+ * Function which dynamically builds critical questions 
+ *
+ */
 var setupEosCriticalQuestions = (function (data) {
     var expert; 
     var domain; 

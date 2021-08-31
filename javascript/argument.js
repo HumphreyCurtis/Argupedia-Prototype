@@ -52,13 +52,13 @@ selectTypeOfArgument.addEventListener('change', (event) => {
     console.log("Value selected is = ", selectTypeOfArgument.value);
 
     if (selectTypeOfArgument.value == "initialArgument") {
-
+        selectTypeOfArgument.disabled = true; 
         argumentStatus = "initialArgument";
         argumentForm.className = "show";
         // selectArgumentSchemeEventListener next function 
 
     } else if (selectTypeOfArgument.value == "counterArgument") {
-
+        selectTypeOfArgument.disabled = true; 
         argumentStatus = "counterArgument";
         /* 
          * selectArgumentSchemeEventListener next function 
@@ -81,34 +81,42 @@ selectArgumentScheme.addEventListener('change', (event) => {
     console.log("Value selected is = " + selectArgumentScheme.value)
 
     if (selectArgumentScheme.value == "casForm") {
+        selectArgumentScheme.disabled = true; 
         cas.createCasForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     } else if (selectArgumentScheme.value == "appealToExpertOpinion") {
-        console.log("Appeal to expert opinion selected");
+        // console.log("Appeal to expert opinion selected");
+        selectArgumentScheme.disabled = true; 
         eos.createEosForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     } else if (selectArgumentScheme.value == "appealToPopularOpinionForm") {
-        console.log("Appeal to popular opinion selected");
+        // console.log("Appeal to popular opinion selected");
+        selectArgumentScheme.disabled = true; 
         apo.createAppealToPopularOpinionForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     } else if (selectArgumentScheme.value == "argumentFromAnalogy") {
-        console.log("Argument from analogy selected");
+        // console.log("Argument from analogy selected");
+        selectArgumentScheme.disabled = true; 
         afa.createArgumentFromAnalogyForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     } else if (selectArgumentScheme.value == "argumentFromCorrelationToCause") {
-        console.log("Argument from correlation to cause selected");
+        // console.log("Argument from correlation to cause selected");
+        selectArgumentScheme.disabled = true; 
         acc.createArgumentFromCorrelationToCauseForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     } else if (selectArgumentScheme.value == "argumentFromConsequences") {
-        console.log("Argument from consequences selected");
+        // console.log("Argument from consequences selected");
+        selectArgumentScheme.disabled = true; 
         afc.createArgumentFromConsequencesForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     } else if (selectArgumentScheme.value == "slipperySlopeArgument") {
-        console.log("Slippery Slope Argument selected");
+        // console.log("Slippery Slope Argument selected");
+        selectArgumentScheme.disabled = true; 
         ss.createSlipperySlopeArgumentForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     } else if (selectArgumentScheme.value == "argumentFromPositionToKnow") {
-        console.log("Argument From Position to Know Selected");
+        // console.log("Argument From Position to Know Selected");
+        selectArgumentScheme.disabled = true; 
         afp.createArgumentFromPositionToKnowForm(argumentForm, "counterArgumentScheme", "btn waves white-text", "counterArgumentButton", modal1, argumentStatus);
 
     }
@@ -224,14 +232,14 @@ var counterArgumentEventListener = (function () {
                 var scheme;
 
                 query2 = querySnapshot.docs.map(doc => doc.data());
-                console.log(query2);
+                // console.log(query2);
                 // console.log("Empty array test on query = ", emptyArrayTest(query2));
 
                 query2.forEach(function (d) {
                     scheme = d.scheme;
                 });
 
-                console.log("Scheme of selected = " + scheme);
+                // console.log("Scheme of selected = " + scheme);
                 schemeSwitch(scheme, query2);
 
             });
@@ -243,35 +251,35 @@ var counterArgumentEventListener = (function () {
 var schemeSwitch = (function (scheme, data) {
     switch (scheme) {
         case "Critical Action Scheme":
-            console.log("cas activating");
+            // console.log("cas activating");
             return cas.setupCasCriticalQuestions(data);
             break;
         case "Appeal to Expert Opinion":
-            console.log("eos activating");
+            // console.log("eos activating");
             return eos.setupEosCriticalQuestions(data);
             break;
         case "Appeal to Popular Opinion":
-            console.log("apo activating");
+            // console.log("apo activating");
             return apo.setupApoCriticalQuestions(data);
             break;
         case "Argument from Analogy":
-            console.log("afa activating");
+            // console.log("afa activating");
             return afa.setupAfaCriticalQuestions(data);
             break;
         case "Argument from Correlation to Cause":
-            console.log("acc activating");
+            // console.log("acc activating");
             return acc.setupAccCriticalQuestions(data);
             break;
         case "Argument from Consequences":
-            console.log("afc activating");
+            // console.log("afc activating");
             return afc.setupAfcCriticalQuestions(data);
             break;
         case "Slippery Slope Argument":
-            console.log("ss activating");
+            // console.log("ss activating");
             return ss.setupSsCriticalQuestions(data);
             break;
         case "Argument from Position to Know":
-            console.log("afp activating");
+            // console.log("afp activating");
             return afp.setupAfpCriticalQuestions(data);
             break;
         default:

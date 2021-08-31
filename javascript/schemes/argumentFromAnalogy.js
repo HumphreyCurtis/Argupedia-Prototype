@@ -15,14 +15,19 @@ const selectTypeOfArgument = document.getElementById("selectArgument");
 const selectArgumentScheme = document.getElementById("selectArgumentScheme2");
 const argumentForm = document.getElementById("counterArgumentScheme");
 
-/* Function which updates variable status of number of arguments to create unique ID */
+/* 
+ * Function which updates variable status of number of arguments to create unique ID 
+ *
+ */
 db.collection("arguments").onSnapshot(function (querySnapshot) {
-
-    console.log("Number of arguments = " + querySnapshot.docs.length);
     numberOfArguments = querySnapshot.docs.length;
-
 });
 
+/*
+ * Function which creates argument from analogy form and has event listener for submission of form 
+ * Also recognises if user is submitting counter-attacking argument
+ * 
+ */
 var createArgumentFromAnalogyForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
     lib.createArgumentForm(elementToAppend, "Generally, case C1...", "afaCase1");
     lib.createArgumentForm(elementToAppend, "Is similar to case C2...", "afaCase2");
@@ -43,6 +48,10 @@ var createArgumentFromAnalogyForm = (function (elementToAppend, id, buttonClass,
 
 });
 
+/*
+ * Function which performs submission to database of user inputted data 
+ *
+ */
 var afaSubmissionToDatabaseForm = (function (id, modalName) {
     var form = document.getElementById(id);
 
@@ -61,7 +70,7 @@ var afaSubmissionToDatabaseForm = (function (id, modalName) {
     "<br></br>Base Premise: " + basePremise.value.toLowerCase() + " in the circumstance of " + case1.value.toLowerCase() + 
     "<br></br>Conclusion: " + conclusion.value.toLowerCase();
 
-    console.log("Argument = ", argumentFromUser);
+    // console.log("Argument = ", argumentFromUser);
 
     /* Submit fields to database */
     db.collection("arguments").add({
@@ -103,6 +112,10 @@ var afaSubmissionToDatabaseForm = (function (id, modalName) {
  * -------------------------------------------------------------------- Critical question functionality ----------------------------------------------------------------------------
  */
 
+/*
+ * Function which dynamically builds critical questions 
+ *
+ */
 var setupAfaCriticalQuestions = (function (data) {
     var case1;
     var case2; 

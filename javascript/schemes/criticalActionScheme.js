@@ -16,15 +16,20 @@ const selectArgumentScheme = document.getElementById("selectArgumentScheme2");
 const argumentForm = document.getElementById("counterArgumentScheme");
 
 
-/* Function which updates variable status of number of arguments to create unique ID */
+/* 
+ * Function which updates variable status of number of arguments to create unique ID 
+ *
+ */
 db.collection("arguments").onSnapshot(function (querySnapshot) {
-
-    console.log("Number of arguments = " + querySnapshot.docs.length);
+    // console.log("Number of arguments = " + querySnapshot.docs.length);
     numberOfArguments = querySnapshot.docs.length;
-
 });
 
-/* Function to create Cas form for database */
+/*
+ * Function which creates form and has event listener for submission of form 
+ * Also recognises if user is submitting counter-attacking argument
+ * 
+ */
 var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
 
     lib.createArgumentForm(elementToAppend, "In the current circumstance...", "casCircumstance");
@@ -46,7 +51,10 @@ var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modal
 
 });
 
-/* Function which submits CAS form to database */
+/*
+ * Function which performs submission to database of user inputted data 
+ *
+ */
 var casSubmissionToDatabaseFromForm = (function (id, modalName) {
 
     var form = document.getElementById(id);
@@ -67,7 +75,7 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
     "<br></br>Which will promote the value: " + casValue.value.toLowerCase() + 
     "<br></br>";
     
-    console.log("Argument = " + argumentFromUser);
+    // console.log("Argument = " + argumentFromUser);
 
     /* Submit fields to database */
     db.collection("arguments").add({
@@ -86,7 +94,9 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
     instance.close();
 
     selectTypeOfArgument.selectedIndex = "reset";
+    selectTypeOfArgument.disabled = false; 
     selectArgumentScheme.selectedIndex = "reset";
+    selectArgumentScheme.disabled = false; 
     argumentForm.className = "hide";
 
     form.reset();
@@ -110,6 +120,10 @@ var casSubmissionToDatabaseFromForm = (function (id, modalName) {
  * -------------------------------------------------------------------- Critical question functionality ---------------------------------------------------------------------------
  */
 
+/*
+ * Function which dynamically builds critical questions 
+ *
+ */
 var setupCasCriticalQuestions = (function (data) {
     var currentCircumstance;
     var action;

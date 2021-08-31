@@ -15,14 +15,22 @@ const selectTypeOfArgument = document.getElementById("selectArgument");
 const selectArgumentScheme = document.getElementById("selectArgumentScheme2");
 const argumentForm = document.getElementById("counterArgumentScheme");
 
-/* Function which updates variable status of number of arguments to create unique ID */
+/* 
+ * Function which updates variable status of number of arguments to create unique ID 
+ *
+ */
 db.collection("arguments").onSnapshot(function (querySnapshot) {
 
-    console.log("Number of arguments = " + querySnapshot.docs.length);
+    // console.log("Number of arguments = " + querySnapshot.docs.length);
     numberOfArguments = querySnapshot.docs.length;
 
 });
 
+/*
+ * Function which creates appeal to popular opinion form and has event listener for submission of form 
+ * Also recognises if user is submitting counter-attacking argument
+ * 
+ */
 var createAppealToPopularOpinionForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
     lib.createArgumentForm(elementToAppend, "A is generally accepted as being true...", "apoGeneralAcceptancePremise");
     lib.createArgumentForm(elementToAppend, "If A is generaly accepted as being true that gives a reason in favour of A...", "apoPresumptionPremise");
@@ -40,6 +48,10 @@ var createAppealToPopularOpinionForm = (function (elementToAppend, id, buttonCla
     });
 });
 
+/*
+ * Function which performs submission to database of user inputted data 
+ *
+ */
 var apoSubmissionToDatabaseFromForm = (function (id, modalName) {
     var form = document.getElementById(id);
 
@@ -87,14 +99,18 @@ var apoSubmissionToDatabaseFromForm = (function (id, modalName) {
  * -------------------------------------------------------------------- Critical question functionality ----------------------------------------------------------------------------
  */
 
+/*
+ * Function which dynamically builds critical questions 
+ *
+ */
 var setupApoCriticalQuestions = (function (data) {
-    console.log("apo data = ", data); 
     var premise;
 
     data.forEach(function (d) {
         premise = d.userPremise;
     });
-    console.log("premise = ", premise); 
+    // console.log("apo data = ", data); 
+    // console.log("premise = ", premise); 
 
     createAndAppendApoCriticalQUestions(premise); 
 });

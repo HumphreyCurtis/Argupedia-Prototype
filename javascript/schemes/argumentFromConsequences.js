@@ -15,14 +15,19 @@ const selectTypeOfArgument = document.getElementById("selectArgument");
 const selectArgumentScheme = document.getElementById("selectArgumentScheme2");
 const argumentForm = document.getElementById("counterArgumentScheme");
 
-/* Function which updates variable status of number of arguments to create unique ID */
+/* 
+ * Function which updates variable status of number of arguments to create unique ID 
+ *
+ */
 db.collection("arguments").onSnapshot(function (querySnapshot) {
-
-    console.log("Number of arguments = " + querySnapshot.docs.length);
     numberOfArguments = querySnapshot.docs.length;
-
 });
 
+/*
+ * Function which creates form and has event listener for submission of form 
+ * Also recognises if user is submitting counter-attacking argument
+ * 
+ */
 var createArgumentFromConsequencesForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
     lib.createArgumentForm(elementToAppend, "If A is brought about good/bad consequences will occur...", "afcPremise");
     lib.createArgumentForm(elementToAppend, "A should or should not be brought about...", "afcConclusion");
@@ -40,6 +45,10 @@ var createArgumentFromConsequencesForm = (function (elementToAppend, id, buttonC
 
 });
 
+/*
+ * Function which performs submission to database of user inputted data 
+ *
+ */
 var afcSubmissionToDatabaseForm = (function (id, modalName) {
     var form = document.getElementById(id);
 
@@ -53,7 +62,7 @@ var afcSubmissionToDatabaseForm = (function (id, modalName) {
     var argumentFromUser = "Premise: " + afcPremise.value.toLowerCase() +  
     "<br></br>Conclusion: " + afcConclusion.value.toLowerCase();
     
-    console.log("Argument = ", argumentFromUser);
+    // console.log("Argument = ", argumentFromUser);
 
     /* Submit fields to database */
     db.collection("arguments").add({
@@ -89,6 +98,10 @@ var afcSubmissionToDatabaseForm = (function (id, modalName) {
  * -------------------------------------------------------------------- Critical question functionality ----------------------------------------------------------------------------
  */
 
+/*
+ * Function which dynamically builds critical questions 
+ *
+ */
 var setupAfcCriticalQuestions = (function (data) {
     var afcPremise;
     var conclusion;

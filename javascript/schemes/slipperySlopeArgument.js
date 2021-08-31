@@ -15,14 +15,19 @@ const selectTypeOfArgument = document.getElementById("selectArgument");
 const selectArgumentScheme = document.getElementById("selectArgumentScheme2");
 const argumentForm = document.getElementById("counterArgumentScheme");
 
-/* Function which updates variable status of number of arguments to create unique ID */
+/* 
+ * Function which updates variable status of number of arguments to create unique ID 
+ *
+ */
 db.collection("arguments").onSnapshot(function (querySnapshot) {
-
-    console.log("Number of arguments = " + querySnapshot.docs.length);
     numberOfArguments = querySnapshot.docs.length;
-
 });
 
+/*
+ * Function which creates form and has event listener for submission of form 
+ * Also recognises if user is submitting counter-attacking argument
+ * 
+ */
 var createSlipperySlopeArgumentForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
     lib.createArgumentForm(elementToAppend, "A is up for consideration as a proposal that seems like it should be brought about", "ssFirstStepPremise");
     lib.createArgumentForm(elementToAppend, "Bringing about A would lead to B which would lead to C and so forth", "ssRecursivePremise");
@@ -42,6 +47,10 @@ var createSlipperySlopeArgumentForm = (function (elementToAppend, id, buttonClas
 
 });
 
+/*
+ * Function which performs submission to database of user inputted data 
+ *
+ */
 var ssSubmissionToDatabaseForm = (function (id, modalName) {
     var form = document.getElementById(id);
 
@@ -50,16 +59,16 @@ var ssSubmissionToDatabaseForm = (function (id, modalName) {
     var badOutcomePremise = document.querySelector("#ssBadOutcomePremise");
     var conclusion = document.querySelector("#ssConclusion");
 
-    var variables = []; 
+    var variables = [];
     variables.push(firstStepPremise.value, recursivePremise.value, badOutcomePremise.value, conclusion.value);
     test.fullVariableTesting(variables);
 
     var argumentFromUser = "First step premise: " + firstStepPremise.value.toLowerCase() +
-    "<br></br>Recursive premise: " + recursivePremise.value.toLowerCase() + 
-    "<br></br>Bad outcome premise: " + badOutcomePremise.value.toLowerCase() + 
-    "<br></br>Conclusion: " + conclusion.value.toLowerCase(); 
-    
-    console.log("Argument = ", argumentFromUser);
+        "<br></br>Recursive premise: " + recursivePremise.value.toLowerCase() +
+        "<br></br>Bad outcome premise: " + badOutcomePremise.value.toLowerCase() +
+        "<br></br>Conclusion: " + conclusion.value.toLowerCase();
+
+    // console.log("Argument = ", argumentFromUser);
 
     /* Submit fields to database */
     db.collection("arguments").add({
@@ -99,6 +108,10 @@ var ssSubmissionToDatabaseForm = (function (id, modalName) {
  * -------------------------------------------------------------------- Critical question functionality ---------------------------------------------------------------------------
  */
 
+/*
+ * Function which dynamically builds critical questions 
+ *
+ */
 var setupSsCriticalQuestions = (function (data) {
     var firstStepPremise;
     var recursivePremise;
@@ -112,13 +125,13 @@ var setupSsCriticalQuestions = (function (data) {
             conclusion = d.conclusion
     });
 
-    createAndAppendSsCriticalQuestions(firstStepPremise, recursivePremise, badOutcomePremise, conclusion); 
+    createAndAppendSsCriticalQuestions(firstStepPremise, recursivePremise, badOutcomePremise, conclusion);
 });
 
 var createAndAppendSsCriticalQuestions = (function (firstStepPremise, recursivePremise, badOutcomePremise, conclusion) {
     for (let i = 1; i < 4; i++) {
-        var tempCriticalQuestion = ssQuestionsSwitch(i, firstStepPremise, recursivePremise, badOutcomePremise, conclusion); 
-        lib.addAndAppendOption(tempCriticalQuestion, i); 
+        var tempCriticalQuestion = ssQuestionsSwitch(i, firstStepPremise, recursivePremise, badOutcomePremise, conclusion);
+        lib.addAndAppendOption(tempCriticalQuestion, i);
     }
 });
 
@@ -139,6 +152,6 @@ var ssQuestionsSwitch = (function (questionNumber, firstStepPremise, recursivePr
 });
 
 export {
-    createSlipperySlopeArgumentForm, 
+    createSlipperySlopeArgumentForm,
     setupSsCriticalQuestions
 }
