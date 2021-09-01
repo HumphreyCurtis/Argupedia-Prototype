@@ -10,35 +10,23 @@
 
 
 var createArgumentForm = (function (elementToAppend, placeholder, id) {
-    // var div = document.createElement("div");
-    // div.setAttribute("class", "input-field");
 
     var inputField = document.createElement("input");
+    
     inputField.setAttribute("type", "text");
     inputField.setAttribute("placeholder", placeholder);
     inputField.setAttribute("id", id);
-
-    // div.append(inputField);
-
-    // var div2 = document.createElement("div");
-    // div.append(div2);
 
     elementToAppend.append(inputField);
 });
 
 var appendArgumentButton = (function (elementToAppend, colour, id) {
-    // var div = document.createElement("div");
-    // div.setAttribute("class", "input-field");
 
     var button = document.createElement("btn");
+
     button.setAttribute("class", colour);
     button.textContent = "Create argument";
     button.setAttribute("id", id);
-
-    // div.append(button);
-
-    // var div2 = document.createElement("div");
-    // div.append(div2);
 
     elementToAppend.append(button);
 });
@@ -77,8 +65,8 @@ var counterArgumentSubmissionToDatabase = (function (numberOfArguments) {
     var selectCriticalQuestionLabel = document.getElementById("selectCriticalQuestionLabel");
 
     // console.log("Critical question label = ", selectCriticalQuestion.value); 
-
     // selectCriticalQuestion.options.length = 0; --> can re-add if critical questions do not dissappear
+
     counterArgumentTargetName.remove();
     selectCriticalQuestion.remove();
 
@@ -100,7 +88,7 @@ var createLinksForCounterArgument = (function (source, target) {
 var addAndAppendOption = (function (criticalQuestion, valueNumber) {
     var criticalQuestionsForSelection = document.getElementById("selectCriticalQuestion");
     var option = document.createElement("option");
-    // option.value = valueNumber;
+
     option.value = criticalQuestion; 
     option.text = criticalQuestion;
     criticalQuestionsForSelection.add(option);

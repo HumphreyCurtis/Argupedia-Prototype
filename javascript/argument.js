@@ -141,17 +141,13 @@ selectArgumentScheme.addEventListener('change', (event) => {
  * Function to create input fields for counter-argument input on modal
  */
 var createInputFieldsForCounterArgument = (function (elementToAppend, placeholder, id) {
-    // var div = document.createElement("div");
-    // div.setAttribute("class", "input-field");
 
     var inputField = document.createElement("input");
+    
     inputField.setAttribute("type", "text");
     inputField.setAttribute("placeholder", placeholder);
     inputField.setAttribute("id", id);
 
-    // div.append(inputField);
-    // var div2 = document.createElement("div");
-    // div.append(div2);
     elementToAppend.append(inputField);
 });
 
