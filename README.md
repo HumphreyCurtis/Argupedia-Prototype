@@ -8,7 +8,9 @@
 
 - Hosted public Argupedia version available here: https://humphreycurtis.github.io/Argupedia-Prototype/
 
-- VERY IMPORTANT! - web application hooked up to private database accessible under *only MY personal* google firestore login credentials 
+- Github public repository accessible here: https://github.com/HumphreyCurtis/Argupedia-Prototype 
+
+- VERY IMPORTANT! - web application hooked up to private database accessible under *only* my personal google firestore login credentials 
     - Therefore add your own personal Firestore database configurations instead in the html/argupedia.html file 
     - Or, watch YouTube videos
     - Or, view publically available Github version
