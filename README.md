@@ -1,19 +1,40 @@
-*** Argupedia user study ***
+*** Argupedia Prototype ***
 
-- Run index.html in live server 
-    - Read instructions enclosed to user test applications / watch embedded YouTube video
+- To run --> run index.html in live server 
+    - Read instructions enclosed to user test applications / watch YouTube video
     - Uses html folder and styling in css folder
 
-- Javascript folder contains 
-    - Graph functionality --> graph.js
-    - Argument functionality --> argument.js
-    - Library --> accessory functions
-    - Unit test / user input test file --> test.js
-    - Argumentation schemes --> schemes folder 
-    
-- Junk folder contains old code for development 
+- YouTube video link for instructions / demonstration is available here: https://youtu.be/1BaNoLEGmrU 
 
-- Images folder contains
+- Hosted public Argupedia version available here: https://humphreycurtis.github.io/Argupedia-Prototype/
+
+- VERY IMPORTANT! - web application hooked up to private database accessible under *only MY personal* google firestore login credentials 
+    - Therefore add your own personal Firestore database configurations instead in the html/argupedia.html file 
+    - Or, watch YouTube videos
+    - Or, view publically available Github version
+    - Or, watch presentation submitted to Kings College London
+
+- Changes post user experience study changes
+    - Minor changes made to front-end to prevent users from wrongly selecting incorrect argument schemes repeatedly
+    - If any front-end bugs arise --> use the REFRESH button within Argupedia application 
+    - All code is well-commented with console.log statements if needed
+
+- Javascript folder contains: 
+    - Graph functionality --> javascript/graph.js
+    - Argument functionality --> javascript/argument.js
+    - Library --> key accessory functions
+    - Unit test / user input test file --> javascript/test.js
+    - Argumentation schemes --> javascript/schemes folder 
+
+- HTML folder contains:
+    - Argupedia page --> argupedia.html
+    - Survey page and links --> survey.html
+
+- CSS folder contains:
+    - Argupedia styling file --> styles.css
+
+- Images folder contains:
     - Favicon 
     - Logo
 
+- Junk folder contains old code for development 
