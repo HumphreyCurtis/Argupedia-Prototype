@@ -16,7 +16,6 @@ var links = [];
 
 /* 
  * Function to connect and adapt on the basis of changes to database 
- *
  */
 var databasePlusPlotGraph = (function (arguments, links) {
 
@@ -79,30 +78,32 @@ var databasePlusPlotGraph = (function (arguments, links) {
 
         });
 
-        console.log(arguments);
-        console.log(links);
+
+        // console.log(arguments);
+        // console.log(links);
 
         update(arguments, links);
     });
 });
-
-/* 
- * Switch which denotes if user wishes to have graph labelled 
- *
- */
-var labellingSwitch = document.getElementById("mySwitch");
-let status = false;
 
 var unlabelledArguments = [];
 var inArguments = [];
 var outArguments = [];
 var undecidedNodes = [];
 
-console.log("Drawing graph");
+// console.log("Drawing graph");
 databasePlusPlotGraph(arguments, links);
-
+ /* 
+  * Logging database data to console
+  */
 console.log(arguments);
 console.log(links);
+
+/* 
+ * Event listener for complete labelling  
+ */
+var labellingSwitch = document.getElementById("mySwitch");
+let status = false;
 
 labellingSwitch.addEventListener("change", function () {
     var arguments = [];
@@ -113,6 +114,9 @@ labellingSwitch.addEventListener("change", function () {
     databasePlusPlotGraph(arguments, links);
 });
 
+/* 
+ * Event listener for grounded labelling  
+ */
 let grounded = false;
 var groundedSwitch = document.getElementById("groundedSwitch");
 
@@ -124,6 +128,9 @@ groundedSwitch.addEventListener("change", function () {
     databasePlusPlotGraph(arguments, links);
 });
 
+/* 
+ * Event listener for preferred labelling  
+ */
 let preferred = false;
 var preferredSwitch = document.getElementById("preferredSwitch");
 
@@ -138,7 +145,6 @@ preferredSwitch.addEventListener("change", function () {
 
 /* 
  * Draw graph using library and data with zoom functionality
- *
  */
 const update = (arguments, links) => {
     // Delete the old graph
@@ -147,17 +153,19 @@ const update = (arguments, links) => {
     // Create the input graph
     var graph = new dagreD3.graphlib.Graph().setGraph({});
 
-    console.log("Status of complete labelling =", status);
-    console.log("Status of grounded labelling =", grounded);
-    console.log("Status of preferred labelling =", preferred);
+    // console.log("Status of complete labelling =", status);
+    // console.log("Status of grounded labelling =", grounded);
+    // console.log("Status of preferred labelling =", preferred);
 
+    /* 
+     * If statement to decide what labelling algorithm to draw
+     */
     if (status) {
 
         unlabelledArguments = [];
         inArguments = [];
         outArguments = [];
         undecidedNodes = [];
-
         completeLabelling(arguments, links, graph);
 
     } else if (grounded) {
@@ -166,7 +174,6 @@ const update = (arguments, links) => {
         inArguments = [];
         outArguments = [];
         undecidedNodes = [];
-
         groundedLabelling(arguments, links, graph);
 
     } else if (preferred) {
@@ -175,7 +182,6 @@ const update = (arguments, links) => {
         inArguments = [];
         outArguments = [];
         undecidedNodes = [];
-
         preferredLabelling(arguments, links, graph);
 
     } else {
@@ -213,7 +219,9 @@ const update = (arguments, links) => {
     render(inner, graph);
 };
 
-// Standard labelling just presenting argumentative graph 
+/* 
+ * Standard labelling just presenting argumentative graph 
+ */ 
 var standardLabelling = (function (arguments, graph) {
 
     arguments.forEach(function (d) {
@@ -238,6 +246,9 @@ var completeLabelling = (function (arguments, links, graph) {
     addHeadersForInArguments();
 });
 
+/*
+ * Grounded labelling with nodes of argument labelled as IN / OUT contingent on criteria
+ */
 var groundedLabelling = (function (arguments, links, graph) {
 
     labellingAlgorithm(arguments, links);
@@ -247,6 +258,9 @@ var groundedLabelling = (function (arguments, links, graph) {
     addHeadersForInArguments();
 });
 
+/*
+ * Preferred labelling with nodes of argument labelled as IN / OUT contingent on criteria
+ */
 var preferredLabelling = (function (arguments, links, graph) {
 
     labellingAlgorithm(arguments, links);
@@ -275,7 +289,7 @@ var labellingAlgorithm = (function (arguments, links) {
 
     var argumentLength = arguments.length;
 
-    console.log("Argument length = ", argumentLength);
+    // console.log("Argument length = ", argumentLength);
 
     // console.log("Arguments being attacked = ", targets);
     // console.log("Arguments attacking = ", sources);
@@ -283,24 +297,24 @@ var labellingAlgorithm = (function (arguments, links) {
     // Test 1 - If an argument is not a target at all then it must be labelled as IN as no arguments are attacking it
     unlabelledArguments = setExclusionBetweenArgumentsAndTargets(targets);
 
-    console.log("In arguments after test 1 = ", inArguments);
-    console.log("Unlabelled arguments after test 1 = ", unlabelledArguments);
+    // console.log("In arguments after test 1 = ", inArguments);
+    // console.log("Unlabelled arguments after test 1 = ", unlabelledArguments);
 
     for (let i = 0; i < argumentLength; i++) {
-
+    // Test 2 - If an argument is attacked by an IN argument it --> must be labelled as OUT 
         unlabelledArguments = argumentsAttackedByInArguments(links, sources);
+
+    // Test 3 - A4 on algorithm design tab --> an argument where ALL attacking it are OUT --> must be labelled as IN
         unlabelledArguments = argumentsAttackedAllByOutArguments(links);
 
     }
-
-    // Test 2 - If an argument is attacked by an IN argument it --> must be labelled as OUT 
     // unlabelledArguments = argumentsAttackedByInArguments(links, sources);
 
     // console.log("In arguments after test 2 = ", inArguments);
     // console.log("Out arguments after test 2 = ", outArguments);
     // console.log("Unlabelled arguments after test 2 = ", unlabelledArguments);
 
-    // Test 3 - A4 on algorithm design tab --> an argument where ALL attacking it are OUT --> must be labelled as IN
+
     // unlabelledArguments = argumentsAttackedAllByOutArguments(links);
 
     // console.log("In arguments after test 3 = ", inArguments);
@@ -317,14 +331,16 @@ var labellingAlgorithm = (function (arguments, links) {
 
     unlabelledArguments = labelRemainingNodesUndec(); // May need to perform tests again
 
-    console.log("In arguments after test 4 = ", inArguments);
-    console.log("Out arguments after test 4 = ", outArguments);
-    console.log("Undec arguments after test 4 = ", undecidedNodes);
-    console.log("Unlabelled arguments after test 4 = ", unlabelledArguments);
+    // console.log("In arguments after test 4 = ", inArguments);
+    // console.log("Out arguments after test 4 = ", outArguments);
+    // console.log("Undec arguments after test 4 = ", undecidedNodes);
+    // console.log("Unlabelled arguments after test 4 = ", unlabelledArguments);
 
 });
 
-/* Function which returns all argument names */
+/* 
+ * Function which returns all argument names 
+ */
 var getArgumentNames = (function (arguments) {
     var argumentNames = [];
 
@@ -335,7 +351,9 @@ var getArgumentNames = (function (arguments) {
     return argumentNames;
 });
 
-/* Function which returns all arguments that are attacked */
+/* 
+ * Function which returns all arguments that are attacked 
+ */
 var getTargets = (function (links) {
     var targets = [];
 
@@ -360,7 +378,9 @@ var getSources = (function (links) {
     return sources;
 });
 
-/* Function which finds all arguments unattacked and labels them as IN */
+/* 
+ * Function which finds all arguments unattacked and labels them as IN 
+ */
 var setExclusionBetweenArgumentsAndTargets = (function (targets) {
 
     inArguments = unlabelledArguments.filter(x => !targets.includes(x));
@@ -374,7 +394,7 @@ var setExclusionBetweenArgumentsAndTargets = (function (targets) {
  */
 var argumentsAttackedByInArguments = (function (links, sources) {
     var inArgumentsAttacking = inArguments.filter(item => sources.includes(item));
-    console.log("In arguments attacking = ", inArgumentsAttacking);
+    // console.log("In arguments attacking = ", inArgumentsAttacking);
 
     links.forEach(function (d) {
         if (inArgumentsAttacking.includes(d.source)) {
@@ -399,7 +419,7 @@ var argumentsAttackedAllByOutArguments = (function (links) {
         let argumentsAttackingCurrentNode = [];
         argumentsAttackingCurrentNode = argumentsAttackingNode(currentNode, links);
 
-        console.log("Arguments attacking current node = ", argumentsAttackingCurrentNode);
+        // console.log("Arguments attacking current node = ", argumentsAttackingCurrentNode);
 
         if (argumentsAttackingNodeAllOut(argumentsAttackingCurrentNode, outArguments)) {
             inArguments.push(currentNode);
@@ -426,12 +446,16 @@ var argumentsAttackingNode = (function (node, links) {
     return argumentsAttackingNode;
 });
 
-/* Function which checks if arguments attacking node are all out */
+/* 
+ * Function which checks if arguments attacking node are all OUT 
+ */
 var argumentsAttackingNodeAllOut = (function (argumentsAttackingNode, outArguments) {
     return (argumentsAttackingNode.every(elem => outArguments.includes(elem)));
 });
 
-/* Function which labels remaining nodes as UNDEC */
+/*  
+ * Function which labels remaining nodes as UNDEC
+ */
 var labelRemainingNodesUndec = (function () {
     unlabelledArguments.forEach(function (currentNode) {
         undecidedNodes.push(currentNode);
@@ -453,6 +477,9 @@ var labelRemainingNodesUndec = (function () {
  * ---------------------------------------- Accessory functions and code to draw svg nodes for user according to labelling   ------------------------------------------------------
  */
 
+/* 
+ * Function to remove duplicates 
+ */
 var removeDuplicates = (function (chars) {
 
     let uniqueChars = chars.filter((c, index) => {
@@ -462,7 +489,9 @@ var removeDuplicates = (function (chars) {
     return uniqueChars;
 });
 
-
+/* 
+ * Function to draw nodes per complete argument labelling
+ */
 var drawNodesWithArgumentLabellings = (function (arguments, graph) {
     arguments.forEach(function (d) {
         if (outArguments.includes(d.name)) {
@@ -477,7 +506,9 @@ var drawNodesWithArgumentLabellings = (function (arguments, graph) {
     });
 });
 
-
+/* 
+ * Function which applies drawing per grounded labellings
+ */
 var drawNodesWithGroundedLabellings = (function (arguments, graph) {
     arguments.forEach(function (d) {
         if (outArguments.includes(d.name)) {
@@ -492,7 +523,9 @@ var drawNodesWithGroundedLabellings = (function (arguments, graph) {
     });
 });
 
-
+/* 
+ * Function which applies drawing per preferred labellings
+ */
 var drawNodesWithPreferredLabellings = (function (arguments, graph) {
     arguments.forEach(function (d) {
         if (outArguments.includes(d.name)) {
@@ -507,7 +540,9 @@ var drawNodesWithPreferredLabellings = (function (arguments, graph) {
     });
 });
 
-
+/* 
+ * Function which applies node drawing per OUT labellings
+ */
 var setNodeWithOutLabelling = (function (graph, d) {
     graph.setNode(d.name, {
         labelType: "html",
@@ -517,6 +552,9 @@ var setNodeWithOutLabelling = (function (graph, d) {
     });
 });
 
+/* 
+ * Function which applies node drawing per IN labellings
+ */
 var setNodeWithInLabelling = (function (graph, d) {
     graph.setNode(d.name, {
         labelType: "html",
@@ -526,6 +564,9 @@ var setNodeWithInLabelling = (function (graph, d) {
     });
 });
 
+/* 
+ * Function which applies node drawing per UNDEC, IN/OUT labellings
+ */
 var setNodeWithUndecLabelling = (function (graph, d) {
     graph.setNode(d.name, {
         labelType: "html",
@@ -535,6 +576,9 @@ var setNodeWithUndecLabelling = (function (graph, d) {
     });
 });
 
+/* 
+ * Function which applies node drawing per UNDEC labellings
+ */
 var setNodeWithUndecGroundedLabelling = (function (graph, d) {
     graph.setNode(d.name, {
         labelType: "html",
@@ -544,6 +588,9 @@ var setNodeWithUndecGroundedLabelling = (function (graph, d) {
     });
 });
 
+/* 
+ * Function which applies node drawing per IN/OUT labellings
+ */
 var setNodeWithUndecPreferredLabelling = (function (graph, d) {
     graph.setNode(d.name, {
         labelType: "html",
@@ -562,7 +609,9 @@ var setNodeWithUndecPreferredLabelling = (function (graph, d) {
  * ------------------------------------------------------- Functions which adapt headers below the svg argumentation graph   ------------------------------------------------------
  */
 
-
+/* 
+ * Function which adds headers below graph
+ */
 var addHeadersForInArguments = (function () {
     removeHeadersForInArguments();
     var switchDiv = document.getElementById("switchDiv");
@@ -578,10 +627,14 @@ var addHeadersForInArguments = (function () {
     switchDiv.append(groundedArgumentHeader);
     switchDiv.append(preferredArgumentHeader);
 
-    console.log("In arguments to text...");
+    // console.log("In arguments to text...");
     inArgumentsToText();
 });
 
+
+/* 
+ * Function which removes headers below graph
+ */
 var removeHeadersForInArguments = (function () {
 
     var groundedArgumentHeader = document.getElementById("groundedArgumentHeader");
@@ -596,6 +649,9 @@ var removeHeadersForInArguments = (function () {
     }
 });
 
+/* 
+ * Function which converts IN arguments to text 
+ */
 var inArgumentsToText = (function () {
     inArguments.forEach(function (currentArgument) {
         appendInArgumentsToHeaderGrounded(currentArgument);
@@ -607,6 +663,9 @@ var inArgumentsToText = (function () {
     });
 });
 
+/* 
+ * Function which appends grounded IN arguments
+ */
 var appendInArgumentsToHeaderGrounded = (function (currentArgument) {
     var groundedArgumentHeader = document.getElementById("groundedArgumentHeader");
     var tempHeader = document.createElement("p");
@@ -614,6 +673,9 @@ var appendInArgumentsToHeaderGrounded = (function (currentArgument) {
     groundedArgumentHeader.appendChild(tempHeader);
 });
 
+/* 
+ * Function which appends preferred IN arguments
+ */
 var appendInArgumentsToHeaderPreferred = (function (currentArgument) {
     var preferredArgumentHeader = document.getElementById("preferredArgumentHeader");
     var tempHeader = document.createElement("p");

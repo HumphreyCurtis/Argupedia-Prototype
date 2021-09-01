@@ -78,8 +78,11 @@ var afcSubmissionToDatabaseForm = (function (id, modalName) {
     instance.close();
 
     selectTypeOfArgument.selectedIndex = "reset";
+    selectTypeOfArgument.disabled = false; 
     selectArgumentScheme.selectedIndex = "reset";
+    selectArgumentScheme.disabled = false; 
     argumentForm.className = "hide";
+
 
     form.reset();
 

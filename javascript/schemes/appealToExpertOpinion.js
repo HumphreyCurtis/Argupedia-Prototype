@@ -62,11 +62,7 @@ var eosSubmissionToDatabaseForm = (function (id, modalName) {
     var eosProposition = document.querySelector("#eosProposition");
     var eosAssertionPremise = document.querySelector("#eosAssertionPremise");
     var eosConclusion = document.querySelector("#eosConclusion");
-    // console.log(eosExpert.value);
-    // console.log(eosDomain.value); 
-    // console.log(eosProposition.value); 
-    // console.log(eosAssertionPremise.value); 
-    // console.log(eosConclusion.value);
+
 
     var variables = []; 
     variables.push(eosExpert.value, eosDomain.value, eosProposition.value, eosAssertionPremise.value, eosConclusion.value); 
@@ -79,7 +75,7 @@ var eosSubmissionToDatabaseForm = (function (id, modalName) {
     "<br></br>Assertion premise: " + eosAssertionPremise.value.toLowerCase() +
     "<br></br>Conclusion: " + eosConclusion.value.toLowerCase(); 
     
-    console.log("Argument = " + argumentFromUser);
+    // console.log("Argument = " + argumentFromUser);
 
     db.collection("arguments").add({
         name: "argument" + numberOfArguments,
@@ -97,7 +93,9 @@ var eosSubmissionToDatabaseForm = (function (id, modalName) {
     instance.close();
 
     selectTypeOfArgument.selectedIndex = "reset";
+    selectTypeOfArgument.disabled = false; 
     selectArgumentScheme.selectedIndex = "reset";
+    selectArgumentScheme.disabled = false; 
     argumentForm.className = "hide";
 
     form.reset();
@@ -167,7 +165,7 @@ var eosQuestionSwitch = (function(questionNumber, expert, domain, proposition, a
             return "What did \"" + expert + "\" assert that implies \"" + proposition + "\"?"; 
             break; 
         case 4: 
-            return "Is \"" + expert + "\" personally reliable and trustworthy? Do we have any reason to think that \"" + expert + "\" is less than hosest?"; 
+            return "Is \"" + expert + "\" personally reliable and trustworthy? Do we have any reason to think that \"" + expert + "\" is less than honest?"; 
             break; 
         case 5: 
             return "Is \"" + proposition + "\" consistent with what other experts have asserted?"; 

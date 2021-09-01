@@ -10,37 +10,37 @@
 
 
 var createArgumentForm = (function (elementToAppend, placeholder, id) {
-    var div = document.createElement("div");
-    div.setAttribute("class", "input-field");
+    // var div = document.createElement("div");
+    // div.setAttribute("class", "input-field");
 
     var inputField = document.createElement("input");
     inputField.setAttribute("type", "text");
     inputField.setAttribute("placeholder", placeholder);
     inputField.setAttribute("id", id);
 
-    div.append(inputField);
+    // div.append(inputField);
 
-    var div2 = document.createElement("div");
-    div.append(div2);
+    // var div2 = document.createElement("div");
+    // div.append(div2);
 
-    elementToAppend.append(div);
+    elementToAppend.append(inputField);
 });
 
 var appendArgumentButton = (function (elementToAppend, colour, id) {
-    var div = document.createElement("div");
-    div.setAttribute("class", "input-field");
+    // var div = document.createElement("div");
+    // div.setAttribute("class", "input-field");
 
     var button = document.createElement("btn");
     button.setAttribute("class", colour);
     button.textContent = "Create argument";
     button.setAttribute("id", id);
 
-    div.append(button);
+    // div.append(button);
 
-    var div2 = document.createElement("div");
-    div.append(div2);
+    // var div2 = document.createElement("div");
+    // div.append(div2);
 
-    elementToAppend.append(div);
+    elementToAppend.append(button);
 });
 
 /* 
@@ -52,22 +52,23 @@ var counterArgumentSubmissionToDatabase = (function (numberOfArguments) {
 
     var counterArgumentTargetButton = document.getElementById("counterArgumentTargetButton");
     var counterArgumentTargetName = document.querySelector("#counterArgumentTargetName");
+    var buttonDiv = document.getElementById("buttonDiv"); 
     var currentArgument = "argument" + numberOfArguments;
 
-    console.log("Number of arguments at creation of links = ", numberOfArguments);
+    // console.log("Number of arguments at creation of links = ", numberOfArguments);
 
     var conflictingClaimsLabel = document.getElementById("conflictingClaimsLabel");
     var selectConflictingClaims = document.getElementById("selectConflictingClaims");
 
     /* Creating links to add to collection within database */
-    console.log("Counter argument target name = " + counterArgumentTargetName.value);
-    console.log("Current counter-argument name = " + currentArgument);
+    // console.log("Counter argument target name = " + counterArgumentTargetName.value);
+    // console.log("Current counter-argument name = " + currentArgument);
     createLinksForCounterArgument(currentArgument, counterArgumentTargetName.value);
 
-    console.log("Conflicting claims selected value = ", selectConflictingClaims.value); 
+    // console.log("Conflicting claims selected value = ", selectConflictingClaims.value); 
 
     if (selectConflictingClaims.value == "Yes") {
-        console.log("Drawing conflicting claims attack");
+        // console.log("Drawing conflicting claims attack");
         createLinksForCounterArgument(counterArgumentTargetName.value, currentArgument);
     }
 
@@ -75,7 +76,7 @@ var counterArgumentSubmissionToDatabase = (function (numberOfArguments) {
     var selectCriticalQuestion = document.getElementById("selectCriticalQuestion");
     var selectCriticalQuestionLabel = document.getElementById("selectCriticalQuestionLabel");
 
-    console.log("Critical question label = ", selectCriticalQuestion.value); 
+    // console.log("Critical question label = ", selectCriticalQuestion.value); 
 
     // selectCriticalQuestion.options.length = 0; --> can re-add if critical questions do not dissappear
     counterArgumentTargetName.remove();
@@ -83,6 +84,7 @@ var counterArgumentSubmissionToDatabase = (function (numberOfArguments) {
 
     conflictingClaimsLabel.remove(); 
     selectConflictingClaims.remove();
+    buttonDiv.remove(); 
 
     selectCriticalQuestionLabel.remove();
     counterArgumentTargetButton.remove();

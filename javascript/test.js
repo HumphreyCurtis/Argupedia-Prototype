@@ -11,7 +11,7 @@
 
 var fullVariableTesting = (function (variables) {
 
-    console.log("Test variables array = ", variables);
+    // console.log("Test variables array = ", variables);
 
     for (let i = 0; i < variables.length; i++) {
         var currentVariable = variables[i];

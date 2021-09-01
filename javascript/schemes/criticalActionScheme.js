@@ -28,7 +28,6 @@ db.collection("arguments").onSnapshot(function (querySnapshot) {
 /*
  * Function which creates form and has event listener for submission of form 
  * Also recognises if user is submitting counter-attacking argument
- * 
  */
 var createCasForm = (function (elementToAppend, id, buttonClass, buttonId, modalName, argumentStatus) {
 

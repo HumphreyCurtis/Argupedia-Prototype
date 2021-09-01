@@ -59,7 +59,7 @@ var afpSubmissionToDatabaseForm = (function (id, modalName) {
     var conclusion = document.querySelector("#afpConclusion");
 
     // var argumentFromUser = positionToKnow.value + " -> " + assertionPremise.value + " -> " + conclusion.value;
-
+    
     var variables = []; 
     variables.push(positionToKnow.value, assertionPremise.value, conclusion.value);
     test.fullVariableTesting(variables); 
@@ -86,7 +86,9 @@ var afpSubmissionToDatabaseForm = (function (id, modalName) {
     instance.close();
 
     selectTypeOfArgument.selectedIndex = "reset";
+    selectTypeOfArgument.disabled = false; 
     selectArgumentScheme.selectedIndex = "reset";
+    selectArgumentScheme.disabled = false; 
     argumentForm.className = "hide";
 
     form.reset();

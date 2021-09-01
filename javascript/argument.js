@@ -46,19 +46,21 @@ var argumentStatus = null;
  */
 
 
-/* Event listener which deduces whether user wants to create a counter argument or initial argument */
+/* 
+ * Event listener which deduces whether user wants to create a counter argument or initial argument 
+ */
 selectTypeOfArgument.addEventListener('change', (event) => {
 
-    console.log("Value selected is = ", selectTypeOfArgument.value);
+    // console.log("Value selected is = ", selectTypeOfArgument.value);
 
     if (selectTypeOfArgument.value == "initialArgument") {
-        selectTypeOfArgument.disabled = true; 
+        selectTypeOfArgument.disabled = true; /* To remove - search for 'disabled' */
         argumentStatus = "initialArgument";
         argumentForm.className = "show";
         // selectArgumentSchemeEventListener next function 
 
     } else if (selectTypeOfArgument.value == "counterArgument") {
-        selectTypeOfArgument.disabled = true; 
+        selectTypeOfArgument.disabled = true; /* ADDED RECENTLY */
         argumentStatus = "counterArgument";
         /* 
          * selectArgumentSchemeEventListener next function 
@@ -76,7 +78,9 @@ selectTypeOfArgument.addEventListener('change', (event) => {
 
 });
 
-/* Event listener which listens to type of argument scheme to be selected e.g. critical action scheme */
+/* 
+ * Event listener which listens to type of argument scheme to be selected e.g. critical action scheme 
+ */
 selectArgumentScheme.addEventListener('change', (event) => {
     console.log("Value selected is = " + selectArgumentScheme.value)
 
@@ -133,28 +137,31 @@ selectArgumentScheme.addEventListener('change', (event) => {
  * -------------------------------------------------------------------- Counter-argument functionality ----------------------------------------------------------------------------
  */
 
-
+/*
+ * Function to create input fields for counter-argument input on modal
+ */
 var createInputFieldsForCounterArgument = (function (elementToAppend, placeholder, id) {
-
-    var div = document.createElement("div");
-    div.setAttribute("class", "input-field");
+    // var div = document.createElement("div");
+    // div.setAttribute("class", "input-field");
 
     var inputField = document.createElement("input");
     inputField.setAttribute("type", "text");
     inputField.setAttribute("placeholder", placeholder);
     inputField.setAttribute("id", id);
 
-    div.append(inputField);
-
-    var div2 = document.createElement("div");
-    div.append(div2);
-
-    elementToAppend.append(div);
+    // div.append(inputField);
+    // var div2 = document.createElement("div");
+    // div.append(div2);
+    elementToAppend.append(inputField);
 });
 
+/*
+ * Function which appends 'see critical questions' button to modal
+ */
 var appendSeeCriticalQuestionsButton = (function (elementToAppend, colour, id) {
     var div = document.createElement("div");
     div.setAttribute("class", "input-field");
+    div.setAttribute("id", "buttonDiv");
 
     var button = document.createElement("btn");
     button.setAttribute("class", colour);
@@ -166,10 +173,13 @@ var appendSeeCriticalQuestionsButton = (function (elementToAppend, colour, id) {
     var div2 = document.createElement("div");
     div.append(div2);
 
-
     elementToAppend.append(div);
+    // elementToAppend.append(button);
 });
 
+/*
+ * Function which creates critical question opitions
+ */
 var appendSelectCriticalQuestions = (function (elementToAppend) {
 
     var label = document.createElement("label");
@@ -189,6 +199,9 @@ var appendSelectCriticalQuestions = (function (elementToAppend) {
     elementToAppend.append(select);
 });
 
+/*
+ * Function which provides option for conflicting claims choice 
+ */
 var appendConflictingClaims = (function (elementToAppend) {
 
     var label = document.createElement("label");
@@ -212,7 +225,9 @@ var appendConflictingClaims = (function (elementToAppend) {
     elementToAppend.append(select);
 });
 
-/* Function to create critical questions for user */
+/*  
+ * Function to create critical questions for user 
+ */
 var counterArgumentEventListener = (function () {
 
     var counterArgumentTargetButton = document.getElementById("counterArgumentTargetButton");
@@ -241,13 +256,15 @@ var counterArgumentEventListener = (function () {
 
                 // console.log("Scheme of selected = " + scheme);
                 schemeSwitch(scheme, query2);
-
             });
 
     });
 
 });
 
+/*
+ * Function which switches between critical questions for each argument scheme 
+ */
 var schemeSwitch = (function (scheme, data) {
     switch (scheme) {
         case "Critical Action Scheme":
