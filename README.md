@@ -13,7 +13,7 @@
 - VERY IMPORTANT! - web application hooked up to private database accessible under *only* my personal google firestore login credentials 
     - Therefore add your own personal Firestore database configurations instead in the html/argupedia.html file 
     - Or, watch YouTube videos
-    - Or, view publically available Github version
+    - Or, view publicly available Github version
     - Or, watch presentation submitted to Kings College London
 
 - Changes post user experience study changes
