@@ -47,10 +47,10 @@
               <h2 id="workspace-title" contenteditable="true" spellcheck="true" aria-label="Debate title"></h2>
             </div>
             <div class="file-actions" aria-label="Debate file controls">
-              <button class="button button-quiet" id="new-debate" type="button" title="Clear the workspace and start a blank debate">New blank debate</button>
-              <button class="button button-quiet" id="reset-debate" type="button" title="Restore the original example debate">Reset example debate</button>
-              <button class="button button-quiet" id="import-debate" type="button" title="Open an editable debate from a JSON file">Upload debate JSON</button>
-              <button class="button button-quiet" id="export-debate" type="button" title="Save this editable debate as a JSON file">Download debate JSON</button>
+              <button class="button button-replace" id="new-debate" type="button" title="Clear the workspace and start a blank debate">New blank debate</button>
+              <button class="button button-replace" id="reset-debate" type="button" title="Restore the original example debate">Reset example debate</button>
+              <button class="button button-file" id="import-debate" type="button" title="Open an editable debate from a JSON file">Upload debate JSON</button>
+              <button class="button button-file" id="export-debate" type="button" title="Save this editable debate as a JSON file">Download debate JSON</button>
               <input id="debate-file" type="file" accept="application/json,.json" hidden />
             </div>
           </div>
@@ -103,10 +103,15 @@
                 <select id="extension"></select>
               </div>
               <div class="graph-actions">
-                <span class="graph-hint">Drag to pan · ⌘/Ctrl + scroll to zoom</span>
-                <button class="icon-button" id="fit-graph" type="button" title="Fit graph" aria-label="Fit graph">Fit</button>
-                <button class="icon-button" id="export-svg" type="button" title="Download graph as SVG">SVG</button>
-                <button class="icon-button" id="export-png" type="button" title="Download graph as PNG">PNG</button>
+                <div class="graph-view-controls">
+                  <span class="graph-hint">Drag to pan · ⌘/Ctrl + scroll to zoom</span>
+                  <button class="icon-button" id="fit-graph" type="button" title="Fit graph" aria-label="Fit graph">Fit</button>
+                </div>
+                <div class="graph-export-controls" aria-label="Download graph">
+                  <span>Download graph</span>
+                  <button class="icon-button" id="export-svg" type="button" title="Download graph as SVG">SVG</button>
+                  <button class="icon-button" id="export-png" type="button" title="Download graph as PNG">PNG</button>
+                </div>
               </div>
             </div>
 
