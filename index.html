@@ -40,21 +40,22 @@
           <p><a href="https://www.kcl.ac.uk/study/postgraduate-taught/courses/advanced-computing-msc">King's College London MSc project</a>, supervised by <a href="https://www.kcl.ac.uk/people/sanjay-modgil/">Dr Sanjay Modgil</a>.</p>
           <p>Builds structured debates using <a href="#argumentation-schemes">argumentation schemes</a> and <a href="#dung-graphs">Dung-style argumentation graphs</a>.</p>
         </div>
-        <div class="workspace-header">
-          <div>
-            <p class="section-label">Current debate</p>
-            <h2 id="workspace-title" contenteditable="true" spellcheck="true" aria-label="Debate title"></h2>
+        <div class="debate-console">
+          <div class="workspace-header">
+            <div>
+              <p class="section-label">Current debate</p>
+              <h2 id="workspace-title" contenteditable="true" spellcheck="true" aria-label="Debate title"></h2>
+            </div>
+            <div class="file-actions" aria-label="Debate file controls">
+              <button class="button button-quiet" id="new-debate" type="button" title="Clear the workspace and start a blank debate">New blank debate</button>
+              <button class="button button-quiet" id="reset-debate" type="button" title="Restore the original example debate">Reset example debate</button>
+              <button class="button button-quiet" id="import-debate" type="button" title="Open an editable debate from a JSON file">Upload debate JSON</button>
+              <button class="button button-quiet" id="export-debate" type="button" title="Save this editable debate as a JSON file">Download debate JSON</button>
+              <input id="debate-file" type="file" accept="application/json,.json" hidden />
+            </div>
           </div>
-          <div class="file-actions" aria-label="Debate file controls">
-            <button class="button button-quiet" id="new-debate" type="button" title="Clear the workspace and start a blank debate">New blank debate</button>
-            <button class="button button-quiet" id="reset-debate" type="button" title="Restore the original example debate">Reset example debate</button>
-            <button class="button button-quiet" id="import-debate" type="button" title="Open an editable debate from a JSON file">Upload debate JSON</button>
-            <button class="button button-quiet" id="export-debate" type="button" title="Save this editable debate as a JSON file">Download debate JSON</button>
-            <input id="debate-file" type="file" accept="application/json,.json" hidden />
-          </div>
-        </div>
 
-        <div class="workspace-grid">
+          <div class="workspace-grid">
           <aside class="composer" aria-labelledby="composer-title">
             <div class="panel-heading">
               <p class="section-label">Add to the graph</p>
@@ -131,18 +132,19 @@
               <p id="result-copy">Choose a semantics to evaluate the framework.</p>
             </div>
           </div>
-        </div>
-
-        <section class="argument-list-section" aria-labelledby="argument-list-title">
-          <div class="panel-heading inline-heading">
-            <div>
-              <p class="section-label">Underlying debate</p>
-              <h3 id="argument-list-title">Arguments</h3>
-            </div>
-            <span id="argument-count"></span>
           </div>
-          <ol class="argument-list" id="argument-list"></ol>
-        </section>
+
+          <section class="argument-list-section" aria-labelledby="argument-list-title">
+            <div class="panel-heading inline-heading">
+              <div>
+                <p class="section-label">Underlying debate</p>
+                <h3 id="argument-list-title">Arguments</h3>
+              </div>
+              <span id="argument-count"></span>
+            </div>
+            <ol class="argument-list" id="argument-list"></ol>
+          </section>
+        </div>
 
         <section class="concept-notes" aria-label="Argumentation concepts">
           <article id="argumentation-schemes">
