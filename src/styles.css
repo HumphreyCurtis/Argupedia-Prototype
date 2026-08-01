@@ -30,7 +30,9 @@ a:hover { color: var(--red); }
 .brand-block { display: flex; align-items: center; min-width: 0; }
 .wordmark { font: 800 22px/1 var(--display); letter-spacing: -.02em; color: var(--white); text-decoration: none; }
 .wordmark:hover { color: var(--white); }
-.site-header nav { display: flex; gap: 28px; }
+.header-navigation { display: flex; align-items: center; min-width: 0; }
+.site-header nav { display: flex; align-items: center; gap: 24px; }
+.concept-nav { margin-right: 24px; padding-right: 24px; border-right: 1px solid rgba(255,255,255,.48); }
 .site-header nav a { color: var(--white); text-decoration: none; font-size: 12px; font-weight: 650; white-space: nowrap; }
 .site-header nav a:hover { text-decoration: underline; }
 .github-link { display: inline-flex; align-items: center; gap: 5px; }
@@ -49,9 +51,6 @@ a:hover { color: var(--red); }
 .project-context p { margin: 0; }
 .project-context p + p { margin-top: 7px; }
 .project-context a { font-weight: 600; }
-.concept-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: -16px 0 30px; }
-.concept-tabs a { padding: 8px 11px; color: var(--ink); background: var(--white); border: 1px solid var(--line); border-radius: 3px; font-size: 12px; font-weight: 650; text-decoration: none; }
-.concept-tabs a:hover { color: var(--red-dark); border-color: var(--red); }
 .workspace-header { display: flex; align-items: flex-start; flex-direction: column; gap: 18px; margin-bottom: 28px; }
 .workspace-header .section-label { margin-bottom: 10px; }
 #workspace-title { min-width: 260px; margin: 0; font: 750 clamp(27px, 3vw, 42px)/1.12 var(--display); letter-spacing: -.025em; border-bottom: 1px dashed transparent; }
@@ -116,10 +115,12 @@ select { appearance: none; background-image: linear-gradient(45deg,transparent 5
 .remove-argument { color: var(--muted); background: none; border: 0; padding: 4px; font-size: 11px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .remove-argument:hover { color: var(--rejected); }
 
-.concept-notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); }
-.concept-notes article { scroll-margin-top: 18px; }
-.concept-notes h3 { margin: 0 0 7px; font: 700 18px/1.25 var(--display); }
-.concept-notes p { margin: 0; max-width: 68ch; color: var(--muted); font-size: 13px; }
+.concept-notes { margin-top: 28px; }
+.concept-notes article { padding: 28px 0; border-top: 1px solid var(--line); scroll-margin-top: 18px; }
+.concept-notes article:last-child { border-bottom: 1px solid var(--line); }
+.concept-notes h3 { margin: 0 0 11px; font: 700 20px/1.25 var(--display); }
+.concept-notes p { margin: 0; max-width: 88ch; color: var(--muted); font-size: 13px; }
+.concept-notes p + p { margin-top: 9px; }
 .concept-notes a { font-weight: 600; }
 
 .toast { position: fixed; left: 50%; bottom: 24px; z-index: 50; padding: 12px 17px; color: white; background: var(--ink); border-radius: 3px; font-size: 13px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; transition: .2s ease; }
@@ -127,6 +128,7 @@ select { appearance: none; background-image: linear-gradient(45deg,transparent 5
 .toast.error { background: var(--rejected); }
 
 @media (max-width: 920px) {
+  .concept-nav { display: none !important; }
   .workspace-grid { grid-template-columns: 1fr; }
   .composer { order: 2; }
   .graph-panel { order: 1; min-height: 600px; }
@@ -134,8 +136,8 @@ select { appearance: none; background-image: linear-gradient(45deg,transparent 5
 
 @media (max-width: 620px) {
   .site-header { min-height: 62px; padding-top: 10px; padding-bottom: 10px; }
-  .site-header nav { gap: 14px; }
-  .site-header nav a:nth-child(2) { display: none; }
+  .project-nav { gap: 14px !important; }
+  .project-nav a:nth-child(2) { display: none; }
   .workspace { padding-top: 20px; }
   .project-context { margin-bottom: 24px; font-size: 12px; }
   .workspace-header { align-items: flex-start; flex-direction: column; }
@@ -151,8 +153,6 @@ select { appearance: none; background-image: linear-gradient(45deg,transparent 5
   .legend { gap: 10px; flex-wrap: wrap; }
   .argument-list li { grid-template-columns: 38px 1fr; }
   .remove-argument { grid-column: 2; justify-self: start; padding-left: 0; }
-  .concept-tabs { display: grid; grid-template-columns: 1fr; }
-  .concept-notes { grid-template-columns: 1fr; gap: 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
