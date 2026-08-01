@@ -11,6 +11,8 @@ let extensions = [];
 let evaluationId = 0;
 const worker = new Worker(new URL("./semantics.worker.js", import.meta.url), { type: "module" });
 const graph = new DebateGraph(document.querySelector("#debate-graph"));
+const workspaceGrid = document.querySelector(".workspace-grid");
+const composerToggle = document.getElementById("composer-toggle");
 
 const elements = Object.fromEntries([
   "workspace-title", "argument-form", "claim", "scheme", "scheme-help", "scheme-fields", "target", "counter-fields", "critical-question", "conflicting-claims", "semantics", "extension-control", "extension", "graph-empty", "graph-busy", "result-copy", "argument-list", "argument-count", "debate-file", "toast",
@@ -186,6 +188,17 @@ function applyExtension() {
 }
 
 document.getElementById("fit-graph").addEventListener("click", () => graph.fit());
+composerToggle.addEventListener("click", () => {
+  const collapsed = workspaceGrid.classList.toggle("composer-collapsed");
+  composerToggle.setAttribute("aria-expanded", String(!collapsed));
+  composerToggle.title = collapsed ? "Expand argument composer" : "Collapse argument composer";
+  composerToggle.querySelector(".sr-only").textContent = composerToggle.title;
+  window.setTimeout(() => graph.render(debate, labels), 230);
+});
+
+bindPanelToggle("results-toggle", "results", "evaluation results");
+bindPanelToggle("arguments-toggle", null, "argument list", document.querySelector(".argument-list-section"));
+
 document.getElementById("export-debate").addEventListener("click", () => downloadJson(debate));
 document.getElementById("export-svg").addEventListener("click", () => downloadSvg(graph, debate.title));
 document.getElementById("export-png").addEventListener("click", async () => {
@@ -221,6 +234,16 @@ document.getElementById("reset-debate").addEventListener("click", () => {
   persistAndRefresh();
   showToast("Example debate restored");
 });
+
+function bindPanelToggle(buttonId, panelId, label, panel = document.getElementById(panelId)) {
+  const button = document.getElementById(buttonId);
+  button.addEventListener("click", () => {
+    const collapsed = panel.classList.toggle("is-collapsed");
+    button.setAttribute("aria-expanded", String(!collapsed));
+    button.title = `${collapsed ? "Expand" : "Collapse"} ${label}`;
+    button.querySelector(".sr-only").textContent = button.title;
+  });
+}
 
 function showToast(message, error = false) {
   elements.toast.textContent = message;

@@ -19,7 +19,6 @@
   <body>
     <header class="site-header">
       <div class="brand-block">
-        <span class="brand-seal" aria-hidden="true">Α</span>
         <a class="wordmark" href="#top" aria-label="Argupedia home">Argupedia</a>
       </div>
       <div class="header-navigation">
@@ -78,36 +77,43 @@
 
           <div class="workspace-grid">
           <aside class="composer" aria-labelledby="composer-title">
-            <div class="panel-heading">
-              <p class="section-label">Add to the graph</p>
-              <h3 id="composer-title">Make an argument</h3>
-            </div>
-            <form id="argument-form">
-              <a class="scheme-guide-link" href="#argumentation-schemes">What is an argumentation scheme?<sup>1</sup></a>
-              <label for="scheme">Argument scheme</label>
-              <select id="scheme" name="scheme" required></select>
-              <p class="field-help" id="scheme-help"></p>
-              <p class="structure-note">Choose a scheme first. Changing it updates the argument fields and critical questions below.</p>
-
-              <label for="claim">Claim</label>
-              <textarea id="claim" name="claim" rows="3" required placeholder="State the argument clearly…"></textarea>
-
-              <div id="scheme-fields"></div>
-
-              <label for="target">Attacks</label>
-              <select id="target" name="target"></select>
-
-              <div id="counter-fields" hidden>
-                <label for="critical-question">Critical question</label>
-                <select id="critical-question" name="criticalQuestion"></select>
-                <label class="check-row">
-                  <input id="conflicting-claims" name="conflictingClaims" type="checkbox" />
-                  <span>The two claims directly conflict</span>
-                </label>
+            <button class="panel-toggle composer-toggle" id="composer-toggle" type="button" aria-expanded="true" aria-controls="composer-content" title="Collapse argument composer">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg>
+              <span class="sr-only">Collapse argument composer</span>
+            </button>
+            <div class="composer-content" id="composer-content">
+              <div class="panel-heading">
+                <p class="section-label">Add to the graph</p>
+                <h3 id="composer-title">Make an argument</h3>
               </div>
+              <form id="argument-form">
+                <div class="scheme-field-heading">
+                  <label for="scheme">Argument scheme</label>
+                  <a class="scheme-guide-link" href="#argumentation-schemes">About schemes<sup>1</sup></a>
+                </div>
+                <select id="scheme" name="scheme" required></select>
+                <p class="field-help" id="scheme-help"></p>
 
-              <button class="button button-primary button-full" type="submit">Add argument</button>
-            </form>
+                <label for="claim">Claim</label>
+                <textarea id="claim" name="claim" rows="3" required placeholder="State the argument clearly…"></textarea>
+
+                <div id="scheme-fields"></div>
+
+                <label for="target">Attacks</label>
+                <select id="target" name="target"></select>
+
+                <div id="counter-fields" hidden>
+                  <label for="critical-question">Critical question</label>
+                  <select id="critical-question" name="criticalQuestion"></select>
+                  <label class="check-row">
+                    <input id="conflicting-claims" name="conflictingClaims" type="checkbox" />
+                    <span>The two claims directly conflict</span>
+                  </label>
+                </div>
+
+                <button class="button button-primary button-full" type="submit">Add argument</button>
+              </form>
+            </div>
           </aside>
 
           <div class="graph-panel">
@@ -153,10 +159,16 @@
             </div>
 
             <div class="results" id="results" aria-live="polite">
-              <div class="legend" aria-label="Argument status legend">
-                <span><i class="status-in"></i>Accepted</span>
-                <span><i class="status-out"></i>Rejected</span>
-                <span><i class="status-undec"></i>Undecided</span>
+              <div class="results-heading">
+                <div class="legend" aria-label="Argument status legend">
+                  <span><i class="status-in"></i>Accepted</span>
+                  <span><i class="status-out"></i>Rejected</span>
+                  <span><i class="status-undec"></i>Undecided</span>
+                </div>
+                <button class="inline-toggle" id="results-toggle" type="button" aria-expanded="true" aria-controls="result-copy" title="Collapse evaluation results">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></svg>
+                  <span class="sr-only">Collapse evaluation results</span>
+                </button>
               </div>
               <p id="result-copy">Choose a semantics to evaluate the framework.</p>
             </div>
@@ -169,7 +181,13 @@
                 <p class="section-label">Underlying debate</p>
                 <h3 id="argument-list-title">Arguments</h3>
               </div>
-              <span id="argument-count"></span>
+              <div class="heading-actions">
+                <span id="argument-count"></span>
+                <button class="inline-toggle" id="arguments-toggle" type="button" aria-expanded="true" aria-controls="argument-list" title="Collapse argument list">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></svg>
+                  <span class="sr-only">Collapse argument list</span>
+                </button>
+              </div>
             </div>
             <ol class="argument-list" id="argument-list"></ol>
           </section>
@@ -180,15 +198,20 @@
             <h3>What is an argumentation scheme?<sup class="footnote-marker"><a href="#scheme-source" aria-label="Source 1">1</a></sup></h3>
             <p>An argumentation scheme is a recurring pattern of everyday reasoning. It sets out the premises that normally support a conclusion—for example, relying on expert opinion, drawing an analogy or predicting the consequences of an action. Unlike a deductive proof, the conclusion is open to challenge when new information appears.</p>
             <p>Each scheme therefore comes with critical questions that expose its weaker assumptions: is the expert credible, are the two cases genuinely similar, or could the proposed action produce different consequences? Argupedia uses the selected scheme to structure a contribution, then offers relevant questions when another argument challenges it.</p>
-            <p class="source-note" id="scheme-source"><sup>1</sup><span>Source:</span> <a href="https://philosophicaldisquisitions.blogspot.com/2010/03/argumentation-schemes-part-1.html">John Danaher, “Argumentation Schemes (Part 1)”</a></p>
           </article>
           <article id="dung-graphs">
             <h3>What is a Dung-style argumentation graph?<sup class="footnote-marker"><a href="#graph-source" aria-label="Source 2">2</a></sup></h3>
             <p>A Dung-style argumentation framework strips a debate back to two elements: a set of arguments and the attack relationships between them. In the graph, each argument becomes a node and each attack becomes a directed arrow. This makes the structure of a disagreement visible without assuming that one claim is true simply because it was entered first or stated most forcefully.</p>
             <p>Formal semantics then evaluate how arguments defend and defeat one another. Argupedia can apply grounded, complete or preferred semantics and label arguments as accepted, rejected or undecided. These labels describe defensible positions within the graph; they do not provide an objective verdict on which person has “won” the debate.</p>
-            <p class="source-note" id="graph-source"><sup>2</sup><span>Source:</span> <a href="https://en.wikipedia.org/wiki/Argumentation_framework">“Argumentation framework” overview</a></p>
           </article>
         </section>
+        <aside class="sources" aria-labelledby="sources-title">
+          <h3 id="sources-title">Sources</h3>
+          <ol>
+            <li id="scheme-source"><a href="https://philosophicaldisquisitions.blogspot.com/2010/03/argumentation-schemes-part-1.html">John Danaher, “Argumentation Schemes (Part 1)”</a></li>
+            <li id="graph-source"><a href="https://en.wikipedia.org/wiki/Argumentation_framework">“Argumentation framework” overview</a></li>
+          </ol>
+        </aside>
       </section>
     </main>
 
