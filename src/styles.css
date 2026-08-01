@@ -71,6 +71,9 @@ a:hover { color: var(--red); }
 .composer { border-right: 1px solid var(--line); }
 .panel-heading h3 { margin: 0 0 24px; font: 750 24px/1.1 var(--display); }
 .panel-heading .section-label { margin-bottom: 8px; }
+.scheme-guide-link { display: inline-block; margin-bottom: 2px; color: var(--red-dark); font-size: 11px; font-weight: 650; }
+.scheme-guide-link sup { margin-left: 1px; font-size: .72em; text-decoration: none; }
+.scheme-guide-link + label { margin-top: 10px; }
 label { display: block; color: var(--ink); font-size: 12px; font-weight: 700; margin: 17px 0 7px; }
 textarea, input:not([type="checkbox"]), select { width: 100%; color: var(--ink); background: #fff9fa; border: 1px solid var(--line); border-radius: 3px; padding: 10px 11px; font-size: 14px; }
 textarea { resize: vertical; min-height: 88px; }
