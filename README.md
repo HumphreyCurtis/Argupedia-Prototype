@@ -2,7 +2,7 @@
 
 **Structured debate, mapped.** Argupedia guides people through building arguments and counterarguments, renders their relationships as an interactive argumentation graph, and evaluates the framework using grounded, complete and preferred semantics.
 
-[Open the live demo](https://humphreycurtis.github.io/Argupedia-Prototype/) · [Read the MSc report](./public/docs/Argupedia-MSc-Project-Report-2021.pdf) · [Watch the original demonstration](https://youtu.be/1BaNoLEGmrU)
+[Open the live demo](https://humphreycurtis.github.io/Argupedia/) · [Read the MSc report](./public/docs/Argupedia-MSc-Project-Report-2021.pdf) · [Watch the original demonstration](https://youtu.be/1BaNoLEGmrU)
 
 ![Argupedia debate workspace](./public/assets/argupedia-workspace.png)
 

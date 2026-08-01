@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/Argupedia-Prototype/",
+  base: "/Argupedia/",
   build: { outDir: "dist" },
 });
