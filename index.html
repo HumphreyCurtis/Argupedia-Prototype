@@ -52,10 +52,22 @@
               <h2 id="workspace-title" contenteditable="true" spellcheck="true" aria-label="Debate title"></h2>
             </div>
             <div class="file-actions" aria-label="Debate file controls">
-              <button class="button button-replace" id="new-debate" type="button" title="Clear the workspace and start a blank debate">New blank debate</button>
-              <button class="button button-replace" id="reset-debate" type="button" title="Restore the original example debate">Reset example debate</button>
-              <button class="button button-file" id="import-debate" type="button" title="Open an editable debate from a JSON file">Upload debate JSON</button>
-              <button class="button button-file" id="export-debate" type="button" title="Save this editable debate as a JSON file">Download debate JSON</button>
+              <button class="button button-replace" id="new-debate" type="button" title="Clear the workspace and start a blank debate">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                <span>New blank debate</span>
+              </button>
+              <button class="button button-replace" id="reset-debate" type="button" title="Restore the original example debate">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 4v6h6M5.3 15a8 8 0 1 0 .8-7.6L4 10"/></svg>
+                <span>Reset example debate</span>
+              </button>
+              <button class="button button-file" id="import-debate" type="button" title="Open an editable debate from a JSON file">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v5h14v-5"/></svg>
+                <span>Upload debate JSON</span>
+              </button>
+              <button class="button button-file" id="export-debate" type="button" title="Save this editable debate as a JSON file">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v12m0 0 4.5-4.5M12 16l-4.5-4.5M5 14v5h14v-5"/></svg>
+                <span>Download debate JSON</span>
+              </button>
               <input id="debate-file" type="file" accept="application/json,.json" hidden />
             </div>
           </div>

@@ -64,7 +64,8 @@ a:hover { color: var(--red); }
 #workspace-title { min-width: 260px; margin: 0; padding-bottom: 3px; font: 750 clamp(27px, 3vw, 42px)/1.12 var(--display); letter-spacing: -.025em; border-bottom: 1px dashed #b7c0cc; cursor: text; }
 #workspace-title:hover, #workspace-title:focus { border-bottom-color: var(--red); }
 .file-actions { display: grid; grid-template-columns: repeat(2, minmax(155px, 1fr)); gap: 8px; width: min(100%, 390px); margin-left: auto; }
-.file-actions .button { width: 100%; }
+.file-actions .button { width: 100%; gap: 6px; padding-inline: 8px; font-size: 12px; }
+.file-actions .button svg { width: 16px; height: 16px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .workspace-grid { display: grid; grid-template-columns: minmax(265px, 340px) minmax(0, 1fr); gap: 0; align-items: stretch; }
 .composer, .graph-panel, .argument-list-section { background: var(--white); }
 .composer { padding: 26px; }
