@@ -99,16 +99,18 @@
 
                 <div id="scheme-fields"></div>
 
-                <label for="target">Attacks</label>
-                <select id="target" name="target"></select>
+                <div class="attack-fields">
+                  <label for="target">Attacks</label>
+                  <select id="target" name="target"></select>
 
-                <div id="counter-fields" hidden>
-                  <label for="critical-question">Critical question</label>
-                  <select id="critical-question" name="criticalQuestion"></select>
-                  <label class="check-row">
-                    <input id="conflicting-claims" name="conflictingClaims" type="checkbox" />
-                    <span>The two claims directly conflict</span>
-                  </label>
+                  <div id="counter-fields" hidden>
+                    <label for="critical-question">Critical question</label>
+                    <select id="critical-question" name="criticalQuestion"></select>
+                    <label class="check-row">
+                      <input id="conflicting-claims" name="conflictingClaims" type="checkbox" />
+                      <span>The two claims directly conflict</span>
+                    </label>
+                  </div>
                 </div>
 
                 <button class="button button-primary button-full" type="submit">Add argument</button>

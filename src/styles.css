@@ -98,6 +98,8 @@ select { appearance: none; background-image: linear-gradient(45deg,transparent 5
 #scheme { background-color: #f7eae6; border-color: #d9b7b1; }
 #scheme:hover, #scheme:focus { background-color: #f5e4df; border-color: #bd8179; }
 .field-help { margin: 7px 0 18px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+.attack-fields { margin-top: 24px; padding-top: 4px; border-top: 1px solid var(--line); }
+.attack-fields > label:first-child { margin-top: 17px; }
 .check-row { display: flex; align-items: flex-start; gap: 9px; font-weight: 500; line-height: 1.35; cursor: pointer; }
 .check-row input { margin-top: 2px; accent-color: var(--red); }
 
