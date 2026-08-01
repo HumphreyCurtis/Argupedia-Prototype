@@ -41,7 +41,7 @@ export class DebateGraph {
     for (const argument of debate.arguments) {
       const position = layout.node(argument.id);
       const group = nodes.append("g").attr("class", `argument-node status-${labels[argument.id] || "neutral"}`).attr("transform", `translate(${position.x - NODE_WIDTH / 2},${position.y - NODE_HEIGHT / 2})`);
-      group.append("rect").attr("width", NODE_WIDTH).attr("height", NODE_HEIGHT).attr("rx", 5);
+      group.append("rect").attr("width", NODE_WIDTH).attr("height", NODE_HEIGHT);
       group.append("text").attr("class", "node-id").attr("x", 14).attr("y", 19).text(`A${debate.arguments.indexOf(argument) + 1}`);
       const claim = wrapText(argument.claim, 33, 3);
       const text = group.append("text").attr("class", "node-claim").attr("x", 14).attr("y", 39);
@@ -74,7 +74,7 @@ export class DebateGraph {
     clone.setAttribute("height", String(this.bounds.height));
     clone.setAttribute("viewBox", `0 0 ${this.bounds.width} ${this.bounds.height}`);
     const style = document.createElementNS("http://www.w3.org/2000/svg", "style");
-    style.textContent = `.argument-node rect{fill:#fff;stroke:#152238;stroke-width:1.5}.argument-node.status-in rect{fill:#dcefe4;stroke:#27724b}.argument-node.status-out rect{fill:#f6dede;stroke:#9b3939}.argument-node.status-undec rect{fill:#f7edc9;stroke:#987828}.node-id{font:600 11px ui-monospace,monospace;fill:#566378;letter-spacing:.08em}.node-claim{font:500 13px Arial,sans-serif;fill:#152238}.attack-edge{fill:none;stroke:#566378;stroke-width:1.6}.attack-edge.conflicting{stroke:#9b3939;stroke-dasharray:5 4}#attack-arrow path{fill:#566378}`;
+    style.textContent = `.argument-node rect{fill:#fffaf0;stroke:#7f1d2d;stroke-width:1.5}.argument-node.status-in rect{fill:#dcefe4;stroke:#27724b}.argument-node.status-out rect{fill:#f6dede;stroke:#9b3939}.argument-node.status-undec rect{fill:#f7edc9;stroke:#987828}.node-id{font:600 11px ui-monospace,monospace;fill:#6e6157;letter-spacing:.08em}.node-claim{font:400 13px Georgia,serif;fill:#2b231e}.attack-edge{fill:none;stroke:#6e6157;stroke-width:1.6}.attack-edge.conflicting{stroke:#9b3939;stroke-dasharray:5 4}#attack-arrow path{fill:#6e6157}`;
     clone.insertBefore(style, clone.firstChild);
     return clone;
   }
