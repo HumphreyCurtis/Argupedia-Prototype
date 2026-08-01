@@ -39,7 +39,7 @@ The conceptual foundation combines [argumentation schemes and critical questions
 
 ## Debate files and privacy
 
-Argupedia runs entirely in the browser. The current debate is stored in `localStorage`; it is not uploaded or visible to anyone else. **Download debate JSON** creates a portable, editable debate file. **Upload debate JSON** opens one of those files locally after validating its structure.
+Argupedia runs entirely in the browser. The current debate is stored in `localStorage`; it is not uploaded or visible to anyone else. **Export** creates a portable, editable debate file. **Upload** opens one of those files locally after validating its structure.
 
 JSON is the canonical interchange format. SVG and PNG exports are visual snapshots of the currently selected semantics and extension.
 
