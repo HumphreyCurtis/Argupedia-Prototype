@@ -97,6 +97,29 @@ function persistAndRefresh() {
 elements.scheme.addEventListener("change", renderSchemeFields);
 elements.target.addEventListener("change", renderCounterFields);
 
+const infoButtons = [...document.querySelectorAll(".info-button")];
+for (const button of infoButtons) {
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const popover = document.getElementById(button.dataset.infoTarget);
+    const opening = popover.hidden;
+    closeInfoPopovers(button);
+    popover.hidden = !opening;
+    button.setAttribute("aria-expanded", String(opening));
+  });
+}
+
+document.addEventListener("click", (event) => {
+  if (!event.target.closest(".info-popover")) closeInfoPopovers();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  const openButton = infoButtons.find((button) => button.getAttribute("aria-expanded") === "true");
+  closeInfoPopovers();
+  openButton?.focus();
+});
+
 elements["argument-form"].addEventListener("submit", (event) => {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
@@ -243,6 +266,14 @@ function bindPanelToggle(buttonId, panelId, label, panel = document.getElementBy
     button.title = `${collapsed ? "Expand" : "Collapse"} ${label}`;
     button.querySelector(".sr-only").textContent = button.title;
   });
+}
+
+function closeInfoPopovers(except) {
+  for (const button of infoButtons) {
+    if (button === except) continue;
+    document.getElementById(button.dataset.infoTarget).hidden = true;
+    button.setAttribute("aria-expanded", "false");
+  }
 }
 
 function showToast(message, error = false) {

@@ -89,7 +89,11 @@
               <form id="argument-form">
                 <div class="scheme-field-heading">
                   <label for="scheme">Argument scheme</label>
-                  <a class="scheme-guide-link" href="#argumentation-schemes">About schemes<sup>1</sup></a>
+                  <button class="info-button" type="button" aria-label="About argumentation schemes" aria-expanded="false" aria-controls="scheme-info" data-info-target="scheme-info">i</button>
+                  <div class="info-popover" id="scheme-info" role="dialog" aria-label="About argumentation schemes" hidden>
+                    <p>A scheme is a reusable pattern of reasoning. Changing it replaces the supporting fields and the critical questions available for this argument.</p>
+                    <a href="#argumentation-schemes">Read the short explainer</a>
+                  </div>
                 </div>
                 <select id="scheme" name="scheme" required></select>
                 <p class="field-help" id="scheme-help"></p>
@@ -100,7 +104,14 @@
                 <div id="scheme-fields"></div>
 
                 <div class="attack-fields">
-                  <label for="target">Attacks</label>
+                  <div class="attack-field-heading">
+                    <label for="target">Attacks</label>
+                    <button class="info-button" type="button" aria-label="About attacks" aria-expanded="false" aria-controls="attacks-info" data-info-target="attacks-info">i</button>
+                    <div class="info-popover" id="attacks-info" role="dialog" aria-label="About attacks" hidden>
+                      <p>Select an existing argument to challenge it and draw an arrow towards it. Choose “No attack” to add the argument without an outgoing attack.</p>
+                      <a href="#dung-graphs">Read about argumentation graphs</a>
+                    </div>
+                  </div>
                   <select id="target" name="target"></select>
 
                   <div id="counter-fields" hidden>
