@@ -1,188 +1,168 @@
-<!--
- *--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
- * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
- * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
- * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
- * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- * -----------------------------------------------------------------------------------Homepage File-------------------------------------------------------------------------------- 
- -->
-<!-- Source used for html page structure: https://hackr.io/blog/html-projects -->
-<html>
-<!--This uses the default bootstrap stylesheet-->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!-- Provides a full-width container that can expand or collapse based on the size of viewport-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Build structured debates, visualise them as Dung-style argumentation frameworks, and evaluate grounded, complete and preferred semantics." />
+    <meta name="theme-color" content="#f4f6f8" />
+    <meta property="og:title" content="Argupedia — structured debate, mapped" />
+    <meta property="og:description" content="A browser-based AI argumentation project developed at King's College London." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://humphreycurtis.github.io/Argupedia-Prototype/assets/argupedia-social-preview.png" />
+    <link rel="canonical" href="https://humphreycurtis.github.io/Argupedia-Prototype/" />
+    <link rel="icon" href="./images/favicon.ico" />
+    <title>Argupedia — structured debate, mapped</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="Argupedia home">Argupedia<span>.</span></a>
+      <nav aria-label="Project links">
+        <a href="#about">About</a>
+        <a href="./docs/Argupedia-MSc-Project-Report-2021.pdf">Report</a>
+        <a href="https://github.com/HumphreyCurtis/Argupedia-Prototype">Code</a>
+      </nav>
+    </header>
 
-<head>
-    <title>Homepage</title>
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico?v=2" />
-</head>
-
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2 col-sm-12 col-xs-12">
-                <nav id="navbar">
-                    <h3>Individual project</h3>
-                    <!--Content stacking for smaller screens-->
-                    <ul class="nav nav-pills nav-stacked">
-                        <!--Internal linking to the respective sections-->
-                        <a class="nav-link" href="index.html" rel="internal">
-                            <li>Introduction</li>
-                        </a>
-                        <a class="nav-link" href="index.html" rel="internal">
-                            <li>Instructions</li>
-                        </a>
-                        <a class="nav-link" href="index.html" rel="internal">
-                            <li>About the study</li>
-                        </a>
-                        <a class="nav-link" href="https://www.debate.org/" rel="external">
-                            <li>Debate.org application</li>
-                        </a>
-                        <a class="nav-link" href="html/argupedia.html" rel="internal">
-                            <li>Argupedia application</li>
-                        </a>
-                        <a class="nav-link" href="html/survey.html" rel="internal">
-                            <li>Attrakdif surveys</li>
-                        </a>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-md-10 col-sm-12 col-xs-12">
-                <h1>7CCSMPRJ Individual Project 2021</h1>
-                <h3>King's College London</h3>
-                <h5>Humphrey Curtis</h5>
-                <p><a href="mailto:k20103881@kcl.ac.uk?subject=July Argupedia User Study">k20103881@kcl.ac.uk</a></p>
-                <main id="main-doc">
-                    <section class="main-section" id="Introduction">
-                        <h3 style="background: black; color: white">Introduction</h3>
-                        <article>
-                            <p>Welcome to the Argupedia user study homepage, thank you so much for taking the time to
-                                check out the applications and provide your critical thoughts and opinions! Use the
-                                navbars to navigate freely around the website.</p>
-                            <p>The core purpose of the study is to collect your opinion via an anonymous survey on two
-                                totally different
-                                online debating applications - one the largest public repository of online debates
-                                called Debate.org and
-                                the other a conceptual prototype based on research within AI argumentation developed by
-                                myself at
-                                King's College London for my summer MSc Advanced Computer Science thesis. Ultimately the
-                                user study should be fun and interesting and you are successfully contributing towards
-                                critical research on the development of future web applications!</p>
-                            <code>
-                                Please be sure to spend some time reading all below instructions and watch the
-                                respective YouTube videos before proceeding to testing and evaluating either debating
-                                platforms and filling out the surveys.
-                            </code>
-                            <p></p>
-                            <p>If you have any questions, thoughts or concerns at any point please do not hesitate to
-                                use the above link to send me an email.</p>
-                        </article>
-                    </section>
-                    <section class="main-section" id="Instructions">
-                        <h3 style="background: black; color: white">Instructions</h3>
-                        <article>
-                            <p>The user study is (hopefully) super simple and should only take 45 minutes to an hour at
-                                most. Read all
-                                the three sets of bullet-point instructions and
-                                follow them in order - ultimately a laptop or desktop computer is suitable to best
-                                experience both platforms, however if you choose to use a mobile or tablet, that is
-                                totally fine too!</p>
-                            <code>Without further ado, turning to the bullet point instructions for Debate.org:</code>
-                            <p></p>
-                            <li>First, use the navbar link to navigate to the worlds largest online debate platform
-                                called
-                                Debate.org.</li>
-                            <li>Spend some time on Debate.org familiarising yourself with the website and platform.</li>
-                            <li>Secondly, try to spend some time interacting with Debate.org.</li>
-                            <li>Interaction can mean reading some active debates, creating a Debate.org account and
-                                contributing to live debates, starting new debates, contributing to forums and polls.
-                            </li>
-                            <li>Debate.org is open source and does not require an account - you can easily contribute
-                                anonymously.</li>
-                            <li>If you are already an expereinced member of Debate.org that is totally fine and you can
-                                proceed to testing the Argupedia application.</li>
-                            <li>Finally, after 20 to 45 minutes spent on Debate.org click on the Attrakdif
-                                survey link in the
-                                Navbar and navigate to filling out a survey on your experience and opinions of the
-                                Debate.org platform.</li>
-                            <p></p>
-                            <code>Instructions for the Attrakdif survey:</code>
-                            <p></p>
-                            <li>Use the navbar to reach the Attrakdif survey links.</li>
-                            <li>Click on the correct link for either the Debate.org or the Argupedia multiple choice
-                                survey.</li>
-                            <li>An Attrakdif survey should take roughly 3 to 5 minutes to complete.</li>
-                            <li>The Attrakdif survey uses word pairs in which you rate the platform between two starkly
-                                contrasted words.</li>
-                            <li>Do not ponder over the word pairs and make your assessment spontaneously - you may feel
-                                that some word pairs do not fit the product very well.</li>
-                            <li>However, I would ask you to give an answer anyway. Remember at all times that there are
-                                no "right" or "wrong" answers - your personal opinion is what counts.</li>
-                            <p></p>
-                            <code>Lastly, instructions for the Argupedia platform:</code>
-                            <p></p>
-                            <li>Firstly, please watch the following YouTube video will hopefully make the intearction
-                                with the Argupedia platform totally clear.</li>
-                            <li>Please click here for a video on: <a href="https://youtu.be/1BaNoLEGmrU">Argupedia instructions</a></li>
-                            <li>Secondly, don't forget to use the navbar links to fill out the Attrakdif survey for
-                                Argupedia - it will be the exact same survey again!</li>
-                            <p></p>
-                            <code>Congratulations - you're all done give yourself a well-deserved pat on the
-                                back!</code>
-                            <p></p>
-                        </article>
-                    </section>
-                    <section class="main-section" id="aboutStudy">
-                        <h3 style="background: black; color: white">About the study</h3>
-                        <article>
-                            <p>This study consists of <a href="https://en.wikipedia.org/wiki/A/B_testing">performing A/B
-                                    testing</a> of two debating applications (click the link for more information from
-                                Wikipedia). As noted
-                                earlier Debate.org is the current largest public debating platform online. Whilst, in
-                                stark contrast
-                                Argupedia is a prototype application based off the latest advances in AI argumentation
-                                research for my thesis
-                                project at King's College London advised by Professor Sanjay Modgil.
-                            </p>
-                            <p> The purpose of the study is to gain initial feedback from participants on which of the
-                                two applications
-                                they find most effective, engaging and interactive. Participants initial feedback will then
-                                be harnessed and used to
-                                improve the Argupedia application for future research. Furthermore, if participants are
-                                willing to take an informal interview or share any helpful thoughts
-                                - please do not hesitate to send me an email at your own discretion using the above
-                                email link. Many thanks for your contribution!</p>
-                            <p></p>
-                        </article>
-                    </section>
-                    <section class="main-section" id="researchEthics">
-                        <h3 style="background: black; color: white">Research ethics and further information</h3>
-                        <article>
-                            <p>This study recieved ethical clearance from King's College London - it is classed as
-                                minimal ethical risk. My details can be used at any point if you have questions,
-                                complaints or
-                                withdrawal requests. Participants have the right to withdraw either during or after
-                                participation without having to provide a reaosn. All data collected from the surveys is
-                                deliberately totally
-                                anonymous and there is no way in which personal identifying details can be collected via
-                                the survey. By
-                                submitting a multiple choice Attrakdif survey you are providing informed consent that I
-                                may use your survey results as a part of my thesis - the survey results will be
-                                presented fully anonymously. The Attrakdif survey data
-                                results will be securely stored in line with the Data Protection Act (1998) and King's
-                                College London guidance.
-                            </p>
-                        </article>
-                    </section>
-                </main>
-            </div>
+    <main id="top">
+      <section class="intro">
+        <p class="eyebrow">King's College London · MSc project · 2021</p>
+        <h1>Structure a debate.<br /><span>See what holds.</span></h1>
+        <p class="lede">Argupedia turns scheme-guided arguments and counterarguments into an interactive debate graph, then evaluates which arguments are accepted, rejected or undecided.</p>
+        <div class="intro-actions">
+          <a class="button button-primary" href="#workspace">Open the workspace</a>
+          <a class="text-link" href="#about">How it works <span aria-hidden="true">↓</span></a>
         </div>
-    </div>
+      </section>
 
-    <img src="images/kingsLogo.png"
-        style="width: 320px; height: 290px; margin-left: auto; margin-right: auto; display: block; padding-top: 50px; padding-bottom: 10px;"
-        alt="Kings Logo">
-</body>
+      <section class="workspace" id="workspace" aria-labelledby="workspace-title">
+        <div class="workspace-header">
+          <div>
+            <p class="section-label">Current debate</p>
+            <h2 id="workspace-title" contenteditable="true" spellcheck="true" aria-label="Debate title"></h2>
+          </div>
+          <div class="file-actions" aria-label="Debate file controls">
+            <button class="button button-quiet" id="new-debate" type="button">New</button>
+            <button class="button button-quiet" id="import-debate" type="button">Upload JSON</button>
+            <button class="button button-quiet" id="export-debate" type="button">Download JSON</button>
+            <input id="debate-file" type="file" accept="application/json,.json" hidden />
+          </div>
+        </div>
 
+        <div class="workspace-grid">
+          <aside class="composer" aria-labelledby="composer-title">
+            <div class="panel-heading">
+              <p class="section-label">Add to the graph</p>
+              <h3 id="composer-title">Make an argument</h3>
+            </div>
+            <form id="argument-form">
+              <label for="claim">Claim</label>
+              <textarea id="claim" name="claim" rows="3" required placeholder="State the argument clearly…"></textarea>
+
+              <label for="scheme">Argument scheme</label>
+              <select id="scheme" name="scheme" required></select>
+              <p class="field-help" id="scheme-help"></p>
+
+              <div id="scheme-fields"></div>
+
+              <label for="target">Attacks</label>
+              <select id="target" name="target"></select>
+
+              <div id="counter-fields" hidden>
+                <label for="critical-question">Critical question</label>
+                <select id="critical-question" name="criticalQuestion"></select>
+                <label class="check-row">
+                  <input id="conflicting-claims" name="conflictingClaims" type="checkbox" />
+                  <span>The two claims directly conflict</span>
+                </label>
+              </div>
+
+              <button class="button button-primary button-full" type="submit">Add argument</button>
+            </form>
+          </aside>
+
+          <div class="graph-panel">
+            <div class="graph-toolbar">
+              <div class="semantics-control">
+                <label for="semantics">Evaluate with</label>
+                <select id="semantics">
+                  <option value="none">No labelling</option>
+                  <option value="grounded">Grounded semantics</option>
+                  <option value="complete">Complete semantics</option>
+                  <option value="preferred">Preferred semantics</option>
+                </select>
+              </div>
+              <div class="extension-control" id="extension-control" hidden>
+                <label for="extension">Extension</label>
+                <select id="extension"></select>
+              </div>
+              <div class="graph-actions">
+                <span class="graph-hint">Drag to pan · ⌘/Ctrl + scroll to zoom</span>
+                <button class="icon-button" id="fit-graph" type="button" title="Fit graph" aria-label="Fit graph">Fit</button>
+                <button class="icon-button" id="export-svg" type="button" title="Download graph as SVG">SVG</button>
+                <button class="icon-button" id="export-png" type="button" title="Download graph as PNG">PNG</button>
+              </div>
+            </div>
+
+            <div class="graph-stage" id="graph-stage">
+              <svg id="debate-graph" role="img" aria-labelledby="graph-title graph-description">
+                <title id="graph-title">Argumentation graph</title>
+                <desc id="graph-description">Arguments are connected by directed attack relationships.</desc>
+                <g class="graph-root"></g>
+              </svg>
+              <div class="graph-empty" id="graph-empty" hidden>
+                <p>No arguments yet.</p>
+                <span>Add the first claim to begin the graph.</span>
+              </div>
+              <div class="graph-busy" id="graph-busy" hidden>Evaluating framework…</div>
+            </div>
+
+            <div class="results" id="results" aria-live="polite">
+              <div class="legend" aria-label="Argument status legend">
+                <span><i class="status-in"></i>Accepted</span>
+                <span><i class="status-out"></i>Rejected</span>
+                <span><i class="status-undec"></i>Undecided</span>
+              </div>
+              <p id="result-copy">Choose a semantics to evaluate the framework.</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="argument-list-section" aria-labelledby="argument-list-title">
+          <div class="panel-heading inline-heading">
+            <div>
+              <p class="section-label">Underlying debate</p>
+              <h3 id="argument-list-title">Arguments</h3>
+            </div>
+            <span id="argument-count"></span>
+          </div>
+          <ol class="argument-list" id="argument-list"></ol>
+        </section>
+      </section>
+
+      <section class="about" id="about">
+        <div class="about-intro">
+          <p class="section-label">About the project</p>
+          <h2>A debate is more than a comment thread.</h2>
+        </div>
+        <div class="about-copy">
+          <p>Argupedia was developed for the <a href="https://www.kcl.ac.uk/study/postgraduate-taught/courses/advanced-computing-msc">Advanced Computing MSc</a> at <a href="https://www.kcl.ac.uk/">King's College London</a>, under the supervision of <a href="https://www.kcl.ac.uk/people/sanjay-modgil/">Dr Sanjay Modgil</a>. It explores whether structured interaction can make online debate more legible and constructive.</p>
+          <p>Arguments follow established <a href="https://www.cambridge.org/core/books/abs/fundamentals-of-critical-argumentation/argumentation-schemes/1943FB11E94A28891357F65E3AEF98C2">argumentation schemes and critical questions</a>. Their attack relationships form a graph based on <a href="https://doi.org/10.1016/0004-3702(94)00041-X">Dung's abstract argumentation frameworks</a>. Grounded, complete and preferred semantics reveal that a debate may have one defensible position, several alternatives, or no settled position at all.</p>
+          <p>This restored edition runs entirely in the browser. Debates stay on your device unless you download their JSON file and share it yourself.</p>
+        </div>
+        <div class="research-links">
+          <a href="./docs/Argupedia-MSc-Project-Report-2021.pdf"><span>01</span> Read the MSc report</a>
+          <a href="https://youtu.be/1BaNoLEGmrU"><span>02</span> Watch the 2021 demonstration</a>
+          <a href="https://github.com/HumphreyCurtis/Argupedia-Prototype"><span>03</span> Explore the source code</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Designed and developed by <a href="https://humphreycurtis.com/">Humphrey Curtis</a>.</p>
+      <p>Argupedia · King's College London · 2021</p>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
