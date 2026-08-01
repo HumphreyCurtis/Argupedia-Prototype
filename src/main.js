@@ -3,7 +3,7 @@ import { SCHEMES, criticalQuestions, getScheme } from "./schemes.js";
 import { DebateGraph } from "./graph.js";
 import { labelsForExtension } from "./semantics.js";
 import { downloadJson, downloadPng, downloadSvg } from "./export.js";
-import { freshDebate, loadDebate, saveDebate, uid, validateDebate } from "./store.js";
+import { freshDebate, loadDebate, sampleDebate, saveDebate, uid, validateDebate } from "./store.js";
 
 let debate = loadDebate();
 let labels = {};
@@ -213,6 +213,13 @@ document.getElementById("new-debate").addEventListener("click", () => {
   debate = freshDebate();
   persistAndRefresh();
   showToast("New debate started");
+});
+
+document.getElementById("reset-debate").addEventListener("click", () => {
+  if (!confirm("Restore the example debate? This replaces the debate currently stored in your browser.")) return;
+  debate = sampleDebate();
+  persistAndRefresh();
+  showToast("Example debate restored");
 });
 
 function showToast(message, error = false) {

@@ -2,6 +2,8 @@
 
 **Structured debate, mapped.** Argupedia guides people through building arguments and counterarguments, renders their relationships as an interactive argumentation graph, and evaluates the framework using grounded, complete and preferred semantics.
 
+> **Archived project.** This repository preserves a restored version of the 2021 MSc prototype and is not under active development.
+
 [Open the live demo](https://humphreycurtis.github.io/Argupedia/) · [Read the MSc report](./public/docs/Argupedia-MSc-Project-Report-2021.pdf) · [Watch the original demonstration](https://youtu.be/1BaNoLEGmrU)
 
 ![Argupedia debate workspace](./public/assets/argupedia-workspace.png)
@@ -19,7 +21,7 @@ The project was developed in 2021 for the [Advanced Computing MSc](https://www.k
 3. **Read the graph.** Claims become nodes and attacks become directed edges. Directly conflicting claims create attacks in both directions.
 4. **Evaluate the framework.** Apply grounded, complete or preferred semantics to distinguish accepted, rejected and undecided arguments.
 
-The conceptual foundation combines [Walton-style argumentation schemes and critical questions](https://www.cambridge.org/core/books/abs/fundamentals-of-critical-argumentation/argumentation-schemes/1943FB11E94A28891357F65E3AEF98C2) with [Dung's abstract argumentation frameworks](https://doi.org/10.1016/0004-3702(94)00041-X). A semantics does not declare which person has objectively “won”; it identifies defensible sets of arguments under a formal interpretation of their attack relationships.
+The conceptual foundation combines [argumentation schemes and critical questions](https://philosophicaldisquisitions.blogspot.com/2010/03/argumentation-schemes-part-1.html) with [Dung-style argumentation frameworks](https://en.wikipedia.org/wiki/Argumentation_framework). A semantics does not declare which person has objectively “won”; it identifies defensible sets of arguments under a formal interpretation of their attack relationships.
 
 ![Grounded semantics applied to an Argupedia debate graph](./public/assets/argupedia-graph.png)
 
@@ -30,13 +32,14 @@ The conceptual foundation combines [Walton-style argumentation schemes and criti
 - Correct grounded, complete and preferred semantics
 - Multiple-extension navigation where a framework has several defensible positions
 - Automatic browser-only saving with no account or server
+- Separate controls for starting a blank debate and restoring the example
 - Versioned JSON import and export for sharing editable debates
 - Complete SVG and high-resolution PNG graph export
 - Responsive, keyboard-accessible interface
 
 ## Debate files and privacy
 
-Argupedia runs entirely in the browser. The current debate is stored in `localStorage`; it is not uploaded or visible to anyone else. **Download JSON** creates a portable, editable debate file. **Upload JSON** opens one of those files locally after validating its structure.
+Argupedia runs entirely in the browser. The current debate is stored in `localStorage`; it is not uploaded or visible to anyone else. **Download debate JSON** creates a portable, editable debate file. **Upload debate JSON** opens one of those files locally after validating its structure.
 
 JSON is the canonical interchange format. SVG and PNG exports are visual snapshots of the currently selected semantics and extension.
 
