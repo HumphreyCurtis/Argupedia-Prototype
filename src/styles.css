@@ -70,11 +70,11 @@ a:hover { color: var(--red); }
 .file-actions { display: grid; grid-template-columns: repeat(2, minmax(155px, 1fr)); gap: 8px; width: min(100%, 390px); margin-left: auto; }
 .file-actions .button { width: 100%; gap: 6px; padding-inline: 8px; font-size: 11px; letter-spacing: .01em; }
 .file-actions .button svg { width: 16px; height: 16px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.workspace-grid { display: grid; grid-template-columns: minmax(265px, 340px) minmax(0, 1fr); gap: 0; align-items: stretch; transition: grid-template-columns .22s ease; }
+.workspace-grid { display: grid; grid-template-columns: minmax(285px, 370px) minmax(0, 1fr); gap: 0; align-items: stretch; transition: grid-template-columns .22s ease; }
 .workspace-grid.composer-collapsed { grid-template-columns: 52px minmax(0, 1fr); }
 .composer, .graph-panel, .argument-list-section { background: var(--white); }
 .composer { position: relative; min-width: 0; padding: 26px; border-right: 1px solid var(--line); overflow: visible; transition: padding .22s ease; }
-.composer-content { min-width: 288px; transition: opacity .14s ease, visibility .14s ease; }
+.composer-content { min-width: 318px; transition: opacity .14s ease, visibility .14s ease; }
 .panel-toggle { width: 30px; height: 30px; display: grid; place-items: center; color: var(--muted); background: var(--white); border: 1px solid var(--line); border-radius: 50%; cursor: pointer; }
 .panel-toggle:hover, .inline-toggle:hover { color: var(--red-dark); border-color: var(--red); }
 .panel-toggle svg, .inline-toggle svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s ease; }
@@ -95,6 +95,8 @@ label { display: block; color: var(--ink); font-family: var(--ui); font-size: 12
 textarea, input:not([type="checkbox"]), select { width: 100%; color: var(--ink); background: #fffaf0; border: 1px solid var(--line); border-radius: 3px; padding: 10px 11px; font-size: 14px; }
 textarea { resize: vertical; min-height: 88px; }
 select { appearance: none; background-image: linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%); background-position: calc(100% - 16px) 50%,calc(100% - 11px) 50%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 28px; }
+#scheme { background-color: #f7eae6; border-color: #d9b7b1; }
+#scheme:hover, #scheme:focus { background-color: #f5e4df; border-color: #bd8179; }
 .field-help { margin: 7px 0 18px; color: var(--muted); font-size: 11px; line-height: 1.45; }
 .check-row { display: flex; align-items: flex-start; gap: 9px; font-weight: 500; line-height: 1.35; cursor: pointer; }
 .check-row input { margin-top: 2px; accent-color: var(--red); }
@@ -116,9 +118,16 @@ select { appearance: none; background-image: linear-gradient(45deg,transparent 5
 .icon-button { height: 37px; min-width: 42px; color: var(--muted); background: var(--white); border: 1px solid var(--line); border-radius: 3px; cursor: pointer; font: 700 11px/1 var(--mono); }
 .icon-button:hover { color: var(--red-dark); border-color: var(--red); }
 .graph-stage { position: relative; min-height: 510px; overflow: hidden; background-color: #fffaf0; background-image: radial-gradient(circle, rgba(148,101,45,.18) 1px, transparent 1.1px); background-size: 22px 22px; }
+.graph-hover-card { position: absolute; z-index: 6; width: min(340px, calc(100% - 24px)); padding: 14px 16px 15px; color: var(--ink); background: rgba(255,250,240,.98); border: 1px solid var(--red-dark); border-radius: 5px; box-shadow: 0 10px 28px rgba(73,48,31,.18); pointer-events: none; }
+.graph-hover-card[hidden] { display: none; }
+.graph-hover-card > span { display: block; margin-bottom: 6px; color: var(--red-dark); font: 700 9px/1.2 var(--ui); letter-spacing: .1em; text-transform: uppercase; }
+.graph-hover-card p { margin: 0; font-size: 13px; line-height: 1.55; }
 #debate-graph { display: block; width: 100%; height: 100%; min-height: 510px; cursor: grab; }
 #debate-graph:active { cursor: grabbing; }
 .argument-node rect { fill: var(--white); stroke: var(--red-dark); stroke-width: 1.5; }
+.argument-node { cursor: help; }
+.argument-node:focus { outline: none; }
+.argument-node:focus rect, .argument-node:hover rect { stroke-width: 2; }
 .argument-node.status-in rect { fill: var(--accepted-pale); stroke: var(--accepted); }
 .argument-node.status-out rect { fill: var(--rejected-pale); stroke: var(--rejected); }
 .argument-node.status-undec rect { fill: var(--undecided-pale); stroke: var(--undecided); }

@@ -7,8 +7,14 @@ const NODE_HEIGHT = 88;
 export class DebateGraph {
   constructor(svgElement) {
     this.svgElement = svgElement;
+    this.stage = svgElement.parentElement;
     this.svg = d3.select(svgElement);
     this.root = this.svg.select(".graph-root");
+    this.hoverCard = document.createElement("div");
+    this.hoverCard.className = "graph-hover-card";
+    this.hoverCard.hidden = true;
+    this.hoverCard.innerHTML = '<span>Full argument</span><p></p>';
+    this.stage.append(this.hoverCard);
     this.zoom = d3.zoom()
       .filter((event) => event.type !== "wheel" || event.ctrlKey || event.metaKey)
       .scaleExtent([0.25, 2.5])
@@ -40,7 +46,17 @@ export class DebateGraph {
     const nodes = this.root.append("g").attr("class", "nodes");
     for (const argument of debate.arguments) {
       const position = layout.node(argument.id);
-      const group = nodes.append("g").attr("class", `argument-node status-${labels[argument.id] || "neutral"}`).attr("transform", `translate(${position.x - NODE_WIDTH / 2},${position.y - NODE_HEIGHT / 2})`);
+      const group = nodes.append("g")
+        .attr("class", `argument-node status-${labels[argument.id] || "neutral"}`)
+        .attr("transform", `translate(${position.x - NODE_WIDTH / 2},${position.y - NODE_HEIGHT / 2})`)
+        .attr("tabindex", 0)
+        .attr("role", "button")
+        .attr("aria-label", `Show full argument: ${argument.claim}`)
+        .on("mouseenter", (event) => this.showHoverCard(argument.claim, event.currentTarget, event))
+        .on("mousemove", (event) => this.positionHoverCard(event.currentTarget, event))
+        .on("mouseleave", () => this.hideHoverCard())
+        .on("focus", (event) => this.showHoverCard(argument.claim, event.currentTarget))
+        .on("blur", () => this.hideHoverCard());
       group.append("rect").attr("width", NODE_WIDTH).attr("height", NODE_HEIGHT).attr("rx", 5);
       group.append("text").attr("class", "node-id").attr("x", 14).attr("y", 19).text(`A${debate.arguments.indexOf(argument) + 1}`);
       const claim = wrapText(argument.claim, 29, 3);
@@ -52,6 +68,32 @@ export class DebateGraph {
     this.bounds = { width: Math.max(graph.width, 640), height: Math.max(graph.height, 380) };
     this.svg.attr("viewBox", `0 0 ${this.svgElement.clientWidth || 800} ${this.svgElement.clientHeight || 520}`);
     this.fit(false);
+  }
+
+  showHoverCard(claim, node, event) {
+    this.hoverCard.querySelector("p").textContent = claim;
+    this.hoverCard.hidden = false;
+    this.positionHoverCard(node, event);
+  }
+
+  positionHoverCard(node, event) {
+    if (this.hoverCard.hidden) return;
+    const stageRect = this.stage.getBoundingClientRect();
+    const nodeRect = node.getBoundingClientRect();
+    const anchorX = event?.clientX || nodeRect.right;
+    const anchorY = event?.clientY || nodeRect.top + nodeRect.height / 2;
+    const cardWidth = this.hoverCard.offsetWidth;
+    const cardHeight = this.hoverCard.offsetHeight;
+    let left = anchorX - stageRect.left + 16;
+    let top = anchorY - stageRect.top + 16;
+    if (left + cardWidth > stageRect.width - 12) left = anchorX - stageRect.left - cardWidth - 16;
+    if (top + cardHeight > stageRect.height - 12) top = anchorY - stageRect.top - cardHeight - 16;
+    this.hoverCard.style.left = `${Math.max(12, left)}px`;
+    this.hoverCard.style.top = `${Math.max(12, top)}px`;
+  }
+
+  hideHoverCard() {
+    this.hoverCard.hidden = true;
   }
 
   fit(animate = true) {
