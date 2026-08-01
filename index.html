@@ -37,13 +37,18 @@
     <main id="top">
       <section class="workspace" id="workspace" aria-labelledby="workspace-title">
         <div class="project-context">
-          <p><a href="https://www.kcl.ac.uk/study/postgraduate-taught/courses/advanced-computing-msc">King's College London MSc project</a>, supervised by <a href="https://www.kcl.ac.uk/people/sanjay-modgil/">Dr Sanjay Modgil</a>.</p>
-          <p>Builds structured debates using <a href="#argumentation-schemes">argumentation schemes</a> and <a href="#dung-graphs">Dung-style argumentation graphs</a>.</p>
+          <p><a href="https://www.kcl.ac.uk/study/postgraduate-taught/courses/advanced-computing-msc">King's College London MSc project</a>, supervised by <a href="https://www.kcl.ac.uk/people/sanjay-modgil/">Dr Sanjay Modgil</a>. Builds structured debates using <a href="#argumentation-schemes">argumentation schemes</a> and <a href="#dung-graphs">Dung-style argumentation graphs</a>.</p>
         </div>
         <div class="debate-console">
           <div class="workspace-header">
             <div>
-              <p class="section-label">Current debate</p>
+              <div class="debate-title-meta">
+                <p class="section-label">Current debate</p>
+                <span class="editable-title-hint" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 20h4l11-11-4-4L4 16v4Zm12.4-16.4 4 4 1.1-1.1a1.4 1.4 0 0 0 0-2l-2-2a1.4 1.4 0 0 0-2 0l-1.1 1.1Z"/></svg>
+                  Editable title
+                </span>
+              </div>
               <h2 id="workspace-title" contenteditable="true" spellcheck="true" aria-label="Debate title"></h2>
             </div>
             <div class="file-actions" aria-label="Debate file controls">
@@ -62,12 +67,13 @@
               <h3 id="composer-title">Make an argument</h3>
             </div>
             <form id="argument-form">
-              <label for="claim">Claim</label>
-              <textarea id="claim" name="claim" rows="3" required placeholder="State the argument clearly…"></textarea>
-
               <label for="scheme">Argument scheme</label>
               <select id="scheme" name="scheme" required></select>
               <p class="field-help" id="scheme-help"></p>
+              <p class="structure-note">Choose a scheme first. Changing it updates the argument fields and critical questions below.</p>
+
+              <label for="claim">Claim</label>
+              <textarea id="claim" name="claim" rows="3" required placeholder="State the argument clearly…"></textarea>
 
               <div id="scheme-fields"></div>
 
@@ -103,10 +109,6 @@
                 <select id="extension"></select>
               </div>
               <div class="graph-actions">
-                <div class="graph-view-controls">
-                  <span class="graph-hint">Drag to pan · ⌘/Ctrl + scroll to zoom</span>
-                  <button class="icon-button" id="fit-graph" type="button" title="Fit graph" aria-label="Fit graph">Fit</button>
-                </div>
                 <div class="graph-export-controls" aria-label="Download graph">
                   <span>Download graph</span>
                   <button class="icon-button" id="export-svg" type="button" title="Download graph as SVG">SVG</button>
@@ -126,6 +128,11 @@
                 <span>Add the first claim to begin the graph.</span>
               </div>
               <div class="graph-busy" id="graph-busy" hidden>Evaluating framework…</div>
+              <div class="graph-view-controls" aria-label="Graph view controls">
+                <span class="graph-hint">Drag to pan · ⌘/Ctrl + scroll to zoom</span>
+                <span class="graph-control-divider" aria-hidden="true"></span>
+                <button class="icon-button" id="fit-graph" type="button" title="Fit graph" aria-label="Fit graph">Fit</button>
+              </div>
             </div>
 
             <div class="results" id="results" aria-live="polite">
@@ -155,12 +162,14 @@
           <article id="argumentation-schemes">
             <h3>What is an argumentation scheme?</h3>
             <p>An argumentation scheme is a recurring pattern of everyday reasoning. It sets out the premises that normally support a conclusion—for example, relying on expert opinion, drawing an analogy or predicting the consequences of an action. Unlike a deductive proof, the conclusion is open to challenge when new information appears.</p>
-            <p>Each scheme therefore comes with critical questions that expose its weaker assumptions: is the expert credible, are the two cases genuinely similar, or could the proposed action produce different consequences? Argupedia uses the selected scheme to structure a contribution, then offers relevant questions when another argument challenges it. <a href="https://philosophicaldisquisitions.blogspot.com/2010/03/argumentation-schemes-part-1.html">Argumentation Schemes (Part 1), John Danaher</a>.</p>
+            <p>Each scheme therefore comes with critical questions that expose its weaker assumptions: is the expert credible, are the two cases genuinely similar, or could the proposed action produce different consequences? Argupedia uses the selected scheme to structure a contribution, then offers relevant questions when another argument challenges it.<sup class="footnote-marker"><a href="#scheme-source" aria-label="Source 1">1</a></sup></p>
+            <p class="source-note" id="scheme-source"><sup>1</sup><span>Source:</span> <a href="https://philosophicaldisquisitions.blogspot.com/2010/03/argumentation-schemes-part-1.html">John Danaher, “Argumentation Schemes (Part 1)”</a></p>
           </article>
           <article id="dung-graphs">
             <h3>What is a Dung-style argumentation graph?</h3>
             <p>A Dung-style argumentation framework strips a debate back to two elements: a set of arguments and the attack relationships between them. In the graph, each argument becomes a node and each attack becomes a directed arrow. This makes the structure of a disagreement visible without assuming that one claim is true simply because it was entered first or stated most forcefully.</p>
-            <p>Formal semantics then evaluate how arguments defend and defeat one another. Argupedia can apply grounded, complete or preferred semantics and label arguments as accepted, rejected or undecided. These labels describe defensible positions within the graph; they do not provide an objective verdict on which person has “won” the debate. <a href="https://en.wikipedia.org/wiki/Argumentation_framework">Introduction to argumentation frameworks</a>.</p>
+            <p>Formal semantics then evaluate how arguments defend and defeat one another. Argupedia can apply grounded, complete or preferred semantics and label arguments as accepted, rejected or undecided. These labels describe defensible positions within the graph; they do not provide an objective verdict on which person has “won” the debate.<sup class="footnote-marker"><a href="#graph-source" aria-label="Source 2">2</a></sup></p>
+            <p class="source-note" id="graph-source"><sup>2</sup><span>Source:</span> <a href="https://en.wikipedia.org/wiki/Argumentation_framework">“Argumentation framework” overview</a></p>
           </article>
         </section>
       </section>
