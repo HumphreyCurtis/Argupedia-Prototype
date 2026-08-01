@@ -132,7 +132,14 @@
           <div class="graph-panel">
             <div class="graph-toolbar">
               <div class="semantics-control">
-                <label for="semantics">Evaluate with</label>
+                <div class="semantics-heading">
+                  <label for="semantics">Evaluate with</label>
+                  <button class="info-button" type="button" aria-label="About argument labelling" aria-expanded="false" aria-controls="labelling-info" data-info-target="labelling-info">i</button>
+                  <div class="info-popover" id="labelling-info" role="dialog" aria-label="About argument labelling" hidden>
+                    <p>Labelling applies formal semantics to the attack graph. It marks arguments accepted, rejected or undecided within an extension—it does not decide which speaker is objectively right.</p>
+                    <a href="#dung-graphs">Read about argumentation graphs</a>
+                  </div>
+                </div>
                 <select id="semantics">
                   <option value="none">No labelling</option>
                   <option value="grounded">Grounded semantics</option>

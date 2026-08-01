@@ -110,7 +110,9 @@ select { appearance: none; background-image: linear-gradient(45deg,transparent 5
 .graph-toolbar { min-height: 74px; padding: 13px 18px; display: flex; align-items: end; gap: 14px; border-bottom: 1px solid var(--line); background: #f7ecd9; }
 .graph-toolbar label { margin: 0 0 5px; }
 .semantics-control { width: auto; display: flex; align-items: center; gap: 10px; }
-.semantics-control label { margin: 0; white-space: nowrap; }
+.semantics-heading { position: relative; display: flex; align-items: center; gap: 6px; }
+.semantics-heading label { margin: 0; white-space: nowrap; }
+.semantics-heading .info-popover { top: calc(100% + 12px); right: auto; left: 0; }
 .semantics-control select { width: 205px; }
 .extension-control { width: 170px; }
 .graph-actions { display: flex; align-items: center; margin-left: auto; }
