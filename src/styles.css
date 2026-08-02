@@ -65,7 +65,7 @@ a:hover { color: var(--red); }
 .debate-title-meta .section-label { margin: 0; }
 .editable-title-hint { display: inline-flex; align-items: center; gap: 4px; color: var(--muted); font-family: var(--ui); font-size: 10px; font-weight: 600; }
 .editable-title-hint svg { width: 11px; height: 11px; fill: currentColor; }
-#workspace-title { min-width: 260px; margin: 0; padding-bottom: 3px; font: 600 clamp(27px, 3vw, 42px)/1.12 var(--display); letter-spacing: .015em; border-bottom: 1px dashed #af9271; cursor: text; }
+#workspace-title { min-width: 260px; margin: 0; padding-bottom: 3px; font: 600 clamp(25px, 2.5vw, 36px)/1.14 var(--display); letter-spacing: .015em; border-bottom: 1px dashed #af9271; cursor: text; }
 #workspace-title:hover, #workspace-title:focus { border-bottom-color: var(--red); }
 .file-actions { display: grid; grid-template-columns: repeat(2, minmax(155px, 1fr)); gap: 8px; width: min(100%, 390px); margin-left: auto; }
 .file-actions .button { width: 100%; gap: 6px; padding-inline: 8px; font-size: 11px; letter-spacing: .01em; }
