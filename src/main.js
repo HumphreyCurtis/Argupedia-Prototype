@@ -205,9 +205,38 @@ function applyExtension() {
   const extension = extensions[index] || [];
   labels = labelsForExtension(debate.arguments, debate.attacks, extension);
   graph.render(debate, labels);
-  const accepted = debate.arguments.filter(({ id }) => labels[id] === "in").map(({ claim }) => `“${truncate(claim, 64)}”`);
+  const accepted = debate.arguments.filter(({ id }) => labels[id] === "in");
   const semantics = elements.semantics.options[elements.semantics.selectedIndex].text.replace(" semantics", "");
-  elements["result-copy"].textContent = accepted.length ? `${semantics}: accepted ${accepted.join("; ")}.` : `${semantics}: this extension accepts no arguments.`;
+  renderEvaluationResult(semantics, accepted);
+}
+
+function renderEvaluationResult(semantics, accepted) {
+  const summary = document.createElement("p");
+  summary.className = "result-summary";
+  const heading = document.createElement("strong");
+  heading.textContent = `${semantics} labelling`;
+  const count = document.createElement("span");
+  count.textContent = accepted.length ? `${accepted.length} accepted` : "No accepted arguments";
+  summary.append(heading, count);
+
+  if (!accepted.length) {
+    elements["result-copy"].replaceChildren(summary);
+    return;
+  }
+
+  const list = document.createElement("ol");
+  list.className = "result-arguments";
+  for (const argument of accepted) {
+    const item = document.createElement("li");
+    const reference = document.createElement("span");
+    reference.className = "result-argument-reference";
+    reference.textContent = `A${debate.arguments.indexOf(argument) + 1}`;
+    const claim = document.createElement("span");
+    claim.textContent = argument.claim;
+    item.append(reference, claim);
+    list.append(item);
+  }
+  elements["result-copy"].replaceChildren(summary, list);
 }
 
 document.getElementById("fit-graph").addEventListener("click", () => graph.fit());
